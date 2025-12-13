@@ -1,0 +1,258 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3ne7r0pg4lib"]
+
+[ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_ty3hu"]
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_gg43x"]
+[ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="3_mllcm"]
+[ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="4_q7ibo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cg8v6"]
+font_size = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0sdw"]
+size = Vector2(190, 30)
+
+[node name="Level_01" instance=ExtResource("1_ty3hu")]
+
+[node name="Player" parent="YSortRoot" index="0"]
+position = Vector2(1224, 646)
+
+[node name="Platform1" type="StaticBody2D" parent="YSortRoot" index="1"]
+position = Vector2(968, 584)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/Platform1" index="0"]
+self_modulate = Color(0.8039216, 0.52156866, 0.24705882, 1)
+scale = Vector2(1.5, 0.25)
+texture = ExtResource("2_gg43x")
+
+[node name="Label" type="Label" parent="YSortRoot/Platform1" index="1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Platform"
+label_settings = SubResource("LabelSettings_cg8v6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/Platform1" index="2"]
+visible = false
+shape = SubResource("RectangleShape2D_j0sdw")
+
+[node name="Platform2" type="StaticBody2D" parent="YSortRoot" index="2"]
+position = Vector2(1283, 668)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/Platform2" index="0"]
+self_modulate = Color(0.8039216, 0.52156866, 0.24705882, 1)
+scale = Vector2(1.5, 0.25)
+texture = ExtResource("2_gg43x")
+
+[node name="Label" type="Label" parent="YSortRoot/Platform2" index="1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Platform"
+label_settings = SubResource("LabelSettings_cg8v6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/Platform2" index="2"]
+visible = false
+shape = SubResource("RectangleShape2D_j0sdw")
+
+[node name="Cave" type="StaticBody2D" parent="YSortRoot" index="3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSortRoot/Cave" index="0"]
+polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 800, 2080, 760, 2152, 608, 2184, 424, 2176, 120, 2320, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="YSortRoot/Cave" index="1"]
+polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 968, 1136, 1080, 1184, 1192, 1168, 1352, 1240, 1408, 1280, 1568, 1288, 1720, 1120, 1768, 1040, 1728, 992, 1824, 1104, 2032, 1224, 2096, 1360, 2168, 1320, 2320, 1152, 2360, 880, 2256, 624, 2392, 272, 2504, 264, 2616, 304, 2712, 328, 2760, 400, 2768, 488, 2712, 616, 2696, 728, 2616, 1064, 2648, 1328, 2704, 1544, 2856, 1640, 2968, 1544, 3120, 1696, 3336, 1712, 3856, 1672, 4152, 1656, 4304, 1664, 4368, 1696, 4480, 1808, 4504, 1928, 4400, 2152, 4256, 2344, 4248, 2808, 4256, 2832, 3920, 2192, 2888, 2016, 952, 1944, 608, 1824, 432, 1680, 408, 1616, 480, 1568, 560, 1536, 664, 1416, 712)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="YSortRoot/Cave" index="2"]
+polygon = PackedVector2Array(1008, 1376, 1040, 1416, 1016, 1456, 952, 1472, 944, 1440, 936, 1384, 976, 1360)
+
+[node name="AnchorPoints" type="Node2D" parent="YSortRoot/Cave" index="3"]
+
+[node name="AnchorPoint" parent="YSortRoot/Cave/AnchorPoints" index="0" instance=ExtResource("3_mllcm")]
+position = Vector2(808, 776)
+
+[node name="AnchorPoint2" parent="YSortRoot/Cave/AnchorPoints" index="1" instance=ExtResource("3_mllcm")]
+position = Vector2(1104, 808)
+
+[node name="AnchorPoint3" parent="YSortRoot/Cave/AnchorPoints" index="2" instance=ExtResource("3_mllcm")]
+position = Vector2(1016, 1768)
+
+[node name="AnchorPoint4" parent="YSortRoot/Cave/AnchorPoints" index="3" instance=ExtResource("3_mllcm")]
+position = Vector2(856, 1184)
+
+[node name="AnchorPoint5" parent="YSortRoot/Cave/AnchorPoints" index="4" instance=ExtResource("3_mllcm")]
+position = Vector2(264, 2520)
+
+[node name="AnchorPoint6" parent="YSortRoot/Cave/AnchorPoints" index="5" instance=ExtResource("3_mllcm")]
+position = Vector2(376, 2768)
+rotation = 3.1415927
+
+[node name="AnchorPoint7" parent="YSortRoot/Cave/AnchorPoints" index="6" instance=ExtResource("3_mllcm")]
+position = Vector2(504, 2712)
+rotation = 3.1415927
+
+[node name="AnchorPoint8" parent="YSortRoot/Cave/AnchorPoints" index="7" instance=ExtResource("3_mllcm")]
+position = Vector2(632, 2688)
+rotation = 3.1415927
+
+[node name="AnchorPoint9" parent="YSortRoot/Cave/AnchorPoints" index="8" instance=ExtResource("3_mllcm")]
+position = Vector2(728, 2624)
+rotation = 3.1415927
+
+[node name="AnchorPoint10" parent="YSortRoot/Cave/AnchorPoints" index="9" instance=ExtResource("3_mllcm")]
+position = Vector2(872, 2632)
+rotation = 3.1415927
+
+[node name="AnchorPoint11" parent="YSortRoot/Cave/AnchorPoints" index="10" instance=ExtResource("3_mllcm")]
+position = Vector2(1028, 2648)
+rotation = 3.1415927
+
+[node name="AnchorPoint12" parent="YSortRoot/Cave/AnchorPoints" index="11" instance=ExtResource("3_mllcm")]
+position = Vector2(1192, 2672)
+rotation = 3.1415927
+
+[node name="AnchorPoint13" parent="YSortRoot/Cave/AnchorPoints" index="12" instance=ExtResource("3_mllcm")]
+position = Vector2(1344, 2704)
+rotation = 3.1415927
+
+[node name="AnchorPoint14" parent="YSortRoot/Cave/AnchorPoints" index="13" instance=ExtResource("3_mllcm")]
+position = Vector2(1544, 3112)
+
+[node name="AnchorPoint15" parent="YSortRoot/Cave/AnchorPoints" index="14" instance=ExtResource("3_mllcm")]
+position = Vector2(1664, 4240)
+rotation = -1.5707964
+
+[node name="Spikes" type="Node2D" parent="YSortRoot/Cave" index="4"]
+
+[node name="HazardSpike1" parent="YSortRoot/Cave/Spikes" index="0" instance=ExtResource("4_q7ibo")]
+position = Vector2(456, 3056)
+
+[node name="HazardSpike2" parent="YSortRoot/Cave/Spikes" index="1" instance=ExtResource("4_q7ibo")]
+position = Vector2(520, 3080)
+
+[node name="HazardSpike3" parent="YSortRoot/Cave/Spikes" index="2" instance=ExtResource("4_q7ibo")]
+position = Vector2(584, 3096)
+
+[node name="HazardSpike4" parent="YSortRoot/Cave/Spikes" index="3" instance=ExtResource("4_q7ibo")]
+position = Vector2(648, 3088)
+
+[node name="HazardSpike5" parent="YSortRoot/Cave/Spikes" index="4" instance=ExtResource("4_q7ibo")]
+position = Vector2(712, 3073)
+
+[node name="HazardSpike6" parent="YSortRoot/Cave/Spikes" index="5" instance=ExtResource("4_q7ibo")]
+position = Vector2(776, 3064)
+
+[node name="HazardSpike7" parent="YSortRoot/Cave/Spikes" index="6" instance=ExtResource("4_q7ibo")]
+position = Vector2(840, 3048)
+
+[node name="HazardSpike8" parent="YSortRoot/Cave/Spikes" index="7" instance=ExtResource("4_q7ibo")]
+position = Vector2(904, 3041)
+
+[node name="HazardSpike9" parent="YSortRoot/Cave/Spikes" index="8" instance=ExtResource("4_q7ibo")]
+position = Vector2(968, 3056)
+
+[node name="HazardSpike10" parent="YSortRoot/Cave/Spikes" index="9" instance=ExtResource("4_q7ibo")]
+position = Vector2(1032, 3072)
+
+[node name="HazardSpike11" parent="YSortRoot/Cave/Spikes" index="10" instance=ExtResource("4_q7ibo")]
+position = Vector2(1096, 3080)
+
+[node name="HazardSpike12" parent="YSortRoot/Cave/Spikes" index="11" instance=ExtResource("4_q7ibo")]
+position = Vector2(1160, 3096)
+
+[node name="HazardSpike13" parent="YSortRoot/Cave/Spikes" index="12" instance=ExtResource("4_q7ibo")]
+position = Vector2(1224, 3112)
+
+[node name="HazardSpike14" parent="YSortRoot/Cave/Spikes" index="13" instance=ExtResource("4_q7ibo")]
+position = Vector2(1224, 3112)
+
+[node name="Label6" type="Label" parent="TutorialCanvasLayer" index="0"]
+offset_left = 1240.0
+offset_top = 472.0
+offset_right = 1421.0
+offset_bottom = 547.0
+text = "attach with [f]
+jump with [space bar]
+detach with jump"
+
+[node name="Label8" type="Label" parent="TutorialCanvasLayer" index="1"]
+offset_left = 760.0
+offset_top = 668.0
+offset_right = 941.0
+offset_bottom = 743.0
+text = "attach with [f]"
+
+[node name="Label7" type="Label" parent="TutorialCanvasLayer" index="2"]
+offset_left = 856.0
+offset_top = 936.0
+offset_right = 1081.0
+offset_bottom = 1011.0
+text = "detach with jump [space bar]"
+
+[node name="Label9" type="Label" parent="TutorialCanvasLayer" index="3"]
+offset_left = 905.0
+offset_top = 1336.0
+offset_right = 1130.0
+offset_bottom = 1411.0
+text = "avoid collisions"
+
+[node name="Label10" type="Label" parent="TutorialCanvasLayer" index="4"]
+offset_left = 560.0
+offset_top = 2992.0
+offset_right = 769.0
+offset_bottom = 3041.0
+text = "Some hazard which hurts"
+
+[node name="Label5" type="Label" parent="TutorialCanvasLayer" index="5"]
+offset_left = 1480.0
+offset_top = 3488.0
+offset_right = 1628.0
+offset_bottom = 3537.0
+text = "Attach while falling"
+
+[node name="Label" type="Label" parent="TutorialCanvasLayer" index="6"]
+offset_left = 1152.0
+offset_top = 2240.0
+offset_right = 1285.0
+offset_bottom = 2289.0
+text = "Here you can 
+find some Supply"
+
+[node name="Label3" type="Label" parent="TutorialCanvasLayer" index="7"]
+offset_left = 904.0
+offset_top = 600.0
+offset_right = 1037.0
+offset_bottom = 649.0
+text = "attach to anchor points
+and climb down"
+
+[node name="Label2" type="Label" parent="TutorialCanvasLayer" index="8"]
+offset_left = 752.0
+offset_top = 2728.0
+offset_right = 885.0
+offset_bottom = 2777.0
+text = "Climb along ceiling"
+
+[node name="Label4" type="Label" parent="TutorialCanvasLayer" index="9"]
+offset_left = 1560.0
+offset_top = 3424.0
+offset_right = 1705.0
+offset_bottom = 3473.0
+text = "End"

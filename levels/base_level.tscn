@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvg1d8nw5e7wm"]
+
+[ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_46036"]
+[ext_resource type="Texture2D" uid="uid://bk2owtj88bcct" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="2_maq6b"]
+[ext_resource type="PackedScene" uid="uid://cwitawc18nmoh" path="res://player/player.tscn" id="3_0rg8l"]
+
+[node name="BaseLevel" type="Node2D"]
+script = ExtResource("1_46036")
+
+[node name="DebugParallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(1920, 1080)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="DebugParallax2D"]
+texture_repeat = 2
+position = Vector2(1024, 1024)
+texture = ExtResource("2_maq6b")
+region_enabled = true
+region_rect = Rect2(0, 0, 2048, 2048)
+metadata/_edit_lock_ = true
+
+[node name="YSortRoot" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Player" parent="YSortRoot" instance=ExtResource("3_0rg8l")]
+unique_name_in_owner = true
+position = Vector2(960, 507)
+
+[node name="PlayerCamera2D" type="Camera2D" parent="YSortRoot/Player"]
+unique_name_in_owner = true
+position = Vector2(0, 33)
+
+[node name="TutorialCanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="HudCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+
+[node name="HealthProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+value = 44.0
