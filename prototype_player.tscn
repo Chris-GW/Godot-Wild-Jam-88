@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cosyvvk7bcd3x"]
+
+[ext_resource type="Script" uid="uid://bvgsh5w2hbqbq" path="res://Mover.gd" id="1_5vh46"]
+[ext_resource type="Script" uid="uid://b3gpnyephb0oy" path="res://Mover_Controller.gd" id="2_jw3be"]
+[ext_resource type="Script" uid="uid://cuto7l0823q1y" path="res://edge_drawer.gd" id="3_8hd8k"]
+[ext_resource type="Script" uid="uid://bdflqrrft6uos" path="res://FollowCamera.gd" id="3_alaye"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MoverController" type="Node" parent="." node_paths=PackedStringArray("main_mover")]
+script = ExtResource("2_jw3be")
+main_mover = NodePath("Mover")
+
+[node name="EdgeDrawer" type="Node2D" parent="MoverController"]
+script = ExtResource("3_8hd8k")
+
+[node name="Mover" type="Node2D" parent="MoverController"]
+script = ExtResource("1_5vh46")
+
+[node name="camera_follow_target" type="Node2D" parent="MoverController/Mover"]
+
+[node name="FollowCamera" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target")]
+script = ExtResource("3_alaye")
+follow_target = NodePath("../MoverController/Mover/camera_follow_target")
