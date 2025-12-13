@@ -251,8 +251,8 @@ offset_bottom = 2777.0
 text = "Climb along ceiling"
 
 [node name="Label4" type="Label" parent="TutorialCanvasLayer" index="9"]
-offset_left = 1560.0
-offset_top = 3424.0
-offset_right = 1705.0
-offset_bottom = 3473.0
+offset_left = 1752.0
+offset_top = 4752.0
+offset_right = 1897.0
+offset_bottom = 4801.0
 text = "End"

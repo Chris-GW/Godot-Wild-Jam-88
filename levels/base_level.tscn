@@ -8,7 +8,7 @@
 script = ExtResource("1_46036")
 
 [node name="DebugParallax2D" type="Parallax2D" parent="."]
-repeat_size = Vector2(1920, 1080)
+repeat_size = Vector2(2048, 2048)
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="DebugParallax2D"]
