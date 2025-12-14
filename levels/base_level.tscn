@@ -1,11 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvg1d8nw5e7wm"]
+[gd_scene load_steps=7 format=3 uid="uid://dvg1d8nw5e7wm"]
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_46036"]
 [ext_resource type="Texture2D" uid="uid://bk2owtj88bcct" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="2_maq6b"]
 [ext_resource type="PackedScene" uid="uid://cwitawc18nmoh" path="res://player/player.tscn" id="3_0rg8l"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
+bg_color = Color(0.8117647, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_satuh"]
+bg_color = Color(0.1254902, 0.93333334, 0.078431375, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5284"]
+bg_color = Color(0.8117647, 0.84705883, 0, 1)
+
 [node name="BaseLevel" type="Node2D"]
 script = ExtResource("1_46036")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.23392546, 0.23392546, 0.23392543, 1)
 
 [node name="DebugParallax2D" type="Parallax2D" parent="."]
 repeat_size = Vector2(2048, 2048)
@@ -19,14 +31,14 @@ region_enabled = true
 region_rect = Rect2(0, 0, 2048, 2048)
 metadata/_edit_lock_ = true
 
-[node name="YSortRoot" type="Node2D" parent="."]
+[node name="MapRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Player" parent="YSortRoot" instance=ExtResource("3_0rg8l")]
+[node name="Player" parent="MapRoot" instance=ExtResource("3_0rg8l")]
 unique_name_in_owner = true
 position = Vector2(960, 507)
 
-[node name="PlayerCamera2D" type="Camera2D" parent="YSortRoot/Player"]
+[node name="PlayerCamera2D" type="Camera2D" parent="MapRoot/Player"]
 unique_name_in_owner = true
 position = Vector2(0, 33)
 
@@ -41,8 +53,39 @@ offset_bottom = 40.0
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_top = 64
 
-[node name="HealthProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="GridContainer" parent="HudCanvasLayer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="HealthLabel" type="Label" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Health:"
+
+[node name="HealthProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_63c5o")
 value = 44.0
+
+[node name="StaminaLabel" type="Label" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stamina:"
+
+[node name="StaminaProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_satuh")
+value = 66.0
+
+[node name="FlashLightLabel" type="Label" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Flashlight:"
+
+[node name="FlashlightProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_p5284")
+value = 82.0

@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwitawc18nmoh"]
+[gd_scene load_steps=8 format=3 uid="uid://cwitawc18nmoh"]
 
 [ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://citmvqqqe8u02" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Script" uid="uid://bc6akx70lgwqq" path="res://player/grapple_control.gd" id="3_g1dw6"]
+[ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="4_yw30f"]
+[ext_resource type="Texture2D" uid="uid://bwja3d3ccsxqw" path="res://assets/light/Flashlighty.png" id="5_g6k8r"]
+[ext_resource type="Script" uid="uid://clqvr8o481ivw" path="res://player/flash_light.gd" id="6_boad6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1dw6"]
 radius = 40.0
@@ -11,8 +14,11 @@ height = 128.0
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_rkbax")
 max_health = 100
+max_stamina = 100.0
+stamina_drain_per_second = 15.0
+stamina_recover_per_second = 30.0
 min_impact_speed = 500.0
-max_impact_speed = 100.0
+max_impact_speed = 1000.0
 speed = 300.0
 jump_velocity = -350.0
 acceleration = 0.1
@@ -20,6 +26,14 @@ deceleration = 0.1
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -1192.0
+offset_top = -832.0
+offset_right = 1168.0
+offset_bottom = 720.0
+color = Color(0.30980393, 0.21176471, 0.28627452, 1)
 
 [node name="GrappleControl" type="Node2D" parent="."]
 position = Vector2(0, -64)
@@ -46,12 +60,33 @@ position = Vector2(0, -64)
 scale = Vector2(0.6, 1)
 texture = ExtResource("1_oul6g")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -64)
+energy = 0.5
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("4_yw30f")
+texture_scale = 2.0
+
+[node name="FlashLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -64)
+energy = 0.8
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("5_g6k8r")
+offset = Vector2(416, 2)
+texture_scale = 4.0
+script = ExtResource("6_boad6")
+max_battery = 100.0
+battery_drain_per_second = 0.5
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -64)
 shape = SubResource("CapsuleShape2D_g1dw6")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -32.0
 offset_top = -160.0
 offset_right = 29.0

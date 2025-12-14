@@ -2,12 +2,20 @@ class_name Player
 extends CharacterBody2D
 
 signal health_changed
+signal died
+signal stamina_depleted
 
+@export_category("Player Survival Stats")
 @export var max_health : int
+@export var max_stamina : float
+@export var stamina_drain_per_second : float
+@export var stamina_recover_per_second : float
 
+# for collision impact damage
 @export var min_impact_speed : float
 @export var max_impact_speed : float
 
+@export_category("Player Movement")
 @export var speed : float
 @export var jump_velocity : float
 @export var acceleration : float
@@ -15,14 +23,17 @@ signal health_changed
 
 @onready var invulnerable_timer: Timer = $InvulnerableTimer
 @onready var grapple_control: GrappleControl = $GrappleControl
+@onready var flash_light: FlashLight = $FlashLight2D
 
 var health := 100
+var stamina := 100.0
 var last_velocity := Vector2.ZERO
 var interactables_in_reach: Array[Node2D] = []
 
 
 func _ready() -> void:
 	health = max_health
+	stamina = max_stamina
 
 
 func _physics_process(delta: float) -> void:
@@ -36,12 +47,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		interact()
 	
-	update_horizontal_velocity()
+	_update_horizontal_velocity()
+	_update_stamina(delta)
 	if move_and_slide():
-		handle_collision()
+		_handle_collision()
 
 
-func update_horizontal_velocity() -> void:
+func _update_horizontal_velocity() -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if is_zero_approx(direction):
 		velocity.x = lerpf(velocity.x, 0.0, deceleration)
@@ -49,7 +61,17 @@ func update_horizontal_velocity() -> void:
 		velocity.x = lerpf(velocity.x, direction * speed, acceleration)
 
 
-func handle_collision() -> void:
+func _update_stamina(delta: float) -> void:
+	if grapple_control.launched:
+		stamina -= stamina_drain_per_second * delta
+	elif is_on_floor():
+		stamina += stamina_recover_per_second * delta
+	stamina = clampf(stamina, 0.0, max_stamina)
+	if is_zero_approx(stamina):
+		stamina_depleted.emit()
+
+
+func _handle_collision() -> void:
 	var collision := get_slide_collision(0)
 	var collision_damage := calculate_collision_damage(collision)
 	if collision_damage > 0:
@@ -110,3 +132,4 @@ func change_health(amount : int) -> void:
 
 func die():
 	print("your are dead now")
+	died.emit()

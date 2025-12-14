@@ -21,10 +21,11 @@ var rest_length := max_rope_length
 func _ready() -> void:
 	rope_line.hide()
 	ray.target_position = Vector2.RIGHT * max_rope_length
+	player.stamina_depleted.connect(self.retract)
 
 
 func _process(delta: float) -> void:	
-	if Input.is_action_just_pressed("grapple"):
+	if Input.is_action_just_pressed("grapple") and can_launch():
 		launch()
 	if Input.is_action_just_released("grapple"):
 		retract()
@@ -40,6 +41,10 @@ func _physics_process(delta: float) -> void:
 	if launched:
 		handle_grapple(delta)
 
+
+func can_launch() -> bool:
+	var stamina_percent := player.stamina / player.max_stamina
+	return stamina_percent > 0.15
 
 func launch() -> void:
 	ray.look_at(get_global_mouse_position())
