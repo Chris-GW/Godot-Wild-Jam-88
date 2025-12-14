@@ -22,7 +22,13 @@ var edges := Vector2.ZERO
 
 var slowing = false
 
+var collider: CollisionShape2D
+
 func _ready() -> void:
+	collider = CollisionShape2D.new()
+	collider.shape = CircleShape2D.new()
+	collider.shape.radius = radius
+	add_child(collider)
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.frequency = 0.05
 

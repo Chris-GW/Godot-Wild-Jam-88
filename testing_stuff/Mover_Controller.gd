@@ -1,6 +1,6 @@
-class_name MoverController extends Node
+extends Node
 
-var edges = Vector2(200,4000)
+var edges = Vector2(2000,4000)
 
 var movers = []
 
@@ -41,7 +41,7 @@ func _process(delta) -> void:
 	
 	var iv = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	for m in movers.size():
-		movers[m].apply_force(iv * 5000.0)
+		movers[m].apply_force(iv * 2500.0)
 		
 func _unhandled_input(event:InputEvent) -> void:
 	#pass
