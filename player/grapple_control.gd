@@ -52,11 +52,9 @@ func launch() -> void:
 	if ray.is_colliding():
 		attach_to_anchor_point(ray.get_collision_point())
 
-
 func retract() -> void:
 	launched = false
 	rope_line.hide()
-
 
 func attach_to_anchor_point(anchor_position: Vector2) -> void:
 	launched = true

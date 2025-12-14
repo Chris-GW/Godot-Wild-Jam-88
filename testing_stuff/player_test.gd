@@ -33,9 +33,6 @@ func move(speed, delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, FRICTION)
 
-	#if not is_on_floor():
-	#	apply_gravity(delta)
-
 	# clamp max speed 
 	if abs(velocity.x) > MAX_SPEED:
 		velocity.x = sign(velocity.x) * MAX_SPEED

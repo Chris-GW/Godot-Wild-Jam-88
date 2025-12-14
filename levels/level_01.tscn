@@ -20,6 +20,9 @@ polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 9
 
 [node name="Level_01" instance=ExtResource("1_ty3hu")]
 
+[node name="CanvasModulate" parent="." index="0"]
+color = Color(0, 0, 0, 1)
+
 [node name="Platform1" type="StaticBody2D" parent="MapRoot" index="1"]
 position = Vector2(968, 584)
 metadata/_edit_group_ = true
