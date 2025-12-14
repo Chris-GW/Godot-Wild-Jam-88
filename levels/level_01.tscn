@@ -24,7 +24,7 @@ polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 9
 level_resource = ExtResource("2_q7ibo")
 
 [node name="Player" parent="MapRoot" index="0"]
-position = Vector2(1480, 4832)
+position = Vector2(976, 562)
 
 [node name="Platform1" type="StaticBody2D" parent="MapRoot" index="1"]
 position = Vector2(968, 584)
