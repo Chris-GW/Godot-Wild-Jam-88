@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bupyqfgj0x1rx"]
+
+[ext_resource type="Script" uid="uid://dptbq61omqmnv" path="res://ui/level_select_menu/level_select_button.gd" id="1_p1ul4"]
+
+[node name="LevelSelectButton" type="Button"]
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+text = "01 - Climbing Safty Instructions"
+script = ExtResource("1_p1ul4")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

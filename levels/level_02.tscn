@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://sf1jm4po11xs"]
+
+[ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_nnn84"]
+[ext_resource type="Resource" uid="uid://bm1n5b4q111ml" path="res://levels/level_resources/level_02_resource.tres" id="2_g685p"]
+[ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="3_8yqd8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnn84"]
+size = Vector2(1580.0144, 75.43631)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g685p"]
+font_size = 64
+
+[node name="Level_02" instance=ExtResource("1_nnn84")]
+level_resource = ExtResource("2_g685p")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MapRoot" index="1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapRoot/StaticBody2D" index="0"]
+position = Vector2(998, 592)
+shape = SubResource("RectangleShape2D_nnn84")
+
+[node name="RepairTarget" parent="MapRoot" index="2" instance=ExtResource("3_8yqd8")]
+position = Vector2(1204, 544)
+
+[node name="LevelLabel" type="Label" parent="HudCanvasLayer" index="0"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -235.0
+offset_top = 48.0
+offset_right = -48.0
+offset_bottom = 115.0
+grow_horizontal = 0
+text = "Level 02"
+label_settings = SubResource("LabelSettings_g685p")

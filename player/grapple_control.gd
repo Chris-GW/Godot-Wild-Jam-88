@@ -62,7 +62,7 @@ func attach_to_anchor_point(anchor_position: Vector2) -> void:
 	launched = true
 	target = anchor_position
 	rest_length = self.global_position.distance_to(anchor_position) 
-	rest_length -= 20.0 
+	rest_length += 64.0 
 	rest_length = clampf(rest_length, 0.0, max_rope_length)
 	update_rope()
 	rope_line.show()

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=2 format=3 uid="uid://bm1n5b4q111ml"]
+
+[ext_resource type="Script" uid="uid://8m0gfq0drmp6" path="res://ui/level_select_menu/level_resource.gd" id="1_fn327"]
+
+[resource]
+resource_name = "Level_02"
+script = ExtResource("1_fn327")
+index = 1
+name = "02 - Enter a Coal Mine"
+text = "Second mission coal mine"
+scene_path = "res://levels/level_02.tscn"
+metadata/_custom_type_script = "uid://8m0gfq0drmp6"

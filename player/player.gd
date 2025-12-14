@@ -36,6 +36,22 @@ func _ready() -> void:
 	stamina = max_stamina
 
 
+func _process(_delta: float) -> void:
+	_highlight_neares_interactable()
+
+
+func _highlight_neares_interactable() -> void:
+	for interactable in interactables_in_reach:
+		interactable.call("unselect_for_interaction")
+	
+	var interactables := interactables_in_reach.filter(func(interactable):
+		return interactable.call("can_interact"))
+	interactables.sort_custom(sort_by_distance)
+	if not interactables.is_empty():
+		var nearest_interactable = interactables.front()
+		nearest_interactable.call("select_for_interaction")
+
+
 func _physics_process(delta: float) -> void:
 	last_velocity = self.velocity
 	if not is_on_floor():
@@ -93,11 +109,12 @@ func calculate_collision_damage(collision: KinematicCollision2D) -> int:
 
 
 func interact() -> void:
-	if interactables_in_reach.is_empty():
-		return
-	interactables_in_reach.sort_custom(sort_by_distance)
-	var nearest_interactable = interactables_in_reach.front()
-	nearest_interactable.call("do_interaction")
+	var interactables := interactables_in_reach.filter(func(interactable):
+		return interactable.call("can_interact"))
+	interactables.sort_custom(sort_by_distance)
+	if not interactables.is_empty():
+		var nearest_interactable = interactables.front()
+		nearest_interactable.call("do_interaction")
 
 func sort_by_distance(a: Node2D, b : Node2D) -> bool:
 	var distance_a := self.global_position.distance_squared_to(a.global_position)
