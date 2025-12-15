@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_46036"]
 [ext_resource type="Texture2D" uid="uid://bk2owtj88bcct" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="2_maq6b"]
-[ext_resource type="PackedScene" uid="uid://cwitawc18nmoh" path="res://player/player.tscn" id="3_0rg8l"]
+[ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="3_p5284"]
 [ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="4_satuh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
@@ -38,13 +38,7 @@ metadata/_edit_lock_ = true
 [node name="MapRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Player" parent="MapRoot" instance=ExtResource("3_0rg8l")]
-unique_name_in_owner = true
-position = Vector2(960, 507)
-
-[node name="PlayerCamera2D" type="Camera2D" parent="MapRoot/Player"]
-unique_name_in_owner = true
-position = Vector2(0, 33)
+[node name="PlayerStateMachine" parent="MapRoot" groups=["player"] instance=ExtResource("3_p5284")]
 
 [node name="HudCanvasLayer" type="CanvasLayer" parent="."]
 layer = 3
@@ -184,7 +178,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "Submit Job Report"
 
-[connection signal="died" from="MapRoot/Player" to="." method="_on_player_died"]
 [connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/AbortLevelButton" to="." method="_on_abort_level_button_pressed"]
 [connection signal="pressed" from="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer/FinishLevelButton" to="." method="_on_finish_level_button_pressed"]

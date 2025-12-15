@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqxcnm3loprb6"]
+
+[ext_resource type="Script" uid="uid://lmbtfbss46jh" path="res://testing_stuff/player_state_machine.gd" id="1_guiip"]
+[ext_resource type="Script" uid="uid://bdflqrrft6uos" path="res://testing_stuff/FollowCamera.gd" id="2_kgts8"]
+[ext_resource type="Script" uid="uid://dxks03dyeb63t" path="res://testing_stuff/player_test.gd" id="3_1i7j0"]
+[ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="4_1i7j0"]
+[ext_resource type="Script" uid="uid://clqvr8o481ivw" path="res://player/flash_light.gd" id="5_wuqd6"]
+[ext_resource type="Texture2D" uid="uid://ft7wgjgjpkcy" path="res://testing_stuff/character_sprite_256x256.png" id="6_wuqd6"]
+[ext_resource type="Script" uid="uid://bc6akx70lgwqq" path="res://player/grapple_control.gd" id="7_cehsn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0cbov"]
+radius = 43.0
+height = 222.0
+
+[node name="PlayerStateMachine" type="Node2D"]
+script = ExtResource("1_guiip")
+
+[node name="FollowCamera" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target")]
+script = ExtResource("2_kgts8")
+follow_target = NodePath("../test_player_controller/camera_follow_target")
+
+[node name="test_player_controller" type="CharacterBody2D" parent="." groups=["player"]]
+script = ExtResource("3_1i7j0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="test_player_controller"]
+position = Vector2(3, 0)
+shape = SubResource("CapsuleShape2D_0cbov")
+
+[node name="camera_follow_target" type="Node2D" parent="test_player_controller"]
+
+[node name="FlashLight2D" type="PointLight2D" parent="test_player_controller"]
+energy = 0.8
+texture = ExtResource("4_1i7j0")
+script = ExtResource("5_wuqd6")
+max_battery = 100.0
+battery_drain_per_second = 1.0
+metadata/_custom_type_script = "uid://clqvr8o481ivw"
+
+[node name="Sprite2D" type="Sprite2D" parent="test_player_controller"]
+texture = ExtResource("6_wuqd6")
+
+[node name="GrappleControl" type="Node2D" parent="."]
+script = ExtResource("7_cehsn")
+max_rope_length = 500.0
+reel_in_speed = 120.0
+let_out_speed = 180.0
+stiffnes = 120.0
+damping = 20.0
+metadata/_custom_type_script = "uid://bc6akx70lgwqq"
+
+[node name="RopeLine2D" type="Line2D" parent="GrappleControl"]
+
+[node name="RayCast2D" type="RayCast2D" parent="GrappleControl"]

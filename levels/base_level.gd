@@ -4,29 +4,45 @@ extends Node2D
 @export var level_resource: LevelResource
 
 @onready var map_root: Node2D = %MapRoot
-@onready var player: Player = %Player
-@onready var player_camera: Camera2D = %PlayerCamera2D
+var player
+#@onready var player_camera: Camera2D = %PlayerCamera2D
 
-@onready var health_progress_bar: ProgressBar = %HealthProgressBar
-@onready var stamina_progress_bar: ProgressBar = %StaminaProgressBar
-@onready var flashlight_progress_bar: ProgressBar = %FlashlightProgressBar
+@onready var hud: Hud = %HudCanvasLayer
+# TODO: move to the HUDCanvasLayer so that baselayer only know about the HUD
+# Have the HUD manage the bars
+# @onready var health_progress_bar: ProgressBar = %HealthProgressBar
+# @onready var stamina_progress_bar: ProgressBar = %StaminaProgressBar
+# @onready var flashlight_progress_bar: ProgressBar = %FlashlightProgressBar
 
 var needed_repair_count := 0
 
-
+func assign_player():
+	var players = get_tree().get_nodes_in_group("player")
+	
+	# if you want to use a different scene for the player:
+	for p in players.size():
+		print(players[p])
+		if players[p] is PlayerStateMachine:
+			print("player is now the state machine")
+			player = players[p]
+		elif players[p] is Player:
+			pass # player is now Player
+				 # etc... 
+			
+	
 func _ready() -> void:
 	assert(level_resource != null, "not null level_resource")
 	%DeathPanel.hide()
 	%LevelWinPanel.hide()
+
+	assign_player()
+	print("player is : ", player, " from base_level.")
+	assert(player != null, "null player resource")
+
 	
-	health_progress_bar.max_value = player.max_health
-	health_progress_bar.value = player.health
-	
-	stamina_progress_bar.max_value = player.max_stamina
-	stamina_progress_bar.value = player.stamina
-	
-	flashlight_progress_bar.max_value = player.flash_light.max_battery
-	flashlight_progress_bar.value = player.flash_light.battery
+	hud.set_health(player.max_health)
+	hud.set_stamina(player.max_stamina)
+	hud.set_flashlight(player.flash_light.battery)
 	
 	for repair_target: RepairTarget in get_tree().get_nodes_in_group("repair_targets"):
 		repair_target.repaired.connect(_on_target_repaired)
@@ -35,9 +51,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	health_progress_bar.value = player.health
-	stamina_progress_bar.value = player.stamina
-	flashlight_progress_bar.value = player.flash_light.battery
+	hud.set_health(player.health)
+	hud.set_stamina(player.stamina)
+	print("stamina: baselevel process: ", player.stamina)
+	hud.set_flashlight(player.flash_light.battery)
 
 
 func _on_target_repaired(_target: RepairTarget) -> void:

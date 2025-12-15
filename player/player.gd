@@ -34,8 +34,8 @@ var interactables_in_reach: Array[Node2D] = []
 func _ready() -> void:
 	health = max_health
 	stamina = max_stamina
-
-
+	
+	
 func _process(_delta: float) -> void:
 	_highlight_neares_interactable()
 
@@ -53,6 +53,9 @@ func _highlight_neares_interactable() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	#TODO: re-enable after testing finished
+	return
+	
 	last_velocity = self.velocity
 	if not is_on_floor():
 		velocity += get_gravity() * delta	# apply gravity

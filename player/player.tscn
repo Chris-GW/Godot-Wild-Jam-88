@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cwitawc18nmoh"]
 
-[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://citmvqqqe8u02" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Script" uid="uid://bc6akx70lgwqq" path="res://player/grapple_control.gd" id="3_g1dw6"]
+[ext_resource type="Texture2D" uid="uid://ft7wgjgjpkcy" path="res://testing_stuff/character_sprite_256x256.png" id="3_g6k8r"]
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="4_yw30f"]
 [ext_resource type="Texture2D" uid="uid://bwja3d3ccsxqw" path="res://assets/light/Flashlighty.png" id="5_g6k8r"]
 [ext_resource type="Script" uid="uid://clqvr8o481ivw" path="res://player/flash_light.gd" id="6_boad6"]
@@ -56,9 +56,8 @@ enabled = false
 target_position = Vector2(800, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -64)
-scale = Vector2(0.6, 1)
-texture = ExtResource("1_oul6g")
+position = Vector2(0, -115)
+texture = ExtResource("3_g6k8r")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -64)

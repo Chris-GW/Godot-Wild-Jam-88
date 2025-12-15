@@ -15,7 +15,7 @@ var battery := 0.0
 
 func _ready() -> void:
 	battery = max_battery
-
+	
 
 func _process(delta: float) -> void:
 	if enabled:

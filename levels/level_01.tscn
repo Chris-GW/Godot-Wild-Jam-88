@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3ne7r0pg4lib"]
+[gd_scene load_steps=13 format=3 uid="uid://b3ne7r0pg4lib"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_ty3hu"]
 [ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_gg43x"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="4_q7ibo"]
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="5_mllcm"]
 [ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_cg8v6"]
+[ext_resource type="Script" uid="uid://dwarkrjxv15wl" path="res://levels/hud_canvas_layer.gd" id="8_j0sdw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cg8v6"]
 font_size = 32
@@ -23,13 +24,12 @@ polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 9
 [node name="Level_01" instance=ExtResource("1_ty3hu")]
 level_resource = ExtResource("2_q7ibo")
 
-[node name="Player" parent="MapRoot" index="0"]
-position = Vector2(976, 562)
-
 [node name="CanvasModulate" parent="." index="0"]
+visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="Platform1" type="StaticBody2D" parent="MapRoot" index="1"]
+visible = false
 position = Vector2(968, 584)
 metadata/_edit_group_ = true
 
@@ -56,6 +56,7 @@ label_settings = SubResource("LabelSettings_cg8v6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapRoot/Platform1" index="2"]
 visible = false
 shape = SubResource("RectangleShape2D_j0sdw")
+disabled = true
 
 [node name="Platform2" type="StaticBody2D" parent="MapRoot" index="2"]
 position = Vector2(1283, 668)
@@ -315,3 +316,7 @@ offset_top = 4752.0
 offset_right = 1897.0
 offset_bottom = 4801.0
 text = "End"
+
+[node name="HudCanvasLayer" parent="." index="4"]
+unique_name_in_owner = true
+script = ExtResource("8_j0sdw")

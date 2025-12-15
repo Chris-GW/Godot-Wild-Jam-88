@@ -12,7 +12,12 @@ var GRAVITY    := 40.0
 #var ACCEL_MODE := true
 var ACCEL_MODE := false
 
+var last_velocity
+var min_impact_speed = 5000.0
+var max_impact_speed = 1000.0
+
 signal hitting_wall(vec2, collider)
+signal taking_collision_damage(dmg: int)
 
 func _ready():
 	pass
@@ -37,7 +42,7 @@ func move(speed, delta):
 	if abs(velocity.x) > MAX_SPEED:
 		velocity.x = sign(velocity.x) * MAX_SPEED
 
-	floor_snap_length = 1.0
+	floor_snap_length = 10.0
 	#print("velocity: ", velocity)
 	move_and_slide()
 
@@ -45,6 +50,7 @@ func apply_gravity(delta):
 	velocity.y += GRAVITY
 	
 func _physics_process(delta: float) -> void:
+	last_velocity = velocity
 	#draw_collision_normals()
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
@@ -56,9 +62,32 @@ func handle_collision(collision: KinematicCollision2D):
 	var normal = collision.get_normal()
 	#velocity += normal * knockback_speed
 
+	var collision_damage = calculate_collision_damage(collision)
+	if collision_damage > 0:
+		taking_collision_damage.emit(collision_damage)
+		
 	if wall_collision(normal):
 		#print("HITTING WALL")
 		emit_signal("hitting_wall", normal, collision.get_collider())
+
+func calculate_collision_damage(collision: KinematicCollision2D) -> int:
+	# impact_speed is the speed at which the character hits the surface, 
+	# measured along the direction pointing into the collider.
+	var impact_speed = -last_velocity.dot(collision.get_normal())
+	#print("IMPACT SPEED: ", impact_speed)
+	if impact_speed < min_impact_speed:
+		return 0
+	return 0
+	# TODO: move this damage formula to the state machine:
+	# the player controller is purely for collisions and movement
+	# statemachine handles health and other stuff	
+	#var t := inverse_lerp(min_impact_speed, max_impact_speed, impact_speed)
+	#t = clampf(t, 0.0, 1.0)
+	
+	#var damage = lerpf(5.0, max_health, t * t)
+	#print("impact_speed ", impact_speed, " calculate_collision_damage ", damage)
+	#return roundi(damage)
+
 		
 func wall_collision(normal):
 	return Vector2.UP.dot(normal) < 0.3

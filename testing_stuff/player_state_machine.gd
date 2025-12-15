@@ -1,4 +1,4 @@
-class_name PlayerStateMachine extends Node
+class_name PlayerStateMachine extends Node2D
 
 ## Definitions of Player States ##
 class State extends Node:
@@ -125,13 +125,13 @@ class JumpingState extends State:
 	
 	func enter():
 		prev_state = machine.prev_state
-		print("prev_state: ", prev_state.name_str)
+		#print("prev_state: ", prev_state.name_str)
 		match prev_state:
 			machine.sprinting_state:
 				speed = sprint_speed
 			machine.walking_state:
 				speed = walk_speed
-		print("speed in jump state: ", speed )
+		#print("speed in jump state: ", speed )
 		machine.player_controller.jump(speed)
 		next_state = prev_state # i just want to go back to prev state unless handle_input (see below)
 	
@@ -165,15 +165,32 @@ signal changing_state(state)
 signal sprint_pressed(true_false)
 signal sprint_released(true_false)
 
+signal stamina_depleted()
+
 var current_state : State
 var prev_state : State
 var walking_state
 var sprinting_state
 var jumping_state
 var falling_state
+
+var max_health:= 100
+var health = 100
+var stamina = 100.0
+var max_stamina = 100.0
+var stamina_drain_per_second = 15.0
+var stamina_recover_per_second = 30.0
+
+var flash_light: FlashLight
+var grapple_control: GrappleControl
+
+
+var interactables_in_reach = []
+
 func _init() -> void:
 	pass
 func _ready() -> void:
+	# create instances of all the states
 	walking_state = WalkingState.new(self, "walking_state")
 	sprinting_state = SprintingState.new(self, "sprinting_state")
 	jumping_state = JumpingState.new(self, "jumping_state")
@@ -181,19 +198,49 @@ func _ready() -> void:
 	current_state = walking_state
 	prev_state = walking_state
 
+	# sometimes i have to change the state from this upper level, instead of inside the current state
 	changing_state.connect(_on_changing_state)
-
-	print("current state: ", current_state.name_str)
+	player_controller.taking_collision_damage.connect(_on_taking_collision_damage)
 	
+	flash_light = find_node_if_type(self, func(n): return n is FlashLight)
+	if flash_light:
+		print("flashlight from player: ", flash_light)
+	else:
+		print("no flashlight found")
+
+	grapple_control = find_node_if_type(self, func(n): return n is GrappleControl)
+	if grapple_control:
+		print("grapple control from player: ", grapple_control)
+	else:
+		print("no grapple control found")
+
+func _on_taking_collision_damage(dmg: int):
+	print("receiving collision damage in playerstatemachine: ", dmg)
+
+
+# I also added this as a Global function. helpful for finding child nodes without direct path,
+# if you only need a single node of a single type
+func find_node_if_type(node: Node, predicate: Callable) -> Node:
+	for child in node.get_children():
+		if predicate.call(child):
+			return child
+		var recursive_found: Node = find_node_if_type(child, predicate)
+		if recursive_found != null:
+			return recursive_found
+	return null
+
 func _physics_process(delta):
 	current_state.run(delta)
+
+	# TODO: figure out where this goes inside current state machine
+	_update_stamina(delta)
 		
 func change_state(s: State):
 	prev_state = current_state
 	current_state.exit()
 	current_state = s
 	s.enter()
-	print("changing to state:", current_state.name_str)
+	#print("changing to state:", current_state.name_str)
 	changing_state.emit(current_state)
 
 func _on_changing_state(state):
@@ -208,6 +255,54 @@ func _unhandled_input(event):
 		sprint_pressed.emit(true)
 	if event.is_action_released("debug_sprint"):
 		sprint_released.emit(false)
-		
 
+	if event.is_action_pressed("interact"):
+		#print("pressing interact")
+		interact()
 	
+
+func take_damage(damage: int) -> void:
+	change_health(-damage)
+	
+func change_health(amount: int) -> void:
+	health += amount
+	health = clampi(health, 0, max_health)
+	if health <= 0:
+		die()
+
+func die():
+	print("you are dead now")
+
+# TODO: how to handle _update_stamina? within specific classes or here?
+# TODO: need to add Grappling class 
+func _update_stamina(delta: float) -> void:
+	if grapple_control.launched:
+		stamina -= stamina_drain_per_second * delta
+	elif player_controller.is_on_floor():
+		stamina += stamina_recover_per_second * delta
+	stamina = clampf(stamina, 0.0, max_stamina)
+	if is_zero_approx(stamina):
+		stamina_depleted.emit()
+
+# TODO: re-implementing interaction system; WIP
+func interact() -> void:
+	var interactables := interactables_in_reach.filter(func(interactable):
+		return interactable.call("can_interact"))
+	interactables.sort_custom(sort_by_distance)
+	if not interactables.is_empty():
+		var nearest_interactable = interactables.front()
+		nearest_interactable.call("do_interaction")
+		print("nearest_interactable: ", nearest_interactable)
+
+func sort_by_distance(a: Node2D, b : Node2D) -> bool:
+	var distance_a := self.global_position.distance_squared_to(a.global_position)
+	var distance_b := self.global_position.distance_squared_to(b.global_position)
+	return distance_a < distance_b
+
+func add_interactable(interactable: Node2D) -> void:
+	print("add_interactable ", self)
+	interactables_in_reach.append(interactable)
+
+func remove_interactable(interactable: Node2D) -> void:
+	#print("remove_interactable", self)
+	interactables_in_reach.erase(interactable)
