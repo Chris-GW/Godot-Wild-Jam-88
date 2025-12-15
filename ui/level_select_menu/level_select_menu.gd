@@ -2,6 +2,7 @@ extends Control
 
 const LEVEL_SELECT_BUTTON = preload("uid://bupyqfgj0x1rx")
 const LEVEL_RESOURCES = [
+	preload("res://levels/level_resources/level_00_resource.tres"),
 	preload("res://levels/level_resources/level_01_resource.tres"),
 	preload("res://levels/level_resources/level_02_resource.tres"),
 ]

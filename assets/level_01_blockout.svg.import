@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqp1f37xvemwc"
-path="res://.godot/imported/level_blockout.svg-e1d65a568c71d4da718c4dec263ed4b2.ctex"
+uid="uid://bw5juq4t0e8cn"
+path="res://.godot/imported/level_01_blockout.svg-a9454ca2c5355864071a6c2840c9fa9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/level_blockout.svg"
-dest_files=["res://.godot/imported/level_blockout.svg-e1d65a568c71d4da718c4dec263ed4b2.ctex"]
+source_file="res://assets/level_01_blockout.svg"
+dest_files=["res://.godot/imported/level_01_blockout.svg-a9454ca2c5355864071a6c2840c9fa9d.ctex"]
 
 [params]
 

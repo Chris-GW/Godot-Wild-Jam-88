@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dieyxygchul8u"]
+[gd_scene load_steps=7 format=3 uid="uid://dieyxygchul8u"]
 
 [ext_resource type="Script" uid="uid://bt1goafr5rg6y" path="res://ui/level_select_menu/level_select_menu.gd" id="1_wgn77"]
 [ext_resource type="Resource" uid="uid://b3vfbpdt7aaxp" path="res://levels/level_resources/level_01_resource.tres" id="2_ig6n6"]
 [ext_resource type="PackedScene" uid="uid://bupyqfgj0x1rx" path="res://ui/level_select_menu/level_select_button.tscn" id="3_6fmov"]
 [ext_resource type="Resource" uid="uid://bm1n5b4q111ml" path="res://levels/level_resources/level_02_resource.tres" id="3_ipm1h"]
+[ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="4_3uqu3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r83us"]
 font_size = 64
@@ -67,6 +68,11 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
+
+[node name="Level00" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
+layout_mode = 2
+text = "00 - Safty Facility "
+level_resource = ExtResource("4_3uqu3")
 
 [node name="Level01" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
 layout_mode = 2

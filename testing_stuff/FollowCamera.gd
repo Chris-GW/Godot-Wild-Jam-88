@@ -12,7 +12,7 @@ var camera_speed := 400
 var dragging := false
 var last_mouse_pos := Vector2.ZERO
 
-var default_zoom = Vector2(0.5,0.5)
+var default_zoom = Vector2.ONE
 
 func _ready():
 	set_zoom(default_zoom)

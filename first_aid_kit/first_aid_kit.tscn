@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://e6apu060jjih"]
+
+[ext_resource type="Script" uid="uid://c04ea1b3d02sr" path="res://first_aid_kit/first_aid_kit.gd" id="1_7ort1"]
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_sehwp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ort1"]
+radius = 55.03635
+
+[node name="FirstAidKit" type="Area2D"]
+script = ExtResource("1_7ort1")
+heal_amount = 40
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 1, 0.111307144, 1)
+position = Vector2(0, -31)
+scale = Vector2(0.48437503, 0.484375)
+texture = ExtResource("1_sehwp")
+
+[node name="Line2D" type="Line2D" parent="Sprite2D"]
+points = PackedVector2Array(0, -60.95238, 0, 0, 60.95238, 0, 0, 0, 0, 60.95238, 0, 0, -60.95238, 0)
+width = 24.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -31)
+shape = SubResource("CircleShape2D_7ort1")
+debug_color = Color(0.70196074, 0.5559379, 0, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

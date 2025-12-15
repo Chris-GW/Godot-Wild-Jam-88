@@ -1,0 +1,311 @@
+[gd_scene load_steps=11 format=3 uid="uid://dvsysojqhsl5i"]
+
+[ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_gkh1h"]
+[ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="2_sj2j1"]
+[ext_resource type="PackedScene" uid="uid://e6apu060jjih" path="res://first_aid_kit/first_aid_kit.tscn" id="3_q2qjg"]
+[ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="3_wybcj"]
+[ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="5_mmdti"]
+[ext_resource type="Script" uid="uid://b3micrn4ujcck" path="res://levels/level_00_repair_effects.gd" id="6_y1gos"]
+[ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="7_iqu7t"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_iqu7t"]
+polygon = PackedVector2Array(776, 184, 1112, 224, 1128, 296, 1120, 368, 1104, 432, 1008, 440, 928, 440, 912, 472, 912, 704, 1000, 712, 1104, 704, 1248, 704, 1408, 720, 1488, 696, 1584, 664, 1720, 664, 1800, 672, 1808, 872, 1792, 1104, 1824, 1328, 1816, 1488, 1864, 1552, 2008, 1568, 2176, 1568, 2312, 1568, 2600, 1472, 2848, 1360, 2992, 1280, 3112, 1280, 3296, 1240, 3488, 1240, 3728, 1256, 3864, 1256, 3872, 1376, 3872, 1496, 3832, 1608, 3808, 1800, 3760, 1824, 3656, 1840, 3512, 1848, 3280, 1928, 2856, 1944, 2016, 1936, 1696, 1912, 1536, 1848, 1368, 1856, 1336, 1968, 1344, 2120, 1344, 2280, 1368, 2328, 1392, 2608, 1392, 2640, 1368, 2752, 1312, 2840, 1264, 2888, 1224, 2896, 1184, 2864, 1112, 2816, 968, 2776, 240, 2824, 24, 2824, 40, 2312, 16, 1056, -432, 528, -432, -248, 24, -232, 24, 208, 616, 216)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_s6v32"]
+polygon = PackedVector2Array(2592, 632, 2800, 744, 2984, 784, 3128, 888, 3168, 928, 3240, 968, 3312, 968, 3432, 936, 3576, 912, 3784, 928, 3944, 992, 4016, 1104, 4096, 1184, 4096, 1344, 4056, 1600, 4064, 1824, 4048, 1984, 4032, 2048, 4000, 2056, 3872, 2064, 3760, 2056, 3728, 2064, 3656, 2080, 3568, 2144, 3456, 2176, 3352, 2280, 3264, 2296, 3008, 2296, 2720, 2320, 2024, 2304, 1784, 2280, 1616, 2216, 1448, 2200, 1408, 2200, 1424, 2232, 1448, 2320, 1448, 2416, 1424, 2600, 1392, 2792, 1352, 2952, 1368, 3152, 1376, 3368, 1360, 3440, 1240, 3472, 976, 3464, 832, 3432, 720, 3400, 624, 3400, 592, 3320, 144, 3320, 120, 3240, 88, 3040, 96, 2832, -128, 2840, -136, 3768, 1600, 3768, 1888, 3496, 1920, 2696, 4048, 2704, 4496, 2272, 4488, 1040, 4288, 616, 4064, 448, 3008, 128, 2312, -112, 1200, -488, 1104, -408, 1088, -160, 1120, -64, 1232, 16, 1288, 224, 1304, 376, 1344, 424, 1384, 424, 1424, 376, 1440, 288, 1504, 264, 1696, 232, 1936, 296, 2104, 392, 2264, 448)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gkh1h"]
+font_size = 28
+
+[node name="Level_00" instance=ExtResource("1_gkh1h")]
+level_resource = ExtResource("2_sj2j1")
+
+[node name="CanvasModulate" parent="." index="0"]
+color = Color(0, 0, 0, 1)
+
+[node name="PlayerStateMachine" parent="MapRoot" index="0"]
+position = Vector2(472, 88)
+
+[node name="TrainingFacility" type="StaticBody2D" parent="MapRoot" index="1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/TrainingFacility" index="0"]
+polygon = PackedVector2Array(776, 184, 1112, 224, 1128, 296, 1120, 368, 1104, 432, 1008, 440, 928, 440, 912, 472, 912, 704, 1000, 712, 1104, 704, 1248, 704, 1408, 720, 1488, 696, 1584, 664, 1720, 664, 1800, 672, 1808, 872, 1792, 1104, 1824, 1328, 1816, 1488, 1864, 1552, 2008, 1568, 2176, 1568, 2312, 1568, 2600, 1472, 2848, 1360, 2992, 1280, 3112, 1280, 3296, 1240, 3488, 1240, 3728, 1256, 3864, 1256, 3872, 1376, 3872, 1496, 3832, 1608, 3808, 1800, 3760, 1824, 3656, 1840, 3512, 1848, 3280, 1928, 2856, 1944, 2016, 1936, 1696, 1912, 1536, 1848, 1368, 1856, 1336, 1968, 1344, 2120, 1344, 2280, 1368, 2328, 1392, 2608, 1392, 2640, 1368, 2752, 1312, 2840, 1264, 2888, 1224, 2896, 1184, 2864, 1112, 2816, 968, 2776, 240, 2824, 24, 2824, 40, 2312, 16, 1056, -432, 528, -432, -248, 24, -232, 24, 208, 616, 216)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D4" type="LightOccluder2D" parent="MapRoot/TrainingFacility/CollisionPolygon2D" index="0"]
+occluder = SubResource("OccluderPolygon2D_iqu7t")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/TrainingFacility" index="1"]
+position = Vector2(72, 0)
+polygon = PackedVector2Array(2144, 992, 2080, 928, 2088, 856, 2136, 824, 2272, 832, 2400, 832, 2504, 904, 2696, 992, 2728, 1032, 2704, 1080, 2624, 1136, 2480, 1184, 2336, 1208, 2216, 1120)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapRoot/TrainingFacility" index="2"]
+position = Vector2(152, -16)
+polygon = PackedVector2Array(2592, 632, 2800, 744, 2984, 784, 3128, 888, 3168, 928, 3240, 968, 3312, 968, 3432, 936, 3576, 912, 3784, 928, 3944, 992, 4016, 1104, 4096, 1184, 4096, 1344, 4056, 1600, 4064, 1824, 4048, 1984, 4032, 2048, 4000, 2056, 3872, 2064, 3760, 2056, 3728, 2064, 3656, 2080, 3568, 2144, 3456, 2176, 3352, 2280, 3264, 2296, 3008, 2296, 2720, 2320, 2024, 2304, 1784, 2280, 1616, 2216, 1448, 2200, 1408, 2200, 1424, 2232, 1448, 2320, 1448, 2416, 1424, 2600, 1392, 2792, 1352, 2952, 1368, 3152, 1376, 3368, 1360, 3440, 1240, 3472, 976, 3464, 832, 3432, 720, 3400, 624, 3400, 592, 3328, 144, 3320, 120, 3240, 88, 3040, 96, 2832, -128, 2840, -136, 3768, 1600, 3768, 1888, 3496, 1920, 2696, 4048, 2704, 4496, 2272, 4488, 1040, 4288, 616, 4064, 448, 3008, 128, 2312, -112, 1200, -488, 1104, -408, 1088, -160, 1120, -64, 1232, 16, 1288, 224, 1304, 376, 1344, 424, 1384, 424, 1424, 376, 1440, 288, 1504, 264, 1696, 232, 1936, 296, 2104, 392, 2264, 448)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D4" type="LightOccluder2D" parent="MapRoot/TrainingFacility/CollisionPolygon2D3" index="0"]
+occluder = SubResource("OccluderPolygon2D_s6v32")
+
+[node name="FirstAidKit" parent="MapRoot/TrainingFacility" index="3" instance=ExtResource("3_q2qjg")]
+position = Vector2(3112, 1280)
+heal_amount = 99
+
+[node name="FirstAidKit2" parent="MapRoot/TrainingFacility" index="4" instance=ExtResource("3_q2qjg")]
+position = Vector2(984, 704)
+heal_amount = 99
+
+[node name="AnchorPoint3" parent="MapRoot/TrainingFacility" index="5" instance=ExtResource("3_wybcj")]
+position = Vector2(1576, 2186)
+
+[node name="AnchorPoint4" parent="MapRoot/TrainingFacility" index="6" instance=ExtResource("3_wybcj")]
+position = Vector2(1392, 2624)
+rotation = 1.5707964
+
+[node name="AnchorPoint" parent="MapRoot/TrainingFacility" index="7" instance=ExtResource("3_wybcj")]
+position = Vector2(3832, 1256)
+
+[node name="AnchorPoint2" parent="MapRoot/TrainingFacility" index="8" instance=ExtResource("3_wybcj")]
+position = Vector2(3424, 952)
+rotation = 3.1415927
+
+[node name="RepairTarget" parent="MapRoot/TrainingFacility" index="9" instance=ExtResource("5_mmdti")]
+position = Vector2(3240, 2280)
+
+[node name="BlockingHazard" type="ColorRect" parent="MapRoot/TrainingFacility/RepairTarget" index="5"]
+unique_name_in_owner = true
+offset_left = -1048.0
+offset_top = -336.0
+offset_right = -362.3938
+offset_bottom = 32.0
+color = Color(1, 0, 0, 1)
+script = ExtResource("6_y1gos")
+
+[node name="Label" type="Label" parent="MapRoot/TrainingFacility/RepairTarget/BlockingHazard" index="0"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 104.0
+offset_right = 514.0
+offset_bottom = 175.0
+theme_override_font_sizes/font_size = 24
+text = "Broken Pipe which is on fire? 
+It blocks the way forward"
+
+[node name="RepairTarget2" parent="MapRoot/TrainingFacility" index="10" instance=ExtResource("5_mmdti")]
+position = Vector2(344, 3304)
+
+[node name="Lights" type="Node2D" parent="MapRoot/TrainingFacility" index="11"]
+
+[node name="PointLight2D" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="0"]
+position = Vector2(1976, 512)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 2.0
+
+[node name="PointLight2D5" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="1"]
+position = Vector2(2272, 424)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D6" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="2"]
+position = Vector2(2200, 616)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D7" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="3"]
+position = Vector2(2824, 784)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D8" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="4"]
+position = Vector2(3194, 1080)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D9" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="5"]
+position = Vector2(3832, 1056)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D10" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="6"]
+position = Vector2(3720, 1904)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D11" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="7"]
+position = Vector2(3191, 2072)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D12" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="8"]
+position = Vector2(2136, 2040)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D13" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="9"]
+position = Vector2(1464, 2000)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D14" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="10"]
+position = Vector2(1408, 2576)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D15" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="11"]
+position = Vector2(344, 2952)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 5.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="12"]
+position = Vector2(1488, 568)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 2.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="13"]
+position = Vector2(992, 633)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+
+[node name="PointLight2D18" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="14"]
+position = Vector2(1408, 3384)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 1.5
+
+[node name="PointLight2D4" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="15"]
+position = Vector2(1328, 72)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D16" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="16"]
+position = Vector2(1216, -176)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 3.0
+
+[node name="PointLight2D17" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="17"]
+position = Vector2(475, -168)
+energy = 3.0
+shadow_enabled = true
+texture = ExtResource("7_iqu7t")
+texture_scale = 6.0
+
+[node name="WorldCanvasLayer" type="CanvasLayer" parent="." index="3"]
+follow_viewport_enabled = true
+
+[node name="Label" type="Label" parent="WorldCanvasLayer" index="0"]
+offset_left = 8.0
+offset_top = -280.0
+offset_right = 160.0
+offset_bottom = -241.0
+text = "Blocked off"
+label_settings = SubResource("LabelSettings_gkh1h")
+
+[node name="Label2" type="Label" parent="WorldCanvasLayer" index="1"]
+offset_left = 1920.0
+offset_top = 552.0
+offset_right = 2182.0
+offset_bottom = 633.0
+text = "Jump over
+(learn simple jump)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="WorldCanvasLayer" index="2"]
+offset_left = 3056.0
+offset_top = 1952.0
+offset_right = 3341.0
+offset_bottom = 2033.0
+text = "(learn reapair 
+changes enviorment)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="WorldCanvasLayer" index="3"]
+offset_left = 295.0
+offset_top = 3120.0
+offset_right = 632.0
+offset_bottom = 3201.0
+text = "(win level by last reapair)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label9" type="Label" parent="WorldCanvasLayer" index="4"]
+offset_left = 1328.0
+offset_top = 1896.0
+offset_right = 1665.0
+offset_bottom = 1977.0
+text = "2x Anchor drop"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="WorldCanvasLayer" index="5"]
+offset_left = 3800.0
+offset_top = 1024.0
+offset_right = 4082.0
+offset_bottom = 1105.0
+text = "first rope drop
+(learn anchor points)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="WorldCanvasLayer" index="6"]
+offset_left = 1112.0
+offset_top = 88.0
+offset_right = 1374.0
+offset_bottom = 169.0
+text = "(learn fall damage)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="WorldCanvasLayer" index="7"]
+offset_left = 2984.0
+offset_top = 1136.0
+offset_right = 3246.0
+offset_bottom = 1217.0
+text = "heal up"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="WorldCanvasLayer" index="8"]
+offset_left = 840.0
+offset_top = 560.0
+offset_right = 1102.0
+offset_bottom = 641.0
+text = "heal up"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[connection signal="repaired" from="MapRoot/TrainingFacility/RepairTarget" to="MapRoot/TrainingFacility/RepairTarget/BlockingHazard" method="_on_repair_target_repaired"]

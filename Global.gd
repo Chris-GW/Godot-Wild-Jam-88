@@ -2,9 +2,16 @@ extends Node
 
 var unlocked_levels := 0
 
-func _process(delta) -> void:
-	if Input.is_action_pressed("debug_reload"):
+
+func _ready() -> void:
+	if OS.is_debug_build():
+		unlocked_levels = 99
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_reload") and OS.is_debug_build():
 		get_tree().reload_current_scene()
+
 
 func find_node_if_type(node: Node, predicate: Callable) -> Node:
 	for child in node.get_children():
