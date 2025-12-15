@@ -13,6 +13,9 @@ font_size = 64
 [node name="Level_02" instance=ExtResource("1_nnn84")]
 level_resource = ExtResource("2_g685p")
 
+[node name="PlayerStateMachine" parent="MapRoot" index="0"]
+position = Vector2(424, 443)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="MapRoot" index="1"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapRoot/StaticBody2D" index="0"]

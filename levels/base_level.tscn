@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvg1d8nw5e7wm"]
+[gd_scene load_steps=10 format=3 uid="uid://dvg1d8nw5e7wm"]
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_46036"]
 [ext_resource type="Texture2D" uid="uid://bk2owtj88bcct" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="2_maq6b"]
 [ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="3_p5284"]
+[ext_resource type="Script" uid="uid://dwarkrjxv15wl" path="res://levels/hud_canvas_layer.gd" id="4_p5284"]
 [ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="4_satuh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
@@ -41,7 +42,9 @@ unique_name_in_owner = true
 [node name="PlayerStateMachine" parent="MapRoot" groups=["player"] instance=ExtResource("3_p5284")]
 
 [node name="HudCanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 layer = 3
+script = ExtResource("4_p5284")
 
 [node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer"]
 offset_right = 40.0

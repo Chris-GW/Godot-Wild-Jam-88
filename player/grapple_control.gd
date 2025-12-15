@@ -41,25 +41,28 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:	
-	if Input.is_action_just_pressed("grapple") and can_launch():
-		launch()
-	if Input.is_action_just_released("grapple"):
-		retract()
+	# if Input.is_action_just_pressed("grapple") and can_launch():
+	# 	launch()
+	# if Input.is_action_just_released("grapple"):
+	# 	retract()
 
 	# TODO: move to the Grappling class within PlayerStateMachine to control player behavior
-	if launched and Input.is_action_pressed("reel_in_rope"):
-		reel_in_rope(delta)
-	if launched and Input.is_action_pressed("let_out_rope"):
-		let_out_rope(delta)
+	#if launched and Input.is_action_pressed("reel_in_rope"):
+	#	reel_in_rope(delta)
+	#if launched and Input.is_action_pressed("let_out_rope"):
+	#	let_out_rope(delta)
 
 	# TODO: reenable when I know i'm getting my reference to rope Line2D
-	update_rope()
+	#update_rope()
+	pass
 
 
+# Moving to playerstatemachine Grappling state 
 func _physics_process(delta: float) -> void:
-	if launched:
-		#print("TARGET:", target)
-		handle_grapple(delta)
+	# if launched:
+	# 	#print("TARGET:", target)
+	# 	handle_grapple(delta)
+	pass
 
 
 func can_launch() -> bool:
@@ -88,6 +91,7 @@ func attach_to_anchor_point(anchor_position: Vector2) -> void:
 	print("attaching to target: ", target)
 
 # TODO: how to move this to my statemachine? that's where i'm deciding movement by current state
+# this logic is fine here, but call handle_grapple from statemachine
 func handle_grapple(delta: float) -> void:
 	var target_direction = player.player_controller.global_position.direction_to(target)
 	var target_distance = player.player_controller.global_position.distance_to(target)
@@ -105,6 +109,7 @@ func handle_grapple(delta: float) -> void:
 
 
 func update_rope() -> void:
+	#TODO: fix so that i make check for the type of player (statemachine vs player)
 	var start = rope_line.to_local(player.player_controller.global_position)
 	rope_line.set_point_position(0,start)
 	var end := rope_line.to_local(target)

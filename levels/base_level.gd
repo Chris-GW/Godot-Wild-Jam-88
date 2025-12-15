@@ -20,6 +20,8 @@ func assign_player():
 	var players = get_tree().get_nodes_in_group("player")
 	
 	# if you want to use a different scene for the player:
+	# TODO: this isn't modular yet  because some nodes specifically require PlayerStateMachine
+	# to be the player.
 	for p in players.size():
 		print(players[p])
 		if players[p] is PlayerStateMachine:
@@ -53,7 +55,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	hud.set_health(player.health)
 	hud.set_stamina(player.stamina)
-	print("stamina: baselevel process: ", player.stamina)
 	hud.set_flashlight(player.flash_light.battery)
 
 

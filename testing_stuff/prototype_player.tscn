@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cosyvvk7bcd3x"]
+[gd_scene load_steps=5 format=3 uid="uid://cosyvvk7bcd3x"]
 
+[ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="2_sv33g"]
 [ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="4_0cbov"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dxp4s"]
@@ -203,3 +204,9 @@ mesh = SubResource("BoxMesh_dxp4s")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders_01/StaticBody2D6"]
 position = Vector2(0.026315808, -0.007906973)
 shape = SubResource("RectangleShape2D_7b36w")
+
+[node name="AnchorPoint" parent="." instance=ExtResource("2_sv33g")]
+position = Vector2(487, 1007)
+
+[node name="AnchorPoint2" parent="." instance=ExtResource("2_sv33g")]
+position = Vector2(622, 1007)

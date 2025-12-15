@@ -44,6 +44,8 @@ func do_interaction() -> void:
 		# TODO: is this part of moving to the state machine?
 		# call attach_to_anchor point inside GrapplingState?
 		player.grapple_control.attach_to_anchor_point(anchor_position)
+		#TODO: changing to emitting signals from interactable objects
+		player.is_interacting.emit(self)
 
 
 func select_for_interaction() -> void:

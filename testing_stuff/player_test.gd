@@ -17,6 +17,7 @@ var min_impact_speed = 5000.0
 var max_impact_speed = 1000.0
 
 signal hitting_wall(vec2, collider)
+signal hitting_floor(vec2, collider)
 signal taking_collision_damage(dmg: int)
 
 func _ready():
@@ -42,7 +43,7 @@ func move(speed, delta):
 	if abs(velocity.x) > MAX_SPEED:
 		velocity.x = sign(velocity.x) * MAX_SPEED
 
-	floor_snap_length = 10.0
+	floor_snap_length = 8.0
 	#print("velocity: ", velocity)
 	move_and_slide()
 
@@ -69,6 +70,8 @@ func handle_collision(collision: KinematicCollision2D):
 	if wall_collision(normal):
 		#print("HITTING WALL")
 		emit_signal("hitting_wall", normal, collision.get_collider())
+	if floor_collision(normal):
+		emit_signal("hitting_floor", normal, collision.get_collider())
 
 func calculate_collision_damage(collision: KinematicCollision2D) -> int:
 	# impact_speed is the speed at which the character hits the surface, 
