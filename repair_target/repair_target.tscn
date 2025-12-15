@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://bacgk4jrajdwv"]
+
+[ext_resource type="Script" uid="uid://djp4abdqo56fy" path="res://repair_target/repair_target.gd" id="1_lhxfg"]
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_yjlvc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yjlvc"]
+font_size = 24
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wbj3q"]
+radius = 72.0
+
+[node name="RepairTarget" type="Area2D" groups=["repair_targets"]]
+script = ExtResource("1_lhxfg")
+
+[node name="Highlight" type="Node2D" parent="."]
+
+[node name="Outline2D" type="Line2D" parent="Highlight"]
+points = PackedVector2Array(-40, -52, -2, -52, -2, -86, 40, -86, 40, 0, -40, 0)
+closed = true
+width = 6.0
+
+[node name="Label" type="Label" parent="Highlight"]
+offset_left = -49.0
+offset_top = -95.0
+offset_right = -9.0
+offset_bottom = -61.0
+text = "[F]"
+label_settings = SubResource("LabelSettings_yjlvc")
+horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0.3333335, 1, 1)
+position = Vector2(0, -26)
+scale = Vector2(0.6, 0.4)
+texture = ExtResource("2_yjlvc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+position = Vector2(19, -65)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_yjlvc")
+
+[node name="InteractionCollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -48)
+shape = SubResource("CircleShape2D_wbj3q")
+debug_color = Color(0.64198023, 0.52430373, 1.92523e-07, 0.41960785)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -52.0
+offset_right = 27.0
+offset_bottom = -3.0
+text = "Repair
+Target"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

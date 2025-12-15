@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cosyvvk7bcd3x"]
+[gd_scene load_steps=11 format=3 uid="uid://cosyvvk7bcd3x"]
 
 [ext_resource type="Script" uid="uid://b7ds08yadav6" path="res://testing_stuff/Mover.gd" id="1_5vh46"]
 [ext_resource type="Script" uid="uid://b3gpnyephb0oy" path="res://testing_stuff/Mover_Controller.gd" id="2_jw3be"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://bdflqrrft6uos" path="res://testing_stuff/FollowCamera.gd" id="3_alaye"]
 [ext_resource type="Script" uid="uid://lmbtfbss46jh" path="res://testing_stuff/player_state_machine.gd" id="5_dxp4s"]
 [ext_resource type="Script" uid="uid://dxks03dyeb63t" path="res://testing_stuff/player_test.gd" id="6_7b36w"]
-[ext_resource type="Script" uid="uid://bc4o4opgkx222" path="res://testing_stuff/anchor_test.gd" id="7_7b36w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0cbov"]
 
@@ -16,10 +15,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7b36w"]
 size = Vector2(0.94736844, 1.0083722)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dxp4s"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_dxp4s"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -197,15 +192,3 @@ mesh = SubResource("BoxMesh_dxp4s")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders_01/StaticBody2D6"]
 position = Vector2(0.026315808, -0.007906973)
 shape = SubResource("RectangleShape2D_7b36w")
-
-[node name="anchor_test" type="Area2D" parent="."]
-position = Vector2(1544, 445)
-scale = Vector2(7.4399996, 7.4399996)
-script = ExtResource("7_7b36w")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="anchor_test"]
-shape = SubResource("CircleShape2D_dxp4s")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="anchor_test"]
-scale = Vector2(2.39, 2.39)
-mesh = SubResource("SphereMesh_dxp4s")

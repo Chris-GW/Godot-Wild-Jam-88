@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3ne7r0pg4lib"]
+[gd_scene load_steps=12 format=3 uid="uid://b3ne7r0pg4lib"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_ty3hu"]
 [ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_gg43x"]
+[ext_resource type="Resource" uid="uid://b3vfbpdt7aaxp" path="res://levels/level_resources/level_01_resource.tres" id="2_q7ibo"]
 [ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="3_mllcm"]
 [ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="4_q7ibo"]
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="5_mllcm"]
+[ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_cg8v6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cg8v6"]
 font_size = 32
@@ -19,6 +21,10 @@ polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 8
 polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 968, 1136, 1080, 1184, 1192, 1168, 1352, 1240, 1408, 1280, 1568, 1288, 1720, 1120, 1768, 1040, 1728, 992, 1824, 1104, 2032, 1224, 2096, 1360, 2168, 1320, 2320, 1152, 2360, 880, 2256, 624, 2392, 272, 2504, 264, 2616, 304, 2712, 328, 2760, 400, 2768, 488, 2712, 616, 2696, 728, 2616, 1064, 2648, 1328, 2704, 1544, 2856, 1640, 2968, 1544, 3120, 1696, 3336, 1712, 3856, 1672, 4152, 1656, 4304, 1664, 4368, 1696, 4480, 1808, 4504, 1928, 4400, 2152, 4256, 2344, 4248, 2808, 4256, 2832, 3920, 2192, 2888, 2016, 952, 1944, 608, 1824, 432, 1680, 408, 1616, 480, 1568, 560, 1536, 664, 1416, 712)
 
 [node name="Level_01" instance=ExtResource("1_ty3hu")]
+level_resource = ExtResource("2_q7ibo")
+
+[node name="Player" parent="MapRoot" index="0"]
+position = Vector2(976, 562)
 
 [node name="CanvasModulate" parent="." index="0"]
 color = Color(0, 0, 0, 1)
@@ -222,6 +228,19 @@ position = Vector2(1320, 408)
 shadow_enabled = true
 texture = ExtResource("5_mllcm")
 texture_scale = 4.0
+
+[node name="RepairTarget" parent="MapRoot" index="7" instance=ExtResource("7_cg8v6")]
+position = Vector2(1816, 4840)
+
+[node name="RepairTarget2" parent="MapRoot" index="8" instance=ExtResource("7_cg8v6")]
+position = Vector2(2122, 4832)
+
+[node name="AnchorPoint" parent="MapRoot" index="9" instance=ExtResource("3_mllcm")]
+position = Vector2(1888, 4848)
+
+[node name="TutorialCanvasLayer" type="CanvasLayer" parent="." index="3"]
+layer = 2
+follow_viewport_enabled = true
 
 [node name="Label6" type="Label" parent="TutorialCanvasLayer" index="0"]
 offset_left = 1240.0

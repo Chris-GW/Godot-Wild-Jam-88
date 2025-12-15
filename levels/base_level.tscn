@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvg1d8nw5e7wm"]
+[gd_scene load_steps=9 format=3 uid="uid://dvg1d8nw5e7wm"]
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_46036"]
 [ext_resource type="Texture2D" uid="uid://bk2owtj88bcct" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="2_maq6b"]
 [ext_resource type="PackedScene" uid="uid://cwitawc18nmoh" path="res://player/player.tscn" id="3_0rg8l"]
+[ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="4_satuh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
 bg_color = Color(0.8117647, 0, 0, 1)
@@ -12,6 +13,9 @@ bg_color = Color(0.1254902, 0.93333334, 0.078431375, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5284"]
 bg_color = Color(0.8117647, 0.84705883, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_satuh"]
+font_size = 64
 
 [node name="BaseLevel" type="Node2D"]
 script = ExtResource("1_46036")
@@ -42,10 +46,8 @@ position = Vector2(960, 507)
 unique_name_in_owner = true
 position = Vector2(0, 33)
 
-[node name="TutorialCanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
-
 [node name="HudCanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer"]
 offset_right = 40.0
@@ -89,3 +91,100 @@ custom_minimum_size = Vector2(256, 32)
 layout_mode = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_p5284")
 value = 82.0
+
+[node name="GamePausedUi" parent="HudCanvasLayer" instance=ExtResource("4_satuh")]
+visible = false
+
+[node name="DeathPanel" type="PanelContainer" parent="HudCanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer/DeathPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HudCanvasLayer/DeathPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HeaderLabel" type="Label" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You died"
+label_settings = SubResource("LabelSettings_satuh")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Restart Contract"
+
+[node name="AbortLevelButton" type="Button" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Abort Contract"
+
+[node name="LevelWinPanel" type="PanelContainer" parent="HudCanvasLayer"]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer/LevelWinPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HudCanvasLayer/LevelWinPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HeaderLabel" type="Label" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You won"
+label_settings = SubResource("LabelSettings_satuh")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="FinishLevelButton" type="Button" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Submit Job Report"
+
+[connection signal="died" from="MapRoot/Player" to="." method="_on_player_died"]
+[connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/AbortLevelButton" to="." method="_on_abort_level_button_pressed"]
+[connection signal="pressed" from="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer/FinishLevelButton" to="." method="_on_finish_level_button_pressed"]

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Godot Wild Jam #88"
-run/main_scene="uid://b3ne7r0pg4lib"
+run/main_scene="uid://dieyxygchul8u"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [display]
 
@@ -25,12 +29,16 @@ window/stretch/mode="viewport"
 
 folder_colors={
 "res://assets/": "purple",
-"res://levels/": "pink"
+"res://levels/": "pink",
+"res://ui/": "green",
+"res://ui/game_paused_ui/": "green",
+"res://ui/level_select_menu/": "green"
 }
 
 [global_group]
 
 player=""
+repair_targets=""
 
 [input]
 

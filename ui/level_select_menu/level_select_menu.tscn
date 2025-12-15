@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=3 uid="uid://dieyxygchul8u"]
+
+[ext_resource type="Script" uid="uid://bt1goafr5rg6y" path="res://ui/level_select_menu/level_select_menu.gd" id="1_wgn77"]
+[ext_resource type="Resource" uid="uid://b3vfbpdt7aaxp" path="res://levels/level_resources/level_01_resource.tres" id="2_ig6n6"]
+[ext_resource type="PackedScene" uid="uid://bupyqfgj0x1rx" path="res://ui/level_select_menu/level_select_button.tscn" id="3_6fmov"]
+[ext_resource type="Resource" uid="uid://bm1n5b4q111ml" path="res://levels/level_resources/level_02_resource.tres" id="3_ipm1h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r83us"]
+font_size = 64
+
+[node name="LevelSelectMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_wgn77")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -549.0
+offset_top = -127.0
+offset_right = 549.0
+offset_bottom = 127.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 96
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LevelPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/LevelPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Levels" type="Label" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Contracts"
+label_settings = SubResource("LabelSettings_r83us")
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="LevelButtons" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Level01" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
+layout_mode = 2
+level_resource = ExtResource("2_ig6n6")
+
+[node name="Level02" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
+layout_mode = 2
+level_resource = ExtResource("3_ipm1h")
+
+[node name="BackButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back to Main Menu"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LevelDetailPanel" type="PanelContainer" parent="HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(1000, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/LevelDetailPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/LevelDetailPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LevelTitle" type="Label" parent="HBoxContainer/VBoxContainer2/LevelDetailPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "01 - Climbing Safty Instructions"
+label_settings = SubResource("LabelSettings_r83us")
+
+[node name="HorizontalLine" type="ColorRect" parent="HBoxContainer/VBoxContainer2/LevelDetailPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="LevelText" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2/LevelDetailPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "[i]Mission Brief:[/i]  
+Welcome to the [b]Training Simulation Area[/b], designed to mimic real-life industrial climbing conditions without the risks. Today, your instructor will guide you through the fundamental skills every climber must master before entering real work zones.
+
+[i]Objectives:[/i]  
+[ul]Practice controlled descents using your climbing rope.
+Learn how to identify minor system failures. Practice using your tool kit to fix simulated equipment.
+Descend from the simulation cave safely. Complete all repairs and reach the bottom without triggering any safety alarms.
+[/ul]
+
+[i]Environment:[/i]  
+- Simulation of a real work area in the depth.
+- Multiple anchor points, ropes, and safety systems."
+fit_content = true
+
+[node name="StartButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 32
+text = "Start Descent"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/StartButton" to="." method="_on_start_button_pressed"]
