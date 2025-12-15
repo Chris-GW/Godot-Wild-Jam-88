@@ -27,6 +27,9 @@ level_resource = ExtResource("2_q7ibo")
 visible = false
 color = Color(0, 0, 0, 1)
 
+[node name="PlayerStateMachine" parent="MapRoot" index="0"]
+position = Vector2(472, 559)
+
 [node name="Platform1" type="StaticBody2D" parent="MapRoot" index="1"]
 visible = false
 position = Vector2(968, 584)

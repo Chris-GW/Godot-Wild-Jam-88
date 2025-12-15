@@ -214,7 +214,7 @@ class GrapplingState extends State:
 		if is_zero_approx(direction):
 			machine.player_controller.velocity.x = lerpf(machine.player_controller.velocity.x, 0.0, deceleration)
 		else:
-			machine.player_controller.velocity.x = lerpf(machine.player_controller.velocity.x, direction * speed, acceleration)
+			machine.player_controller.velocity.x = lerpf(machine.player_controller.velocity.x, direction * speed/2.0, acceleration)
 
 	func _on_stamina_depleted():
 		machine.change_state(machine.falling_state)
