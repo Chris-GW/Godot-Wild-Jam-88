@@ -323,6 +323,19 @@ func find_node_if_type(node: Node, predicate: Callable) -> Node:
 
 func _physics_process(delta):
 	current_state.run(delta)
+	highlight_nearest_interactable()
+		
+func highlight_nearest_interactable() -> void:
+	for interactable in interactables_in_reach:
+		interactable.call("unselect_for_interaction")
+	
+	var interactables := interactables_in_reach.filter(func(interactable):
+		return interactable.call("can_interact"))
+	interactables.sort_custom(sort_by_distance)
+	if not interactables.is_empty():
+		var nearest_interactable = interactables.front()
+		nearest_interactable.call("select_for_interaction")
+
 		
 func change_state(s: State):
 	prev_state = current_state

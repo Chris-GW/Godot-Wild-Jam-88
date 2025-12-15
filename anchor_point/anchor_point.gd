@@ -19,9 +19,8 @@ func _on_body_entered(body: Node2D) -> void:
 		# TODO: the body is the playercontroller, the parent is statemachine
 		player = body.get_parent()
 		player.add_interactable(self)
+
 		
-
-
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
 		body.remove_interactable(self)
@@ -32,7 +31,9 @@ func _on_body_exited(body: Node2D) -> void:
 		print("exiting anchor")
 		# TODO: the body is the playercontroller, the parent is statemachine
 		player = body.get_parent()
+		unselect_for_interaction()
 		player.remove_interactable(self)
+		
 
 func can_interact() -> bool:
 	return true

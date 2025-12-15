@@ -32,6 +32,14 @@ func _on_body_exited(body: Node2D) -> void:
 		body.remove_interactable(self)
 		unselect_for_interaction()
 
+	# my player_test controller is in the player group
+	elif body.is_in_group("player"):
+		print("entering repair_target")
+		# TODO: the body is the playercontroller, the parent is statemachine. I want the statemachine.
+		player = body.get_parent()
+		player.remove_interactable(self)
+		unselect_for_interaction()
+
 func can_interact() -> bool:
 	return not is_repaired
 
