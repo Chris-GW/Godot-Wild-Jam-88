@@ -231,13 +231,13 @@ texture = ExtResource("5_mllcm")
 texture_scale = 4.0
 
 [node name="RepairTarget" parent="MapRoot" index="7" instance=ExtResource("7_cg8v6")]
-position = Vector2(1816, 4840)
+position = Vector2(2071, 5771)
 
 [node name="RepairTarget2" parent="MapRoot" index="8" instance=ExtResource("7_cg8v6")]
-position = Vector2(2122, 4832)
+position = Vector2(3077, 5578)
 
 [node name="AnchorPoint" parent="MapRoot" index="9" instance=ExtResource("3_mllcm")]
-position = Vector2(1888, 4848)
+position = Vector2(1709, 4349)
 
 [node name="TutorialCanvasLayer" type="CanvasLayer" parent="." index="3"]
 layer = 2
@@ -312,8 +312,8 @@ offset_bottom = 2777.0
 text = "Climb along ceiling"
 
 [node name="Label4" type="Label" parent="TutorialCanvasLayer" index="9"]
-offset_left = 1752.0
-offset_top = 4752.0
-offset_right = 1897.0
-offset_bottom = 4801.0
+offset_left = 3025.0
+offset_top = 5379.0
+offset_right = 3170.0
+offset_bottom = 5428.0
 text = "End"
