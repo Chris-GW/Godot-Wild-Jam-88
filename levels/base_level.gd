@@ -40,7 +40,7 @@ func _ready() -> void:
 	assign_player()
 	print("player is : ", player, " from base_level.")
 	assert(player != null, "null player resource")
-
+	player.died.connect(_on_player_died)
 	
 	hud.set_health(player.max_health)
 	hud.set_stamina(player.max_stamina)
@@ -62,7 +62,6 @@ func _on_target_repaired(_target: RepairTarget) -> void:
 	needed_repair_count -= 1
 	if needed_repair_count <= 0:
 		_on_level_win()
-
 
 func _on_player_died() -> void:
 	%DeathPanel.show()
