@@ -106,6 +106,7 @@ func handle_grapple(delta: float) -> void:
 	var damping_force = -damping * velocity_dot * target_direction
 	var force = spring_force + damping_force
 	player.player_controller.velocity += force * delta
+	
 
 
 func update_rope() -> void:

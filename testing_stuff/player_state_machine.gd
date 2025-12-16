@@ -192,7 +192,7 @@ class GrapplingState extends State:
 		machine.player_controller.apply_gravity(delta)
 		machine.grapple_control.handle_grapple(delta)
 
-		if Input.is_action_just_pressed("reel_in_rope"):
+		if Input.is_action_pressed("reel_in_rope"):
 			machine.grapple_control.reel_in_rope(delta)
 		if Input.is_action_pressed("let_out_rope"):
 			machine.grapple_control.let_out_rope(delta)
