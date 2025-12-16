@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cosyvvk7bcd3x"]
+[gd_scene load_steps=6 format=3 uid="uid://cosyvvk7bcd3x"]
 
 [ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="2_sv33g"]
+[ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="3_376lq"]
 [ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="4_0cbov"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dxp4s"]
@@ -11,7 +12,7 @@ size = Vector2(0.94736844, 1.0083722)
 [node name="Node2D" type="Node2D"]
 
 [node name="PlayerStateMachine" parent="." instance=ExtResource("4_0cbov")]
-position = Vector2(189, 882)
+position = Vector2(184, 396)
 
 [node name="Colliders_01" type="Node2D" parent="."]
 scale = Vector2(2, 2)
@@ -210,3 +211,6 @@ position = Vector2(487, 1007)
 
 [node name="AnchorPoint2" parent="." instance=ExtResource("2_sv33g")]
 position = Vector2(622, 1007)
+
+[node name="HazardSpike" parent="." instance=ExtResource("3_376lq")]
+position = Vector2(301, 1069)

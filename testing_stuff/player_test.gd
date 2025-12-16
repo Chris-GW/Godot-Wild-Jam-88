@@ -13,8 +13,6 @@ var GRAVITY    := 40.0
 var ACCEL_MODE := false
 
 var last_velocity
-var min_impact_speed = 5000.0
-var max_impact_speed = 1000.0
 
 signal hitting_wall(vec2, collider)
 signal hitting_floor(vec2, collider)
@@ -49,9 +47,12 @@ func move(speed, delta):
 
 func apply_gravity(delta):
 	velocity.y += GRAVITY
+
+func _process(delta):
+	last_velocity = velocity
 	
 func _physics_process(delta: float) -> void:
-	last_velocity = velocity
+	#last_velocity = velocity
 	#draw_collision_normals()
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
@@ -73,23 +74,29 @@ func handle_collision(collision: KinematicCollision2D):
 	if floor_collision(normal):
 		emit_signal("hitting_floor", normal, collision.get_collider())
 
+var min_impact_speed = 1400.0
+var max_impact_speed = 2200.0
+var max_health = 100.0
+var print_count = 0
 func calculate_collision_damage(collision: KinematicCollision2D) -> int:
 	# impact_speed is the speed at which the character hits the surface, 
 	# measured along the direction pointing into the collider.
 	var impact_speed = -last_velocity.dot(collision.get_normal())
-	#print("IMPACT SPEED: ", impact_speed)
+	if impact_speed > 1400:
+		print("IMPACT SPEED: ", impact_speed)
+	
 	if impact_speed < min_impact_speed:
 		return 0
-	return 0
+	
 	# TODO: move this damage formula to the state machine:
 	# the player controller is purely for collisions and movement
 	# statemachine handles health and other stuff	
-	#var t := inverse_lerp(min_impact_speed, max_impact_speed, impact_speed)
-	#t = clampf(t, 0.0, 1.0)
+	var t := inverse_lerp(min_impact_speed, max_impact_speed, impact_speed)
+	t = clampf(t, 0.0, 1.0)
 	
-	#var damage = lerpf(5.0, max_health, t * t)
-	#print("impact_speed ", impact_speed, " calculate_collision_damage ", damage)
-	#return roundi(damage)
+	var damage = lerpf(5.0, max_health, t * t)
+	print("impact_speed ", impact_speed, " calculate_collision_damage ", damage)
+	return roundi(damage)
 
 		
 func wall_collision(normal):
@@ -97,6 +104,10 @@ func wall_collision(normal):
 func floor_collision(normal):
 	return Vector2.UP.dot(normal) > 0.7
 
+func jump(y_speed):
+	velocity.y = y_speed
+
+	move_and_slide()
 		
 # func draw_collision_normals() -> void:
 # 	if debug_mesh == null:
@@ -132,8 +143,3 @@ func floor_collision(normal):
 # 		if is_on_floor():
 # 			velocity.y = JUMP_SPEED
 # 			#velocity.x *= 0.5
-
-func jump(y_speed):
-	velocity.y = y_speed
-
-	move_and_slide()

@@ -240,6 +240,7 @@ signal changing_state(state)
 signal sprint_pressed(true_false)
 signal sprint_released(true_false)
 
+signal died()
 signal stamina_depleted()
 signal is_interacting(node: Node)
 
@@ -260,7 +261,7 @@ var stamina_recover_per_second = 30.0
 
 var flash_light: FlashLight
 var grapple_control: GrappleControl
-
+@onready var invulnerable_timer: Timer = $InvulnerableTimer
 
 var interactables_in_reach = []
 
@@ -297,6 +298,7 @@ func _ready() -> void:
 
 func _on_taking_collision_damage(dmg: int):
 	print("receiving collision damage in playerstatemachine: ", dmg)
+	change_health(-dmg)
 
 func _on_hitting_floor(vec2, collider):
 	#print("HITTING FLOOR in statemachine: ", collider)
@@ -364,6 +366,9 @@ func _unhandled_input(event):
 	
 
 func take_damage(damage: int) -> void:
+	if not invulnerable_timer.is_stopped():
+		return
+	invulnerable_timer.start()
 	change_health(-damage)
 	
 func change_health(amount: int) -> void:
@@ -374,6 +379,7 @@ func change_health(amount: int) -> void:
 
 func die():
 	print("you are dead now")
+	died.emit()
 
 func interact() -> void:
 	var interactables := interactables_in_reach.filter(func(interactable):

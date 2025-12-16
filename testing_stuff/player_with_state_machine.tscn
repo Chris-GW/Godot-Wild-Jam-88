@@ -51,3 +51,6 @@ metadata/_custom_type_script = "uid://bc6akx70lgwqq"
 [node name="RopeLine2D" type="Line2D" parent="GrappleControl"]
 
 [node name="RayCast2D" type="RayCast2D" parent="GrappleControl"]
+
+[node name="InvulnerableTimer" type="Timer" parent="."]
+one_shot = true
