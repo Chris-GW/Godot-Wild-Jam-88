@@ -43,8 +43,9 @@ func _on_level_selected(level_resource: LevelResource) -> void:
 
 func _on_start_button_pressed() -> void:
 	var pressed_level_button: LevelSelectButton = select_level_button_group.get_pressed_button()
-	var level_resouce := pressed_level_button.level_resource
-	get_tree().change_scene_to_file(level_resouce.scene_path)
+	if pressed_level_button:
+		var level_resouce := pressed_level_button.level_resource
+		get_tree().change_scene_to_file(level_resouce.scene_path)
 
 
 func _on_back_button_pressed() -> void:
