@@ -179,13 +179,16 @@ class GrapplingState extends State:
 	var deceleration = 0.1
 	var speed = 300.0
 
+	var current_anchor = null
+
 	func _init(_machine, n: String):
 		machine = _machine
 		name_str = n
 		machine.stamina_depleted.connect(_on_stamina_depleted)
 	
 	func enter():
-		machine.grapple_control.rope_line.show()
+		#machine.grapple_control.rope_line.show()
+		
 		next_state = machine.falling_state
 		
 	func run(delta):
@@ -197,7 +200,9 @@ class GrapplingState extends State:
 		if Input.is_action_pressed("let_out_rope"):
 			machine.grapple_control.let_out_rope(delta)
 
-		machine.grapple_control.update_rope()
+		#machine.grapple_control.update_rope()
+		if current_anchor:
+			machine.grapple_control.update_rope_in_anchorpoint(current_anchor)
 
 		var stamina_percent =  machine.stamina / machine.max_stamina
 		if stamina_percent > 0.15:
@@ -209,6 +214,9 @@ class GrapplingState extends State:
 		update_stamina(delta)
 		machine.player_controller.move_and_slide()
 
+	func set_current_anchor(anchor):
+		current_anchor = anchor
+		
 	func update_horizontal_velocity() -> void:
 		var direction := Input.get_axis("move_left", "move_right")
 		if is_zero_approx(direction):
@@ -231,7 +239,9 @@ class GrapplingState extends State:
 			machine.change_state(next_state)
 
 	func exit():
-		machine.grapple_control.retract()
+		machine.grapple_control.detach_from_anchor_point_with_rope(current_anchor, machine.player_controller.global_position)
+		#machine.grapple_control.retract()
+		pass
 	
 
 	
@@ -400,6 +410,7 @@ func _on_interacting(node: Node2D):
 		# TODO: or emit a signal which is picked up in the states themselves
 		#print("we got anchorpoint: ", node)
 		change_state(grappling_state)
+		grappling_state.set_current_anchor(node)
 
 	if node is RepairTarget:
 		# TODO: switch to Repairing state to manage repair animations etc (if needed)

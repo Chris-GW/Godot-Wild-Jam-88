@@ -90,9 +90,25 @@ func attach_to_anchor_point(anchor_position: Vector2) -> void:
 	rope_line.show()
 	print("attaching to target: ", target)
 
+# WIP: ben
+var rope_base_len = 64.0
+func attach_to_anchor_point_with_rope(anchor: AnchorPoint):
+	var rope = anchor.rope_line
+	rest_length = player.player_controller.global_position.distance_to(anchor.global_position)
+	rest_length += rope_base_len
+	rest_length = clampf(rest_length, 0.0, max_rope_length)
+	update_rope_in_anchorpoint(anchor)
+	rope.show()
+
+# WIP: ben
+func detach_from_anchor_point_with_rope(anchor: AnchorPoint, detached_pos):
+	anchor.detach(detached_pos)
+
+	
 # TODO: how to move this to my statemachine? that's where i'm deciding movement by current state
 # this logic is fine here, but call handle_grapple from statemachine
 func handle_grapple(delta: float) -> void:
+	var target = player.current_state.current_anchor.global_position
 	var target_direction = player.player_controller.global_position.direction_to(target)
 	var target_distance = player.player_controller.global_position.distance_to(target)
 	var displacement = target_distance - rest_length
@@ -108,15 +124,25 @@ func handle_grapple(delta: float) -> void:
 	player.player_controller.velocity += force * delta
 	
 
-
 func update_rope() -> void:
 	#TODO: fix so that i make check for the type of player (statemachine vs player)
+	# TODO: for going up grapple,
+	# need to keep updating rope, and use an end_poition node
+	# on the rope, with some physics?
 	var start = rope_line.to_local(player.player_controller.global_position)
 	rope_line.set_point_position(0,start)
 	var end := rope_line.to_local(target)
 	rope_line.set_point_position(1, end)
 
-
+# WIP: ben
+func update_rope_in_anchorpoint(anchor: AnchorPoint) -> void:
+	var rope = anchor.rope_line
+	var start = rope. to_local(player.player_controller.global_position)
+	rope.set_point_position(0,start)
+	# is this right? the target is just the anchor position?
+	var end = rope.to_local(anchor.global_position)
+	rope.set_point_position(1,end)
+	
 func reel_in_rope(delta: float) -> void:
 	rest_length -= reel_in_speed * delta
 	rest_length = maxf(rest_length, 0.0)

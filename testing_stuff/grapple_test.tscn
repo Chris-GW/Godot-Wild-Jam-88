@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://cho67ob3l0px4"]
+
+[ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="1_phbed"]
+[ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="2_k8c4r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2cq7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_toawt"]
+size = Vector2(0.94736844, 1.0083722)
+
+[node name="GrappleTest" type="Node2D"]
+
+[node name="PlayerStateMachine" parent="." instance=ExtResource("1_phbed")]
+position = Vector2(267, 124)
+
+[node name="AnchorPoint" parent="." instance=ExtResource("2_k8c4r")]
+position = Vector2(387, 192)
+
+[node name="AnchorPoint2" parent="." instance=ExtResource("2_k8c4r")]
+position = Vector2(641, 423)
+
+[node name="Colliders" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Colliders"]
+position = Vector2(4.25, 268.25)
+scale = Vector2(9.5, 537.49994)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Colliders/StaticBody2D"]
+mesh = SubResource("BoxMesh_2cq7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D"]
+position = Vector2(0.026315808, -0.007906973)
+shape = SubResource("RectangleShape2D_toawt")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Colliders"]
+position = Vector2(658.0001, 537.99994)
+rotation = 1.5707964
+scale = Vector2(4.428649, 1330.9359)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Colliders/StaticBody2D2"]
+mesh = SubResource("BoxMesh_2cq7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D2"]
+position = Vector2(0.026315808, -0.007906973)
+shape = SubResource("RectangleShape2D_toawt")
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="Colliders"]
+position = Vector2(266, 238.00006)
+rotation = 1.5707964
+scale = Vector2(5.276546, 123.44827)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Colliders/StaticBody2D9"]
+mesh = SubResource("BoxMesh_2cq7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D9"]
+position = Vector2(0.026315808, -0.007906973)
+shape = SubResource("RectangleShape2D_toawt")
