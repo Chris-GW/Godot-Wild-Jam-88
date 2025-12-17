@@ -1,5 +1,6 @@
-extends OverlaidWindowContainer
+extends Control
 
+signal level_selected
 
 const LEVEL_SELECT_BUTTON = preload("uid://bupyqfgj0x1rx")
 const LEVEL_RESOURCES = [
@@ -16,10 +17,7 @@ var select_level_button_group := ButtonGroup.new()
 
 
 func _ready() -> void:
-	super._ready()
 	_build_level_buttons()
-	if instance and instance.has_signal(&"end_reached"):
-		instance.connect(&"end_reached", close)
 
 
 func _build_level_buttons() -> void:
@@ -49,6 +47,8 @@ func _on_start_button_pressed() -> void:
 	var pressed_level_button: LevelSelectButton = select_level_button_group.get_pressed_button()
 	if pressed_level_button:
 		var level_resouce := pressed_level_button.level_resource
+		GameState.set_current_level(level_resouce.scene_path)
+		level_selected.emit()
 		get_tree().change_scene_to_file(level_resouce.scene_path)
 
 

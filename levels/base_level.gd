@@ -14,6 +14,7 @@ var player
 # @onready var stamina_progress_bar: ProgressBar = %StaminaProgressBar
 # @onready var flashlight_progress_bar: ProgressBar = %FlashlightProgressBar
 
+var level_state: LevelState
 var needed_repair_count := 0
 
 func assign_player():
@@ -34,6 +35,7 @@ func assign_player():
 	
 func _ready() -> void:
 	assert(level_resource != null, "not null level_resource")
+	level_state = GameState.get_level_state(scene_file_path)
 	%DeathPanel.hide()
 	%LevelWinPanel.hide()
 
@@ -63,13 +65,16 @@ func _on_target_repaired(_target: RepairTarget) -> void:
 	if needed_repair_count <= 0:
 		_on_level_win()
 
+
 func _on_player_died() -> void:
 	%DeathPanel.show()
 	get_tree().paused = true
 
+
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
 
 func _on_abort_level_button_pressed() -> void:
 	get_tree().paused = false
