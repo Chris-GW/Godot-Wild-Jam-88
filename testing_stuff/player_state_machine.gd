@@ -102,6 +102,9 @@ class WalkingState extends State:
 
 		elif event.is_action_pressed("jump") and machine.player_controller.is_on_floor():
 			machine.change_state(machine.jumping_state)
+
+		if event.is_action_pressed("debug_scout"):
+			machine.change_state(machine.scouting_state)
 	
 	func exit():
 		pass
@@ -295,16 +298,92 @@ class GrapplingState extends State:
 			current_anchor.detach(machine.player_controller.global_position)
 			machine.change_state(next_state)
 			
-		
-
 	func exit():
 		pass
 		#current_anchor.detach(machine.player_controller.global_position)
 
+class ScoutingState extends State:
+	var scout
+	var mover
+	var scout_camera: FollowCamera
+	var battery_max = 100.0
+	var battery = battery_max
+	var battery_drain_speed = 2.0
 	
+	func _init(_machine, _name):
+		machine = _machine
+		name_str = _name
 
-const ANCHOR_POINT = preload("uid://0k877ukwywbb")
+		scout = machine.SCOUT.instantiate()
+		mover = scout.get_child(0)
+		mover.mass = 500.0
+		mover.in_the_world = false
+
+		machine.add_child(scout)
+		scout.hide()
+
+		scout_camera = FollowCamera.new()
+		scout_camera.follow_target = mover
+		machine.add_child(scout_camera)
 		
+	func enter():
+		var pos = machine.player_controller.global_position+ Vector2(100,-100)
+		if mover.in_the_world:
+			scout_camera.global_position = pos
+		else:
+			if not scout.is_visible():
+				scout.show()
+			mover.global_position = pos
+			scout_camera.global_position = pos
+			mover.in_the_world = true
+			machine.scout_in_inventory = false
+			
+		mover.acceleration = Vector2.ZERO
+		mover.velocity = Vector2.ZERO
+		mover.active = true
+		mover.collider.disabled = false
+		scout_camera.make_current()
+		#mover.show()
+	
+	func run(delta):
+		if battery > 0:
+			var iv = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+			mover.apply_force(iv * 50.0)
+
+		battery -= delta * battery_drain_speed * battery_drain_speed
+		if battery <= 0:
+			print("SCOUT BATTERY DRAINED")
+			machine.change_state(machine.walking_state)
+		battery = clampf(battery, 0.0, battery_max)
+
+		set_battery_bar(battery / battery_max)
+
+	func set_battery_bar(val: float):
+		val = clampf(val,0.0,1.0)
+		update_bar(val)
+		
+	func update_bar(val: float):
+		var h = 10.0
+		var max_fill_width = 80.0
+		mover.battery_remain.size = Vector2(val * max_fill_width, h)
+		
+	func handle_input(event):
+		if event.is_action_pressed("debug_scout"):
+			machine.change_state(machine.walking_state)
+		
+	func exit():
+		mover.active = false
+		machine.player_camera.make_current()
+		mover.velocity = Vector2.ZERO
+		mover.acceleration = Vector2.ZERO
+
+## BEGIN STATE MACHINE PROPER ## 
+	
+const ANCHOR_POINT = preload("uid://0k877ukwywbb")
+const SCOUT = preload("uid://brhryu6q8dwuy")
+var scout_in_inventory := true
+
+@onready var player_camera = $FollowCamera
 @onready var player_controller: CharacterBody2D = $test_player_controller
 signal changing_state(state)
 signal sprint_pressed(true_false)
@@ -321,6 +400,7 @@ var sprinting_state
 var jumping_state
 var falling_state
 var grappling_state
+var scouting_state
 
 var max_health:= 100
 var health = 100
@@ -338,6 +418,7 @@ var interactables_in_reach = []
 func _init() -> void:
 	pass
 func _ready() -> void:
+	#print("player_cam: ", player_camera)
 	#print(ANCHOR_POINT)
 	# create instances of all the states
 	walking_state = WalkingState.new(self, "walking_state")
@@ -345,6 +426,7 @@ func _ready() -> void:
 	jumping_state = JumpingState.new(self, "jumping_state")
 	falling_state = FallingState.new(self, "falling_state")
 	grappling_state = GrapplingState.new(self, "grappling_state")
+	scouting_state = ScoutingState.new(self, "scouting_state")
 	current_state = walking_state
 	prev_state = walking_state
 
@@ -354,6 +436,7 @@ func _ready() -> void:
 	player_controller.taking_collision_damage.connect(_on_taking_collision_damage)
 	player_controller.hitting_wall.connect(_on_hitting_wall)
 	player_controller.hitting_floor.connect(_on_hitting_floor)
+	scouting_state.mover.scout_area2d.interacting_with_scout.connect(_on_interacting_with_scout)
 	
 	flash_light = find_node_if_type(self, func(n): return n is FlashLight)
 	if flash_light:
@@ -437,7 +520,6 @@ func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
 		#print("pressing interact")
 		interact()
-	
 
 func take_damage(damage: int) -> void:
 	if not invulnerable_timer.is_stopped():
@@ -491,3 +573,13 @@ func add_interactable(interactable: Node2D) -> void:
 func remove_interactable(interactable: Node2D) -> void:
 	#print("remove_interactable", self)
 	interactables_in_reach.erase(interactable)
+
+func _on_interacting_with_scout():
+	print("INTERACT WITH SCOUT")
+	scouting_state.mover.in_the_world = false
+	scouting_state.scout.hide()
+	scout_in_inventory = true
+	scouting_state.mover.collider.disabled = true
+	print("in world? ",  scouting_state.mover.in_the_world)
+	if current_state == scouting_state:
+		change_state(walking_state)

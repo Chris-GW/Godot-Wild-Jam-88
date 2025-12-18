@@ -11,42 +11,63 @@ var angle = 0.0
 var angle_velocity = 0.0
 var angle_acceleration = 0.001
 
+var mass: float = 1000.0
 var radius = 10.0
 var color = Color(1,1,1,1)
 
 var noise := FastNoiseLite.new()
 
-var mass: float = 1000.0
-
-var edges := Vector2.ZERO
-
-var slowing = false
-
 var collider: CollisionShape2D
 
+@onready var scout_area2d: Scout_Area2D = $Scout_Area2D
+@onready var scout_area2d_collider: CollisionShape2D = $Scout_Area2D/CollisionShape2D
+
+@onready var battery_remain = $Battery/BatteryRemain
+
+var edges := Vector2.ZERO
+var slowing = false
+
+var body: CharacterBody2D
+signal hitting_wall
+signal hitting_floor
+
+var active := false
+var in_the_world := false
+
 func _ready() -> void:
-	collider = CollisionShape2D.new()
-	collider.shape = CircleShape2D.new()
-	collider.shape.radius = radius
-	add_child(collider)
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.frequency = 0.05
 
 	radius = get_radius(mass)
+	body = CharacterBody2D.new()
+	add_child(body)
+	body.velocity = Vector2.ZERO
+	
+	collider = CollisionShape2D.new()
+	collider.shape = CircleShape2D.new()
+	collider.shape.radius = radius
+	collider.disabled = true
+	body.add_child(collider)
 
+	scout_area2d_collider.shape.radius = radius * 1.5
+
+	
 var timer := 0.0
 var timelimit = 0.25
+func _physics_process(delta: float) -> void:
 
-func _process(delta: float) -> void:
-	if contact_floor(edges):
-		var c = 0.1
-		var friction = velocity * -1
-		friction = friction.normalized() * c
-		apply_force(friction)
+	if not in_the_world:
+		return
+	
+	if not active and in_the_world:
+		apply_force(Vector2(0.0,500.0))
 
 	velocity += acceleration
 	velocity = velocity.limit_length(MAX_SPEED)
 	position += velocity
+	body.move_and_slide()
+	global_position = body.global_position
+	body.global_position = global_position
 
 	#angle_velocity += angle_acceleration
 	#angle += angle_velocity*delta
@@ -57,13 +78,36 @@ func _process(delta: float) -> void:
 	if timer >= timelimit:
 		timer = 0.0
 
-	# NOTE: choose either to bounce_edges OR cycle_edges (or neither)
-	inelastic_bounce_edges(edges)
+	for i in range(body.get_slide_collision_count()):
+		var collision = body.get_slide_collision(i)
+		handle_collision(collision)
 
 	queue_redraw()
 
 	# clear acceleration afer it's been applied
 	acceleration *= 0
+
+func handle_collision(collision: KinematicCollision2D):
+	var knockback_speed = 1.0
+	var collider = collision.get_collider()
+	var normal = collision.get_normal()
+	velocity += normal * knockback_speed
+
+#	var collision_damage = calculate_collision_damage(collision)
+#	if collision_damage > 0:
+#		taking_collision_damage.emit(collision_damage)
+		
+	if wall_collision(normal):
+		#print("HITTING WALL")
+		emit_signal("hitting_wall", normal, collision.get_collider())
+	if floor_collision(normal):
+		#print("HITTING FLOOR")
+		emit_signal("hitting_floor", normal, collision.get_collider())
+	
+func wall_collision(normal):
+	return Vector2.UP.dot(normal) < 0.3
+func floor_collision(normal):
+	return Vector2.UP.dot(normal) > 0.7
 
 func gravity():
 	var gravity = Vector2(0.0,0.6)
@@ -151,7 +195,6 @@ func inelastic_drag_edges(edges: Vector2) -> Vector2:
 
 	return vec
 	
-
 func get_radius(mass: float) -> float:
 	var min_mass := 1.0
 	var max_mass := 100.0
@@ -162,10 +205,11 @@ func get_radius(mass: float) -> float:
 	var t = (log(m_clamped) - log(min_mass)) / (log(max_mass) - log(min_mass))
 	return lerp(min_radius, max_radius, t)
 
-
-
 var line_len = 10
 func _draw():
+	if not in_the_world:
+		return
+	
 	draw_circle(Vector2.ZERO, radius, color) # NOTE: REMEBER THIS IS --LOCAL-- so i need to draw at 0,0
 	
 	var a = velocity.angle()
@@ -173,3 +217,16 @@ func _draw():
 	var end = dir * line_len
 	draw_line(Vector2.ZERO, end, Color.RED, 1.0)
 	
+func _on_scout_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		if body.get_parent() is PlayerStateMachine:
+			var player = body.get_parent()
+			player.add_interactable(scout_area2d)
+			scout_area2d.select_for_interaction()
+
+func _on_scout_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		if body.get_parent() is PlayerStateMachine:
+			var player = body.get_parent()
+			player.remove_interactable(scout_area2d)
+			scout_area2d.unselect_for_interaction()

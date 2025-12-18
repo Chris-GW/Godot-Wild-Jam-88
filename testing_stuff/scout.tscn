@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://brhryu6q8dwuy"]
+
+[ext_resource type="Script" uid="uid://b7ds08yadav6" path="res://testing_stuff/Mover.gd" id="1_y4r3v"]
+[ext_resource type="Script" uid="uid://dwc663cgayay2" path="res://testing_stuff/scout_area2d.gd" id="2_mq1tf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ti8ni"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y4r3v"]
+font_size = 24
+
+[node name="Scout" type="Node2D"]
+
+[node name="Mover" type="Node2D" parent="."]
+script = ExtResource("1_y4r3v")
+metadata/_custom_type_script = "uid://b7ds08yadav6"
+
+[node name="Scout_Area2D" type="Area2D" parent="Mover"]
+script = ExtResource("2_mq1tf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mover/Scout_Area2D"]
+shape = SubResource("CircleShape2D_ti8ni")
+
+[node name="Highlight" type="Node2D" parent="Mover/Scout_Area2D"]
+
+[node name="Line2D" type="Line2D" parent="Mover/Scout_Area2D/Highlight"]
+visible = false
+position = Vector2(-100, -100)
+scale = Vector2(1.0496354, 1.2260557)
+points = PackedVector2Array(0, 200, 200, 200, 200, 0, 0, 0)
+closed = true
+
+[node name="Label" type="Label" parent="Mover/Scout_Area2D/Highlight"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -17.0
+offset_top = -144.0
+offset_right = 23.0
+offset_bottom = -110.0
+grow_horizontal = 2
+text = "[F]"
+label_settings = SubResource("LabelSettings_y4r3v")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Battery" type="ColorRect" parent="Mover"]
+offset_left = -40.0
+offset_top = 24.0
+offset_right = 40.0
+offset_bottom = 34.0
+
+[node name="BatteryRemain" type="ColorRect" parent="Mover/Battery"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 10.0
+color = Color(0.17254902, 0.8784314, 0.18039216, 1)
+
+[connection signal="body_entered" from="Mover/Scout_Area2D" to="Mover" method="_on_scout_area_2d_body_entered"]
+[connection signal="body_exited" from="Mover/Scout_Area2D" to="Mover" method="_on_scout_area_2d_body_exited"]

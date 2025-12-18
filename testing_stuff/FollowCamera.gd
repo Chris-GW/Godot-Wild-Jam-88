@@ -1,8 +1,7 @@
-extends Camera2D
+class_name FollowCamera extends Camera2D
 
 @export var follow_target: Node2D
-@export var offset_vector: Vector3 = Vector3(0, 3, -8)
-
+var offset_vector: Vector3 = Vector3(0, 3, -8)
 
 var follow_speed_x: float = 10.0
 var follow_speed_y: float = 10.0
