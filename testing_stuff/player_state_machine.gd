@@ -179,30 +179,42 @@ class GrapplingState extends State:
 	var deceleration = 0.1
 	var speed = 300.0
 
-	var current_anchor = null
+	var rest_length
+	var max_rope_length = 400.0
+	var reel_in_speed = 120.0
+	var let_out_speed = 180.0
 
+	var current_anchor = null
+	#var prev_anchor = null
+	#var next_anchor = null
+	
 	func _init(_machine, n: String):
 		machine = _machine
 		name_str = n
 		machine.stamina_depleted.connect(_on_stamina_depleted)
+		machine.changing_anchor_point.connect(_on_anchor_point_changed)
 	
 	func enter():
 		#machine.grapple_control.rope_line.show()
-		
 		next_state = machine.falling_state
+		current_anchor.is_attached = true
+		current_anchor.rope_end.freeze = true
+		rest_length = machine.player_controller.global_position.distance_to(current_anchor.global_position) 
+		rest_length += 64.0 
+		rest_length = clampf(rest_length, 0.0, max_rope_length)
+		current_anchor.rope_line.show()
 		
 	func run(delta):
 		machine.player_controller.apply_gravity(delta)
-		machine.grapple_control.handle_grapple(delta)
-
+		#machine.grapple_control.handle_grapple(delta)
+		handle_grapple(delta)
+		
 		if Input.is_action_pressed("reel_in_rope"):
-			machine.grapple_control.reel_in_rope(delta)
+			reel_in_rope(delta)
 		if Input.is_action_pressed("let_out_rope"):
-			machine.grapple_control.let_out_rope(delta)
-
-		#machine.grapple_control.update_rope()
-		if current_anchor:
-			machine.grapple_control.update_rope_in_anchorpoint(current_anchor)
+			let_out_rope(delta)
+	
+		#update_rope(current_anchor)
 
 		var stamina_percent =  machine.stamina / machine.max_stamina
 		if stamina_percent > 0.15:
@@ -212,8 +224,51 @@ class GrapplingState extends State:
 
 		update_horizontal_velocity()
 		update_stamina(delta)
+
 		machine.player_controller.move_and_slide()
 
+	func update_rope(anchor: AnchorPoint) -> void:
+		var rope = anchor.rope_line
+		var start = rope.to_local(machine.player_controller.global_position)
+		rope.set_point_position(0,start)
+		var end = rope.to_local(anchor.global_position)
+		rope.set_point_position(1,end)
+		
+	var stiffness = 120.0
+	var damping = 20.0
+	# how and where to set rest	length? and what is it?
+	
+	func handle_grapple(delta: float) -> void:
+		var target = current_anchor.global_position
+		var target_direction =machine.player_controller.global_position.direction_to(target)
+		var target_distance = machine.player_controller.global_position.distance_to(target)
+		var displacement = target_distance - rest_length
+
+		if displacement <= 0.0001:
+			return
+		var spring_force_magnitude = stiffness * displacement
+		var spring_force = target_direction * spring_force_magnitude
+
+		var velocity_dot = machine.player_controller.velocity.dot(target_direction)
+		var damping_force = -damping * velocity_dot * target_direction
+		var force = spring_force + damping_force
+		machine.player_controller.velocity += force * delta
+
+	func _on_anchor_point_changed(anchor: AnchorPoint):
+		pass
+		#next_anchor = anchor
+		#current_anchor = anchor
+		
+	func reel_in_rope(delta: float) -> void:
+		rest_length -= reel_in_speed * delta
+		rest_length = maxf(rest_length, 0.0)
+		#print(rest_length, " reel_in_rope")
+
+	func let_out_rope(delta: float) -> void:
+		rest_length += let_out_speed * delta
+		rest_length = minf(rest_length, max_rope_length)
+		#print(rest_length, " let_out_rope")
+		
 	func set_current_anchor(anchor):
 		current_anchor = anchor
 		
@@ -225,6 +280,7 @@ class GrapplingState extends State:
 			machine.player_controller.velocity.x = lerpf(machine.player_controller.velocity.x, direction * speed, acceleration)
 
 	func _on_stamina_depleted():
+		current_anchor.detach(machine.player_controller.global_position)
 		machine.change_state(machine.falling_state)
 		
 	func update_stamina(delta: float) -> void:
@@ -236,15 +292,19 @@ class GrapplingState extends State:
 	func handle_input(event):
 		if event.is_action_pressed("jump"):
 			#TODO: figure out what state comes next
+			current_anchor.detach(machine.player_controller.global_position)
 			machine.change_state(next_state)
+			
+		
 
 	func exit():
-		machine.grapple_control.detach_from_anchor_point_with_rope(current_anchor, machine.player_controller.global_position)
-		#machine.grapple_control.retract()
 		pass
-	
+		#current_anchor.detach(machine.player_controller.global_position)
 
 	
+
+const ANCHOR_POINT = preload("uid://0k877ukwywbb")
+		
 @onready var player_controller: CharacterBody2D = $test_player_controller
 signal changing_state(state)
 signal sprint_pressed(true_false)
@@ -278,6 +338,7 @@ var interactables_in_reach = []
 func _init() -> void:
 	pass
 func _ready() -> void:
+	#print(ANCHOR_POINT)
 	# create instances of all the states
 	walking_state = WalkingState.new(self, "walking_state")
 	sprinting_state = SprintingState.new(self, "sprinting_state")
@@ -289,7 +350,7 @@ func _ready() -> void:
 
 	# sometimes i have to change the state from this upper level, instead of inside the current state
 	changing_state.connect(_on_changing_state)
-	is_interacting.connect(_on_interacting)
+	is_interacting.connect(_is_interacting)
 	player_controller.taking_collision_damage.connect(_on_taking_collision_damage)
 	player_controller.hitting_wall.connect(_on_hitting_wall)
 	player_controller.hitting_floor.connect(_on_hitting_floor)
@@ -348,7 +409,6 @@ func highlight_nearest_interactable() -> void:
 		var nearest_interactable = interactables.front()
 		nearest_interactable.call("select_for_interaction")
 
-		
 func change_state(s: State):
 	prev_state = current_state
 	current_state.exit()
@@ -364,7 +424,11 @@ func _unhandled_input(event):
 	current_state.handle_input(event)
 
 	if event.is_action_pressed("debug_add_anchor"):
-		print("add anchor")
+		var ap = ANCHOR_POINT.instantiate()
+		ap.global_position = player_controller.global_position
+		get_tree().current_scene.add_child(ap)
+		#print(ap, ap.global_position, machine.player_controller.global_position)
+		
 	if event.is_action_pressed("debug_sprint"):
 		sprint_pressed.emit(true)
 	if event.is_action_released("debug_sprint"):
@@ -397,24 +461,22 @@ func interact() -> void:
 	interactables.sort_custom(sort_by_distance)
 	if not interactables.is_empty():
 		var nearest_interactable = interactables.front()
-		# NOTE: here is where I call a signal and then connect in the specific
-		# states where I want
-		# example: emit_signal inside anchor_point.do_interaction(self)
 		nearest_interactable.call("do_interaction")
-		print("nearest_interactable: ", nearest_interactable)
+		#print("nearest_interactable: ", nearest_interactable)
 
-func _on_interacting(node: Node2D):
-	print("_on_interacting: ", node)
+signal changing_anchor_point
+func _is_interacting(node: Node2D):
+	#print("_on_interacting: ", node)
 	if node is AnchorPoint:
-		# NOTE: is this where we switch to the Grappling state?
-		# TODO: or emit a signal which is picked up in the states themselves
-		#print("we got anchorpoint: ", node)
+		if grappling_state.current_anchor != null:
+			grappling_state.current_anchor.detach(player_controller.global_position)
+		grappling_state.current_anchor = node
 		change_state(grappling_state)
-		grappling_state.set_current_anchor(node)
 
 	if node is RepairTarget:
 		# TODO: switch to Repairing state to manage repair animations etc (if needed)
-		print("getting repair target")
+		#print("getting repair target")
+		pass
 		
 		
 func sort_by_distance(a: Node2D, b : Node2D) -> bool:
@@ -423,7 +485,7 @@ func sort_by_distance(a: Node2D, b : Node2D) -> bool:
 	return distance_a < distance_b
 
 func add_interactable(interactable: Node2D) -> void:
-	print("add_interactable ", self)
+	#print("add_interactable ", self)
 	interactables_in_reach.append(interactable)
 
 func remove_interactable(interactable: Node2D) -> void:

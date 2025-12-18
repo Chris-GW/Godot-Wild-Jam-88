@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://0k877ukwywbb"]
+[gd_scene load_steps=7 format=3 uid="uid://0k877ukwywbb"]
 
 [ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_d00sr"]
 [ext_resource type="Script" uid="uid://dcbpoa7i5nrw4" path="res://anchor_point/anchor_point.gd" id="1_wbj3q"]
+[ext_resource type="Script" uid="uid://cu0ut4wslh0uu" path="res://anchor_point/rope_end_area_2d.gd" id="3_yp0rk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wbj3q"]
 font_size = 24
@@ -51,6 +52,7 @@ debug_color = Color(0.64198023, 0.52430373, 1.92523e-07, 0.41960785)
 metadata/_edit_lock_ = true
 
 [node name="RopeLine2D" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 800, 0)
 width = 8.0
 default_color = Color(0, 0, 0, 1)
@@ -67,10 +69,33 @@ scale = Vector2(5.361, 5.361)
 shape = SubResource("CircleShape2D_yp0rk")
 
 [node name="RopeEndArea2D" type="Area2D" parent="RopeLine2D/RopeEndRigidBody"]
+script = ExtResource("3_yp0rk")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RopeLine2D/RopeEndRigidBody/RopeEndArea2D"]
 scale = Vector2(5.361, 5.361)
 shape = SubResource("CircleShape2D_yp0rk")
 
+[node name="Highlight" type="Node2D" parent="RopeLine2D/RopeEndRigidBody/RopeEndArea2D"]
+
+[node name="Line2D" type="Line2D" parent="RopeLine2D/RopeEndRigidBody/RopeEndArea2D/Highlight"]
+points = PackedVector2Array(-11, 16, 13, 16, 13, 3, -11, 4)
+closed = true
+
+[node name="Label" type="Label" parent="RopeLine2D/RopeEndRigidBody/RopeEndArea2D/Highlight"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.0
+offset_top = 17.0
+offset_right = 21.0
+offset_bottom = 51.0
+grow_horizontal = 2
+text = "[F]"
+label_settings = SubResource("LabelSettings_wbj3q")
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="RopeLine2D/RopeEndRigidBody/RopeEndArea2D" to="." method="_on_rope_end_area_2d_body_entered"]
+[connection signal="body_exited" from="RopeLine2D/RopeEndRigidBody/RopeEndArea2D" to="." method="_on_rope_end_area_2d_body_exited"]

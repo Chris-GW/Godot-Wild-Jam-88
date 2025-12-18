@@ -22,8 +22,8 @@ position = Vector2(641, 423)
 [node name="Colliders" type="Node2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Colliders"]
-position = Vector2(4.25, 268.25)
-scale = Vector2(9.5, 537.49994)
+position = Vector2(4, 290.00003)
+scale = Vector2(9.5, 766.655)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Colliders/StaticBody2D"]
 mesh = SubResource("BoxMesh_2cq7j")
@@ -32,8 +32,19 @@ mesh = SubResource("BoxMesh_2cq7j")
 position = Vector2(0.026315808, -0.007906973)
 shape = SubResource("RectangleShape2D_toawt")
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="Colliders"]
+position = Vector2(539, 1053)
+scale = Vector2(9.5, 766.655)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Colliders/StaticBody2D3"]
+mesh = SubResource("BoxMesh_2cq7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D3"]
+position = Vector2(0.026315808, -0.007906973)
+shape = SubResource("RectangleShape2D_toawt")
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="Colliders"]
-position = Vector2(658.0001, 537.99994)
+position = Vector2(-125.99988, 670)
 rotation = 1.5707964
 scale = Vector2(4.428649, 1330.9359)
 
@@ -41,6 +52,18 @@ scale = Vector2(4.428649, 1330.9359)
 mesh = SubResource("BoxMesh_2cq7j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D2"]
+position = Vector2(0.026315808, -0.007906973)
+shape = SubResource("RectangleShape2D_toawt")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Colliders"]
+position = Vector2(1199, 1058.9999)
+rotation = 1.5707964
+scale = Vector2(4.428649, 1330.9359)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Colliders/StaticBody2D4"]
+mesh = SubResource("BoxMesh_2cq7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/StaticBody2D4"]
 position = Vector2(0.026315808, -0.007906973)
 shape = SubResource("RectangleShape2D_toawt")
 

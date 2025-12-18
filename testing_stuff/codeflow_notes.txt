@@ -1,0 +1,19 @@
+----------GrapplingState----------
+
+when initialized current_anchor = null
+
+run:
+machine.player_controller.apply_gravity(delta)
+machine.grapple_control.handle_grapple
+
+> what i want to do is have anchor_point and rope just tracking rope_end
+  > and rope_end can stick to the player_controller while grappling
+
+> use grapple_control for the grapple control movement etc,
+but NOT for rope and anchor-point related stuff,
+move that to anchor_point or to the state machine instead
+
+----------AnchorPoint----------
+some_target
+	currently the detach point only
+	is some_target the player_controller when grappling?

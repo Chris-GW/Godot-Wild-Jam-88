@@ -25,10 +25,11 @@ func _ready() -> void:
 	#rope_line = Global.find_node_if_type(self, func(n): return n is Line2D)
 	rope_line = $RopeLine2D
 	if rope_line == null:
-		print("no rope line")
+		#print("no rope line")
 		return
 	else:
-		print("rope line from grapple control: ", rope_line)
+		pass
+		#print("rope line from grapple control: ", rope_line)
 		
 	# initialize the minimum 2 points needed for Line2D
 	if rope_line.get_point_count() < 2:
@@ -88,17 +89,20 @@ func attach_to_anchor_point(anchor_position: Vector2) -> void:
 	rest_length = clampf(rest_length, 0.0, max_rope_length)
 	update_rope()
 	rope_line.show()
-	print("attaching to target: ", target)
+	#print("attaching to target: ", target)
 
 # WIP: ben
 var rope_base_len = 64.0
-func attach_to_anchor_point_with_rope(anchor: AnchorPoint):
-	var rope = anchor.rope_line
+func attach_to_anchor_point_with_rope(anchor: AnchorPoint, rope_end: RigidBody2D):
+	anchor.is_attached = true
+
+	rope_end.freeze = true
+	
 	rest_length = player.player_controller.global_position.distance_to(anchor.global_position)
 	rest_length += rope_base_len
 	rest_length = clampf(rest_length, 0.0, max_rope_length)
 	update_rope_in_anchorpoint(anchor)
-	rope.show()
+
 
 # WIP: ben
 func detach_from_anchor_point_with_rope(anchor: AnchorPoint, detached_pos):
