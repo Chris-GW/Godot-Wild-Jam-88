@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwdnaouxw5ko5"]
+
+[ext_resource type="Script" uid="uid://bwt35v47rtuxm" path="res://falling_rock/falling_rock.gd" id="1_bw20r"]
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_fikft"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bw20r"]
+radius = 66.48308
+
+[node name="FallingRock" type="RigidBody2D"]
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("1_bw20r")
+damage = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.58984375, 0.21948363, 0.04919512, 1)
+texture = ExtResource("1_fikft")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bw20r")
+debug_color = Color(0.70196074, 0.049264442, 0.6167541, 0.41960785)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -19.0
+offset_right = 23.0
+offset_bottom = 15.0
+text = "Rock"

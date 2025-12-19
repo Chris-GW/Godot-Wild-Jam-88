@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://i21p3hxkdn7u"]
+
+[ext_resource type="Script" uid="uid://brfal4tfqp70" path="res://falling_rock/falling_rock_path.gd" id="1_de804"]
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_n3pgo"]
+
+[sub_resource type="Curve2D" id="Curve2D_de804"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -217, 304, 0, 0, 0, 0, 0, 200, 0, 0, 0, 0, 100, 200)
+}
+point_count = 4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n3pgo"]
+radius = 66.48308
+
+[node name="FallingRockPath" type="Path2D"]
+curve = SubResource("Curve2D_de804")
+script = ExtResource("1_de804")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotation = 1.5707964
+rotates = false
+loop = false
+
+[node name="Rock" type="AnimatableBody2D" parent="PathFollow2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Rock"]
+self_modulate = Color(0.58984375, 0.21948363, 0.04919512, 1)
+texture = ExtResource("1_n3pgo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Rock"]
+shape = SubResource("CircleShape2D_n3pgo")
+debug_color = Color(0.70196074, 0.049264442, 0.6167541, 0.41960785)
+
+[node name="Label" type="Label" parent="PathFollow2D/Rock"]
+offset_left = -24.0
+offset_top = -19.0
+offset_right = 23.0
+offset_bottom = 15.0
+text = "Rock"
