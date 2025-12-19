@@ -1,7 +1,7 @@
 class_name Mover extends Node2D
 
 var MIN_SPEED := 0.0
-var MAX_SPEED := 1000.0
+var MAX_SPEED := 500.0
 
 var velocity := Vector2(0.0,0.0)
 var acceleration := Vector2(0.0, 0.0)
@@ -19,7 +19,7 @@ var noise := FastNoiseLite.new()
 
 var collider: CollisionShape2D
 
-@onready var scout_area2d: Scout_Area2D = $Scout_Area2D
+@onready var scout_area2d = $Scout_Area2D
 @onready var scout_area2d_collider: CollisionShape2D = $Scout_Area2D/CollisionShape2D
 
 @onready var battery_remain = $Battery/BatteryRemain

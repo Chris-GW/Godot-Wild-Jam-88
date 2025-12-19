@@ -185,7 +185,7 @@ class GrapplingState extends State:
 	var rest_length
 	var max_rope_length = 400.0
 	var reel_in_speed = 120.0
-	var let_out_speed = 180.0
+	var let_out_speed = 120.0
 
 	var current_anchor = null
 	#var prev_anchor = null
@@ -315,11 +315,13 @@ class ScoutingState extends State:
 		name_str = _name
 
 		scout = machine.SCOUT.instantiate()
-		mover = scout.get_child(0)
+		mover = scout.get_node("Mover")
 		mover.in_the_world = false
-
+		
 		machine.add_child(scout)
 		scout.hide()
+
+		mover.scout_area2d.set_monitoring(false) 
 
 		scout_camera = FollowCamera.new()
 		scout_camera.follow_target = mover
@@ -336,6 +338,8 @@ class ScoutingState extends State:
 			scout_camera.global_position = pos
 			mover.in_the_world = true
 			machine.scout_in_inventory = false
+			mover.scout_area2d.set_monitoring(true)
+			
 			
 		mover.acceleration = Vector2.ZERO
 		mover.velocity = Vector2.ZERO
@@ -346,7 +350,7 @@ class ScoutingState extends State:
 	func run(delta):
 		if battery > 0:
 			var iv = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-			mover.apply_force(iv * 50.0)
+			mover.apply_force(iv * 250.0)
 
 		battery -= delta * battery_drain_speed * battery_drain_speed
 		if battery <= 0:
@@ -356,6 +360,10 @@ class ScoutingState extends State:
 
 		set_battery_bar(battery / battery_max)
 
+	func recharge():
+		if not mover.in_the_world:
+			battery = battery_max
+		
 	func set_battery_bar(val: float):
 		val = clampf(val,0.0,1.0)
 		update_bar(val)
@@ -402,9 +410,9 @@ var scouting_state
 
 var max_health:= 100
 var health = 100
-var stamina = 100.0
 var max_stamina = 100.0
-var stamina_drain_per_second = 15.0
+var stamina = max_stamina
+var stamina_drain_per_second = 12.0
 var stamina_recover_per_second = 30.0
 
 var flash_light: FlashLight
@@ -487,6 +495,7 @@ func highlight_nearest_interactable() -> void:
 	interactables.sort_custom(sort_by_distance)
 	if not interactables.is_empty():
 		var nearest_interactable = interactables.front()
+		#print("nearest_interactable: ", nearest_interactable)
 		nearest_interactable.call("select_for_interaction")
 
 func change_state(s: State):
@@ -505,7 +514,7 @@ func _unhandled_input(event):
 
 	if event.is_action_pressed("debug_add_anchor"):
 		var ap = ANCHOR_POINT.instantiate()
-		ap.global_position = player_controller.global_position
+		ap.global_position = player_controller.global_position + Vector2(0,-100)
 		get_tree().current_scene.add_child(ap)
 		#print(ap, ap.global_position, machine.player_controller.global_position)
 		
@@ -539,13 +548,17 @@ func interact() -> void:
 		return interactable.call("can_interact"))
 	interactables.sort_custom(sort_by_distance)
 	if not interactables.is_empty():
+		for i in interactables:
+			if i is Scout_Area2D:
+				i.do_interaction()
+				return
 		var nearest_interactable = interactables.front()
 		nearest_interactable.call("do_interaction")
 		#print("nearest_interactable: ", nearest_interactable)
 
 signal changing_anchor_point
 func _is_interacting(node: Node2D):
-	#print("_on_interacting: ", node)
+	print("_is_interacting: ", node)
 	if node is AnchorPoint:
 		if grappling_state.current_anchor != null:
 			grappling_state.current_anchor.detach(player_controller.global_position)
@@ -556,7 +569,11 @@ func _is_interacting(node: Node2D):
 		# TODO: switch to Repairing state to manage repair animations etc (if needed)
 		#print("getting repair target")
 		pass
-		
+
+	if node is RechargingStation:
+		print("interacting with recharging station")
+		scouting_state.recharge()
+		flash_light.recharge()
 		
 func sort_by_distance(a: Node2D, b : Node2D) -> bool:
 	var distance_a := self.global_position.distance_squared_to(a.global_position)
@@ -577,6 +594,7 @@ func _on_interacting_with_scout():
 	scouting_state.scout.hide()
 	scout_in_inventory = true
 	scouting_state.mover.collider.disabled = true
+	scouting_state.mover.scout_area2d.set_monitoring(false)
 	#print("in world? ",  scouting_state.mover.in_the_world)
 	if current_state == scouting_state:
 		change_state(walking_state)

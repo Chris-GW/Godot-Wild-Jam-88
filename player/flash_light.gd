@@ -37,6 +37,9 @@ func _input(event: InputEvent) -> void:
 		toggle_flashlight()
 
 
+func recharge():
+	battery = max_battery
+
 func toggle_flashlight() -> void:
 	if enabled:
 		switch_off()

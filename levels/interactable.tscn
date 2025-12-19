@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cf3a2pxq8bx7k"]
+
+[ext_resource type="Script" uid="uid://digsc78unutcn" path="res://testing_stuff/interactable.gd" id="1_wleuu"]
+[ext_resource type="Script" uid="uid://cea18vsbfbxqa" path="res://testing_stuff/my_tween_label.gd" id="2_a75ld"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hrdw"]
+
+[sub_resource type="SystemFont" id="SystemFont_a75ld"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cci7k"]
+font = SubResource("SystemFont_a75ld")
+outline_color = Color(2.9841065e-06, 0.47948885, 0.09803072, 1)
+
+[node name="Interactable" type="Area2D"]
+script = ExtResource("1_wleuu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(6.76, 6.76)
+shape = SubResource("CircleShape2D_6hrdw")
+
+[node name="Highlight" type="Line2D" parent="."]
+
+[node name="Label" type="Label" parent="Highlight"]
+offset_left = -18.0
+offset_top = -110.0
+offset_right = 22.0
+offset_bottom = -87.0
+scale = Vector2(1.7987878, 1.7987878)
+text = "[F]"
+
+[node name="MyTweenLabel" type="Label" parent="."]
+offset_left = -105.0
+offset_top = 82.0
+offset_right = -65.0
+offset_bottom = 105.0
+label_settings = SubResource("LabelSettings_cci7k")
+script = ExtResource("2_a75ld")

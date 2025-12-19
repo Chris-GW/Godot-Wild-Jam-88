@@ -30,9 +30,18 @@ shape = SubResource("CapsuleShape2D_0cbov")
 
 [node name="FlashLight2D" type="PointLight2D" parent="test_player_controller"]
 color = Color(0.9955804, 0.99558026, 0.99558026, 1)
-energy = 1.5
 texture = ExtResource("4_1i7j0")
 texture_scale = 1.5
+script = ExtResource("5_wuqd6")
+max_battery = 100.0
+battery_drain_per_second = 1.0
+metadata/_custom_type_script = "uid://clqvr8o481ivw"
+
+[node name="FlashLight2D2" type="PointLight2D" parent="test_player_controller/FlashLight2D"]
+color = Color(0.9955804, 0.99558026, 0.99558026, 1)
+energy = 0.7
+texture = ExtResource("4_1i7j0")
+texture_scale = 2.5
 script = ExtResource("5_wuqd6")
 max_battery = 100.0
 battery_drain_per_second = 1.0

@@ -46,11 +46,9 @@ scale = Vector2(0.2, 0.4)
 texture = ExtResource("1_d00sr")
 
 [node name="InteractionCollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -40)
+scale = Vector2(1.1112955, 1.1112955)
 shape = SubResource("CircleShape2D_wbj3q")
 debug_color = Color(0.64198023, 0.52430373, 1.92523e-07, 0.41960785)
-metadata/_edit_lock_ = true
 
 [node name="RopeLine2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 800, 0)
@@ -72,7 +70,7 @@ shape = SubResource("CircleShape2D_yp0rk")
 script = ExtResource("3_yp0rk")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RopeLine2D/RopeEndRigidBody/RopeEndArea2D"]
-scale = Vector2(24.406, 24.406)
+scale = Vector2(17.924786, 17.924786)
 shape = SubResource("CircleShape2D_yp0rk")
 
 [node name="Highlight" type="Node2D" parent="RopeLine2D/RopeEndRigidBody/RopeEndArea2D"]

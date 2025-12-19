@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvsysojqhsl5i"]
+[gd_scene load_steps=15 format=3 uid="uid://dvsysojqhsl5i"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_gkh1h"]
 [ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="2_sj2j1"]
@@ -16,6 +16,18 @@ polygon = PackedVector2Array(2592, 632, 2800, 744, 2984, 784, 3128, 888, 3168, 9
 
 [sub_resource type="LabelSettings" id="LabelSettings_gkh1h"]
 font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
+bg_color = Color(0.8117647, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_satuh"]
+bg_color = Color(0.1254902, 0.93333334, 0.078431375, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5284"]
+bg_color = Color(0.8117647, 0.84705883, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_satuh"]
+font_size = 64
 
 [node name="Level_00" instance=ExtResource("1_gkh1h")]
 level_resource = ExtResource("2_sj2j1")
@@ -307,5 +319,20 @@ offset_bottom = 641.0
 text = "heal up"
 label_settings = SubResource("LabelSettings_gkh1h")
 horizontal_alignment = 1
+
+[node name="HealthProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="1"]
+theme_override_styles/fill = SubResource("StyleBoxFlat_63c5o")
+
+[node name="StaminaProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="3"]
+theme_override_styles/fill = SubResource("StyleBoxFlat_satuh")
+
+[node name="FlashlightProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="5"]
+theme_override_styles/fill = SubResource("StyleBoxFlat_p5284")
+
+[node name="HeaderLabel" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_satuh")
+
+[node name="HeaderLabel" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_satuh")
 
 [connection signal="repaired" from="MapRoot/TrainingFacility/RepairTarget" to="MapRoot/TrainingFacility/RepairTarget/BlockingHazard" method="_on_repair_target_repaired"]

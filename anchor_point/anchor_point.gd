@@ -74,10 +74,11 @@ func _on_body_entered(body: Node2D) -> void:
 
 	# my testing player controller is in the player group
 	elif body.is_in_group("player"):
-		#print("entering anchor")
-		# TODO: the body is the playercontroller, the parent is statemachine
-		player = body.get_parent()
+		print("entering anchor")
+		player = body.get_parent() # player_state_machine
+		select_for_interaction()
 		player.add_interactable(self)
+		
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player:
@@ -86,10 +87,9 @@ func _on_body_exited(body: Node2D) -> void:
 		
 	# my testing player controller is in the player group
 	elif body.is_in_group("player"):
-		#print("exiting anchor")
-		# TODO: the body is the playercontroller, the parent is statemachine
-		player = body.get_parent()
-		unselect_for_interaction()
+		print("exiting anchor")
+		player = body.get_parent() # player_state_machine
+		unselect_for_interaction() 
 		player.remove_interactable(self)
 		
 func can_interact() -> bool:
@@ -138,7 +138,7 @@ func _on_rope_end_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		if body.get_parent() is PlayerStateMachine:
 			var player = body.get_parent()
-			#print("WE GOT PLAYER IN ROPE END AREA 2D")
+			print("WE GOT PLAYER IN ROPE END AREA 2D")
 			rope_end_area2d.select_for_interaction()
 			player.add_interactable(rope_end_area2d)
 
