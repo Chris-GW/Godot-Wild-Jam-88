@@ -1,5 +1,4 @@
-extends OverlaidWindowContainer
-
+extends Control
 
 const LEVEL_SELECT_BUTTON = preload("uid://bupyqfgj0x1rx")
 const LEVEL_RESOURCES = [
@@ -16,10 +15,7 @@ var select_level_button_group := ButtonGroup.new()
 
 
 func _ready() -> void:
-	super._ready()
 	_build_level_buttons()
-	if instance and instance.has_signal(&"end_reached"):
-		instance.connect(&"end_reached", close)
 
 
 func _build_level_buttons() -> void:
