@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot Wild Jam #88"
-run/main_scene="res://ui/opening.tscn"
+run/main_scene="res://scenes/opening/opening.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -39,6 +39,8 @@ folder_colors={
 "res://assets/": "purple",
 "res://levels/": "pink",
 "res://resources/": "purple",
+"res://scenes/": "yellow",
+"res://scripts/": "orange",
 "res://ui/": "green",
 "res://ui/game_paused_ui/": "green",
 "res://ui/level_select_menu/": "green"
@@ -48,10 +50,6 @@ folder_colors={
 
 player=""
 repair_targets=""
-
-[gui]
-
-theme/custom="uid://blup30ovkyk5j"
 
 [input]
 
