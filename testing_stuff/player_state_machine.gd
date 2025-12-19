@@ -455,6 +455,7 @@ func _ready() -> void:
 		print("grapple control from player: ", grapple_control)
 	else:
 		print("no grapple control found")
+	
 
 func _on_taking_collision_damage(dmg: int):
 	print("receiving collision damage in playerstatemachine: ", dmg)

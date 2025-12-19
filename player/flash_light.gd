@@ -21,7 +21,8 @@ func _process(delta: float) -> void:
 	if enabled:
 		self.look_at(get_global_mouse_position())
 		_do_drain_battery(delta)
-
+		
+	FogOfWar.clear_fog_at(global_position, 32.0)
 
 func _do_drain_battery(delta: float) -> void:
 	battery -= battery_drain_per_second * delta

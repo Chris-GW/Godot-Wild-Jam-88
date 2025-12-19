@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4deb258bgxku"]
+[gd_scene load_steps=18 format=3 uid="uid://b4deb258bgxku"]
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_ngl01"]
 [ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="2_6hrdw"]
@@ -6,8 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="3_6hrdw"]
 [ext_resource type="Script" uid="uid://dwarkrjxv15wl" path="res://levels/hud_canvas_layer.gd" id="4_2wlag"]
 [ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="5_3ew82"]
-[ext_resource type="PackedScene" uid="uid://cf3a2pxq8bx7k" path="res://levels/interactable.tscn" id="7_6hrdw"]
+[ext_resource type="PackedScene" uid="uid://cf3a2pxq8bx7k" path="res://testing_stuff/interactable.tscn" id="7_6hrdw"]
 [ext_resource type="Script" uid="uid://cswmsnmgkusug" path="res://testing_stuff/recharging_station.gd" id="8_2wlag"]
+[ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="9_3ew82"]
+[ext_resource type="Shader" uid="uid://dfsuldvv3rwt6" path="res://testing_stuff/fog_shader.gdshader" id="10_0bj1y"]
+[ext_resource type="Script" uid="uid://1r2vdeg04sh1" path="res://testing_stuff/fog_of_war_color_rect.gd" id="11_6181x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
 bg_color = Color(0.8117647, 0, 0, 1)
@@ -22,6 +25,9 @@ bg_color = Color(0.8117647, 0.84705883, 0, 1)
 font_size = 64
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_6hrdw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6181x"]
+shader = ExtResource("10_0bj1y")
 
 [node name="BaseLevel" type="Node2D"]
 script = ExtResource("1_ngl01")
@@ -271,6 +277,20 @@ script = ExtResource("8_2wlag")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="RechargingStation"]
 scale = Vector2(65.64713, 65.64713)
 mesh = SubResource("CapsuleMesh_6hrdw")
+
+[node name="FogOfWar" type="Node" parent="."]
+script = ExtResource("9_3ew82")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6181x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4000.0
+offset_bottom = 4000.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_6181x")
 
 [connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/AbortLevelButton" to="." method="_on_abort_level_button_pressed"]
