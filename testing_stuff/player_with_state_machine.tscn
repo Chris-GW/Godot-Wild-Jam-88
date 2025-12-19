@@ -29,8 +29,10 @@ shape = SubResource("CapsuleShape2D_0cbov")
 [node name="camera_follow_target" type="Node2D" parent="test_player_controller"]
 
 [node name="FlashLight2D" type="PointLight2D" parent="test_player_controller"]
-energy = 0.8
+color = Color(0.9955804, 0.99558026, 0.99558026, 1)
+energy = 1.5
 texture = ExtResource("4_1i7j0")
+texture_scale = 1.5
 script = ExtResource("5_wuqd6")
 max_battery = 100.0
 battery_drain_per_second = 1.0

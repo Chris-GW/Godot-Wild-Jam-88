@@ -316,7 +316,6 @@ class ScoutingState extends State:
 
 		scout = machine.SCOUT.instantiate()
 		mover = scout.get_child(0)
-		mover.mass = 500.0
 		mover.in_the_world = false
 
 		machine.add_child(scout)
@@ -343,7 +342,6 @@ class ScoutingState extends State:
 		mover.active = true
 		mover.collider.disabled = false
 		scout_camera.make_current()
-		#mover.show()
 	
 	func run(delta):
 		if battery > 0:
@@ -460,7 +458,6 @@ func _on_hitting_floor(vec2, collider):
 
 func _on_hitting_wall(vec2, collider):
 	# TODO : use to implement a wall slide mechanic??
-	# NOTE: a steep static body is preventing my player from falling down in falling_state
 	#print("HITTING WALL in statemachine: ", collider)
 	if current_state == falling_state:
 		#current_state == wall_sliding_state
@@ -580,6 +577,6 @@ func _on_interacting_with_scout():
 	scouting_state.scout.hide()
 	scout_in_inventory = true
 	scouting_state.mover.collider.disabled = true
-	print("in world? ",  scouting_state.mover.in_the_world)
+	#print("in world? ",  scouting_state.mover.in_the_world)
 	if current_state == scouting_state:
 		change_state(walking_state)

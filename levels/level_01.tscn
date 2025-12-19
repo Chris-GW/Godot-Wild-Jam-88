@@ -24,7 +24,6 @@ polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 9
 level_resource = ExtResource("2_q7ibo")
 
 [node name="CanvasModulate" parent="." index="0"]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
