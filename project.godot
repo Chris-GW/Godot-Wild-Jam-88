@@ -40,6 +40,10 @@ folder_colors={
 player=""
 repair_targets=""
 
+[gui]
+
+theme/custom="uid://bbb46s26dyegp"
+
 [input]
 
 debug_sprint={

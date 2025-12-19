@@ -83,6 +83,7 @@ layout_mode = 2
 level_resource = ExtResource("3_ipm1h")
 
 [node name="BackButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Back to Main Menu"
