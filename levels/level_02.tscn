@@ -1,18 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://sf1jm4po11xs"]
+[gd_scene load_steps=14 format=3 uid="uid://sf1jm4po11xs"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_nnn84"]
 [ext_resource type="Resource" uid="uid://bm1n5b4q111ml" path="res://levels/level_resources/level_02_resource.tres" id="2_g685p"]
 [ext_resource type="PackedScene" uid="uid://ry7vbu0vwgk2" path="res://falling_rock/falling_rock_spawner.tscn" id="4_gia0r"]
-[ext_resource type="Curve2D" uid="uid://w4bt5yvpf57d" path="res://falling_rock/FallingRockSpawner2.tres" id="4_mihb8"]
-[ext_resource type="Curve2D" uid="uid://gyeec57jpj38" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
+[ext_resource type="Curve2D" uid="uid://t37mjmrhd1aq" path="res://falling_rock/FallingRockSpawner2.tres" id="4_mihb8"]
+[ext_resource type="Curve2D" uid="uid://vw2cyp1vhwkl" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
 [ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="5_didps"]
 [ext_resource type="Script" uid="uid://bl0o1aiwtaem4" path="res://falling_rock/falling_rock_kill_zone.gd" id="5_gia0r"]
 [ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_mihb8"]
 [ext_resource type="Script" uid="uid://p01qtto2251s" path="res://levels/level_02_effect_slow_spawner_3.gd" id="9_cwmx8"]
 [ext_resource type="PackedScene" uid="uid://e6apu060jjih" path="res://first_aid_kit/first_aid_kit.tscn" id="10_05651"]
+[ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="11_xxuo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mihb8"]
-size = Vector2(2082.5, 365.5)
+size = Vector2(2618.625, 461.75)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xxuo2"]
 
 [node name="Level_02" instance=ExtResource("1_nnn84")]
 level_resource = ExtResource("2_g685p")
@@ -21,70 +24,104 @@ level_resource = ExtResource("2_g685p")
 visible = false
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(3030, 2940)
+position = Vector2(3184, 4628)
 
-[node name="Cave" type="StaticBody2D" parent="MapRoot" index="1"]
+[node name="RepairTarget" parent="MapRoot" index="1" instance=ExtResource("7_mihb8")]
+position = Vector2(351, 3000)
+
+[node name="RepairTarget2" parent="MapRoot" index="2" instance=ExtResource("7_mihb8")]
+position = Vector2(3088, 4743)
+
+[node name="EffectSlowSpawner3" type="Node" parent="MapRoot/RepairTarget2" index="5" node_paths=PackedStringArray("rock_spawner")]
+script = ExtResource("9_cwmx8")
+rock_spawner = NodePath("../../Cave/FallingRockSpawner3")
+
+[node name="RepairTarget3" parent="MapRoot" index="3" instance=ExtResource("7_mihb8")]
+position = Vector2(4196, 3832)
+
+[node name="FirstAidKit" parent="MapRoot" index="4" instance=ExtResource("10_05651")]
+position = Vector2(460, 3078)
+
+[node name="Cave" type="StaticBody2D" parent="MapRoot" index="5"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/Cave" index="0"]
-polygon = PackedVector2Array(4, 730, 622, 753, 854, 748, 919, 751, 910, 855, 926, 952, 951, 964, 1062, 969, 1072, 992, 1063, 1005, 959, 1003, 920, 1052, 939, 1200, 935, 1412, 950, 1606, 985, 1793, 1007, 1975, 993, 2095, 1030, 2115, 1153, 2101, 1204, 2101, 1205, 2146, 1239, 2217, 1280, 2315, 1297, 2433, 1283, 2533, 1165, 2558, 977, 2642, 616, 2519, 347, 2579, 232, 2776, 297, 2999, 412, 3000, 412, 3078, 527, 3081, 840, 3049, 1136, 2964, 1321, 2968, 1388, 2968, 1389, 3016, 1359, 3144, 966, 3330, 846, 3522, 893, 3967, 836, 4302, 837, 4507, 893, 4609, 1026, 4693, 1529, 4647, 1928, 4686, 2265, 4701, 2884, 4690, 2852, 4370, 2938, 3919, 2902, 3694, 2818, 3523, 2839, 3373, 2795, 3186, 2770, 3122, 2761, 3062, 2873, 3065, 3079, 3048, 3340, 3083, 3434, 3082, 3452, 3163, 3409, 3314, 3306, 3459, 3203, 3702, 3498, 4650, 4007, 4984, 2230, 5061, -366, 4674, -431, 1296, -401, -102, -6, -100)
+polygon = PackedVector2Array(4, 730, 622, 753, 854, 748, 919, 751, 910, 855, 926, 952, 951, 964, 1062, 969, 1072, 992, 1063, 1005, 959, 1003, 920, 1052, 939, 1200, 935, 1412, 950, 1606, 985, 1793, 1007, 1975, 993, 2095, 1030, 2115, 1153, 2101, 1204, 2101, 1205, 2146, 1239, 2217, 1280, 2315, 1297, 2433, 1283, 2533, 1165, 2558, 977, 2642, 616, 2519, 347, 2579, 232, 2776, 297, 2999, 412, 3000, 412, 3078, 527, 3081, 840, 3049, 1136, 2964, 1321, 2968, 1388, 2968, 1389, 3016, 1359, 3144, 966, 3330, 846, 3522, 893, 3967, 718, 4537, 802, 5190, 794, 5494, 1269, 5520, 1410, 5391, 1448, 5087, 1326, 4524, 1397, 4533, 1995, 5332, 2011, 5380, 1990, 5438, 1923, 5449, 1896, 5407, 1861, 5401, 1715, 5415, 1582, 5521, 1278, 5749, 1199, 6041, 858, 6009, -441, 6100, -1360, 5958, -1297, -208, -6, -100)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/Cave" index="1"]
-polygon = PackedVector2Array(845, -100, 746, -70, 752, 33, 703, 155, 797, 246, 853, 342, 969, 452, 1098, 474, 1136, 645, 1184, 684, 1257, 647, 1310, 568, 1254, 444, 1205, 267, 1123, 171, 1189, 26, 1333, -151, 1598, -127, 2285, -38, 2070, 616, 1819, 1069, 1609, 1299, 1517, 1561, 1517, 1716, 1546, 1745, 1614, 1733, 1676, 1753, 1718, 1806, 1742, 1943, 1737, 2100, 1673, 2223, 1589, 2204, 1536, 2204, 1536.5403, 2243.972, 1561, 2326, 1613, 2489, 1687, 2508, 1771, 2545, 1856, 2685, 1970, 2774, 2234.975, 2784.0945, 2286, 2751, 2299, 2606, 2371, 2499, 2517, 2226, 2534, 1841, 2701, 1843, 2715, 2511, 2752, 2653, 2940, 2707, 3006, 2788, 3181, 2766, 3374, 2788, 3494, 2708, 3227, 1831, 3307, 1143, 3497, 326, 3129, -357, 1025, -355)
+polygon = PackedVector2Array(845, -100, 746, -70, 752, 33, 703, 155, 797, 246, 853, 342, 969, 452, 1098, 474, 1136, 645, 1184, 684, 1257, 647, 1310, 568, 1254, 444, 1205, 267, 1123, 171, 1189, 26, 1333, -151, 1598, -127, 2285, -38, 2070, 616, 1819, 1069, 1609, 1299, 1517, 1561, 1517, 1716, 1546, 1745, 1614, 1733, 1676, 1753, 1718, 1806, 1742, 1943, 1737, 2100, 1673, 2223, 1589, 2204, 1536, 2204, 1536.5403, 2243.972, 1561, 2326, 1613, 2489, 1687, 2508, 1771, 2545, 1856, 2685, 1970, 2774, 2234.975, 2784.0945, 2286, 2751, 2299, 2606, 2371, 2499, 2517, 2226, 2534, 1841, 2701, 1843, 2715, 2511, 2752, 2653, 2940, 2707, 3006, 2788, 3181, 2766, 3374, 2788, 3480, 2715, 3528, 2581, 3439, 2162, 3562, 1646, 3785, 1358, 4140, 1306, 4458, 1462, 4665, 2225, 4837, 2691, 4832, 3283, 4749, 3627, 4723, 3861, 4416, 3822, 4047, 3845, 3828, 3833, 3776, 3807, 3628, 3807, 3653, 3930, 3603, 4102, 3613, 4299, 3587, 4490, 3451, 4490, 3430, 4619, 3371, 4633, 3391, 4708, 3377, 4755, 3241, 4762, 3025, 4764, 2896, 4744, 2834.7017, 4733.3667, 2798, 4727, 2765, 4728, 2763, 4741, 2782, 4761, 2829, 4763, 2875, 4792, 2977, 4799, 3065, 4824, 3164, 4844, 3231, 4918, 3455, 5029, 3511, 5123, 3606, 5429, 3522, 5974, 3834, 6708, 6146, 8050, 6175, -575, 2893, -454, 1025, -355)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapRoot/Cave" index="2"]
 polygon = PackedVector2Array(1193, 1217, 1306, 1242, 1323, 1273, 1334, 1364, 1334, 1512, 1343, 1627, 1336, 1649, 1313, 1654, 1287, 1598, 1255, 1513, 1213, 1416, 1188, 1368, 1136, 1303, 1123, 1259, 1136, 1233)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="MapRoot/Cave" index="3"]
 position = Vector2(204, -56)
-polygon = PackedVector2Array(1546, 3119, 1688, 3224, 1687, 3683, 1791, 4194, 1744, 4410, 1757, 4635, 1701, 4761, 2056, 4761, 2152, 4410, 2134, 3814, 2220, 3562, 2270, 3334, 2269, 3199, 2290, 3154, 2290, 3115, 2128, 3112, 1865, 3090, 1707, 3081, 1620, 3044, 1528, 3045, 1528, 3085)
+polygon = PackedVector2Array(1546, 3119, 1688, 3224, 1648, 3444, 1727, 3686, 1673, 3962, 1647, 4370, 1544, 4689, 1653, 4876, 1808, 5072, 1896, 5165, 1936, 5148, 1977, 5159, 2002, 5160, 2048, 4936, 2093, 4859, 2206, 4823, 2254, 4843, 2278, 4844, 2285, 4709, 2315, 4633, 2322, 4545, 2324, 4475, 2334, 4404, 2236, 4259, 2184, 4054, 2087, 3957, 2126, 3749, 2252, 3551, 2270, 3334, 2269, 3199, 2290, 3154, 2290, 3115, 2128, 3112, 1865, 3090, 1707, 3081, 1620, 3044, 1528, 3045, 1528, 3085)
 
-[node name="FallingRockSpawner2" parent="MapRoot/Cave" index="4" instance=ExtResource("4_gia0r")]
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="MapRoot/Cave" index="4"]
+position = Vector2(204, -56)
+polygon = PackedVector2Array(2562, 3121, 2669, 3123, 2877, 3112, 3126, 3139, 3230, 3139, 3246, 3228, 3202, 3381, 3223, 3538, 3195, 3635, 3097, 3763, 3076, 3947, 3069, 4106, 3087, 4150, 3126, 4155, 3164, 4151, 3169, 4172, 3167, 4194, 3158, 4232, 3129, 4274, 3075, 4285, 3026, 4358, 2976, 4425, 2999, 4484, 2980, 4528, 2912.4495, 4528.951, 2815, 4531, 2767, 4531, 2557, 4553, 2519, 4552, 2523, 4479, 2516, 4409, 2583, 4276, 2610, 4096, 2669, 3999, 2599, 3795, 2641, 3592, 2640, 3387, 2567, 3174)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="MapRoot/Cave" index="5"]
+position = Vector2(-133, 618)
+polygon = PackedVector2Array(1952, 5367, 2066, 5373, 2188, 5355, 2236, 5324, 2352, 5323, 2390, 5311, 2433, 5329, 2443, 5380, 2423, 5486, 2340, 5546, 2292, 5695, 2311, 5797, 2277, 5919, 2223, 6011, 2082, 6025, 2008, 5903, 1881, 5894, 1767, 5839, 1720, 5612, 1672, 5456, 1804, 5435)
+
+[node name="FallingRockSpawner2" parent="MapRoot/Cave" index="6" instance=ExtResource("4_gia0r")]
 position = Vector2(2174, 24)
 curve = ExtResource("4_mihb8")
 spawn_times = Array[float]([3.5, 0.3, 0.4])
 inital_velocity = Vector2(-100, 500)
+record_fall_path = true
 
-[node name="FallingRockSpawner3" parent="MapRoot/Cave" index="5" instance=ExtResource("4_gia0r")]
+[node name="FallingRockSpawner3" parent="MapRoot/Cave" index="7" instance=ExtResource("4_gia0r")]
 position = Vector2(2623, 1920)
 curve = ExtResource("5_2owmk")
 spawn_times = Array[float]([0.15, 0.3, 0.2, 0.4])
 inital_velocity = Vector2(0, 600)
+record_fall_path = true
 
-[node name="AnchorPoint" parent="MapRoot/Cave" index="6" instance=ExtResource("5_didps")]
+[node name="AnchorPoint" parent="MapRoot/Cave" index="8" instance=ExtResource("5_didps")]
 position = Vector2(1316.0001, 1256)
 rotation = 1.0471976
 
-[node name="AnchorPoint3" parent="MapRoot/Cave" index="7" instance=ExtResource("5_didps")]
+[node name="AnchorPoint3" parent="MapRoot/Cave" index="9" instance=ExtResource("5_didps")]
 position = Vector2(1533, 2219)
 rotation = -1.5707964
 
-[node name="AnchorPoint2" parent="MapRoot/Cave" index="8" instance=ExtResource("5_didps")]
+[node name="AnchorPoint2" parent="MapRoot/Cave" index="10" instance=ExtResource("5_didps")]
 position = Vector2(1127, 1243.0001)
 rotation = -1.0471976
 
-[node name="FallingRockKillArea2D" type="Area2D" parent="MapRoot/Cave" index="9"]
+[node name="FallingRockKillArea2D" type="Area2D" parent="MapRoot/Cave" index="11"]
 collision_layer = 0
 collision_mask = 128
 monitorable = false
 script = ExtResource("5_gia0r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapRoot/Cave/FallingRockKillArea2D" index="0"]
-position = Vector2(1882.75, 4529)
+position = Vector2(379, 7418)
 shape = SubResource("RectangleShape2D_mihb8")
 debug_color = Color(0.5035342, 0.70196074, 0.14741865, 0.41960785)
 
-[node name="RepairTarget" parent="MapRoot/Cave" index="10" instance=ExtResource("7_mihb8")]
-position = Vector2(351, 3000)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MapRoot/Cave/FallingRockKillArea2D" index="1"]
+position = Vector2(1897, 10663)
+shape = SubResource("WorldBoundaryShape2D_xxuo2")
+debug_color = Color(0.5035342, 0.70196074, 0.14741865, 0.41960785)
 
-[node name="EffectSlowSpawner3" type="Node" parent="MapRoot/Cave/RepairTarget" index="5" node_paths=PackedStringArray("rock_spawner")]
-script = ExtResource("9_cwmx8")
-rock_spawner = NodePath("../../FallingRockSpawner3")
-
-[node name="AnchorPoint4" parent="MapRoot/Cave" index="11" instance=ExtResource("5_didps")]
+[node name="AnchorPoint4" parent="MapRoot/Cave" index="12" instance=ExtResource("5_didps")]
 position = Vector2(3419, 3078)
 
-[node name="RepairTarget" parent="." index="4" instance=ExtResource("7_mihb8")]
-position = Vector2(4269, 2996)
+[node name="AnchorPoint5" parent="MapRoot/Cave" index="13" instance=ExtResource("5_didps")]
+position = Vector2(2741, 4497)
+rotation = -3.1415927
 
-[node name="FirstAidKit" parent="." index="5" instance=ExtResource("10_05651")]
-position = Vector2(460, 3078)
+[node name="AnchorPoint6" parent="MapRoot/Cave" index="14" instance=ExtResource("5_didps")]
+position = Vector2(2469, 4788)
+rotation = -3.1415927
+
+[node name="AnchorPoint8" parent="MapRoot/Cave" index="15" instance=ExtResource("5_didps")]
+position = Vector2(2194, 5106)
+rotation = -3.1415927
+
+[node name="HazardSpike" parent="MapRoot/Cave" index="16" instance=ExtResource("11_xxuo2")]
+position = Vector2(1361, 4530)
+damage_amount = 9999

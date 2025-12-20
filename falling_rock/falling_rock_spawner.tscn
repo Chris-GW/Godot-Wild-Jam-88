@@ -10,6 +10,7 @@ curve = SubResource("Curve2D_lv6cl")
 script = ExtResource("1_h8b7i")
 
 [node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.58984375, 0.21948363, 0.04919512, 1)

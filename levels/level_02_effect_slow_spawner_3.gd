@@ -9,7 +9,4 @@ func _ready() -> void:
 
 
 func _on_repaired(_target: RepairTarget) -> void:
-	rock_spawner.spawn_times.clear()
-	rock_spawner.spawn_times.append(3.0)
-	rock_spawner.spawn_times.append(2.5)
-	rock_spawner.spawn_times.append(0.4)
+	rock_spawner.spawn_times = [3.0, 2.5, 0.4]

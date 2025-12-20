@@ -35,9 +35,11 @@ func _physics_process(_delta: float) -> void:
 
 
 func _start_spawn_next_timer() -> void:
-	spawn_timer.start(spawn_times.get(spawn_time_idx))
-	spawn_time_idx += 1
 	spawn_time_idx = spawn_time_idx % spawn_times.size()
+	spawn_time_idx = clampi(spawn_time_idx, 0, spawn_times.size())
+	var spawn_time: float = spawn_times.get(spawn_time_idx)
+	spawn_timer.start(spawn_time)
+	spawn_time_idx += 1
 
 
 func _on_spawn_timer_timeout() -> void:
