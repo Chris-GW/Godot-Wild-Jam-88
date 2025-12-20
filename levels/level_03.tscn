@@ -57,6 +57,11 @@ position = Vector2(215, 256)
 
 [node name="Pickup" parent="MapRoot" instance=ExtResource("5_j4ks3")]
 position = Vector2(330, 357)
+text = "here is one pickup"
+
+[node name="Pickup2" parent="MapRoot" instance=ExtResource("5_j4ks3")]
+position = Vector2(824, 366)
+text = "here is another"
 
 [node name="HudCanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

@@ -1,7 +1,7 @@
 class_name Pickup extends Area2D
 @onready var my_tween_label = $MyTweenLabel
 
-
+@export var text: String
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -12,4 +12,4 @@ func _on_body_entered(body: Node2D) -> void:
 
 func try_pickup(player) -> void:
 	my_tween_label.move_above_player(player.player_controller)
-	my_tween_label.show_floating("PICKING UP")
+	my_tween_label.show_floating(text)
