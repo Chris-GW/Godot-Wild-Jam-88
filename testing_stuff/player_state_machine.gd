@@ -4,10 +4,12 @@ class_name PlayerStateMachine extends Node2D
 class State extends Node:
 	var name_str: String
 	var machine = null
-		
+	var anim: AnimatedSprite2D
+	
 	func _init(_machine, n: String):
 		machine = _machine
 		name_str = n
+		anim = machine.anim
 
 	func enter():
 		pass
@@ -86,9 +88,25 @@ class FallingState extends State:
 			
 class WalkingState extends State:
 	var speed = 450.0
+	var current_anim = ""
+
+	func set_anim(name: String):
+		if name == current_anim:
+			return
+		print("setting anim: ", name)
+		current_anim = name
+		anim.play(name)
 	
 	func run(delta):
+		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
+		if input == Vector2.ZERO:
+			set_anim("idle")
+			anim.flip_h = input.x < 0.0
+		else:
+			set_anim("walk")
+			
 		machine.player_controller.move(speed, delta)
+
 
 		if not  machine.player_controller.is_on_floor():
 			machine.change_state(machine.falling_state)
@@ -309,6 +327,7 @@ class ScoutingState extends State:
 	var battery_max = 100.0
 	var battery = battery_max
 	var battery_drain_speed = 2.0
+	var scout_flashlight
 	
 	func _init(_machine, _name):
 		machine = _machine
@@ -326,6 +345,9 @@ class ScoutingState extends State:
 		scout_camera = FollowCamera.new()
 		scout_camera.follow_target = mover
 		machine.add_child(scout_camera)
+		scout_flashlight = Global.find_node_if_type(mover, func(n): return n is FlashLight)
+		if not scout_flashlight:
+			print("NO SCOUT FLASHLIGHT")
 		
 	func enter():
 		var pos = machine.player_controller.global_position+ Vector2(100,-100)
@@ -389,6 +411,7 @@ const ANCHOR_POINT = preload("uid://0k877ukwywbb")
 const SCOUT = preload("uid://brhryu6q8dwuy")
 var scout_in_inventory := true
 
+@onready var anim: AnimatedSprite2D = $test_player_controller/AnimatedSprite2D_Diffuse
 @onready var player_camera = $FollowCamera
 @onready var player_controller: CharacterBody2D = $test_player_controller
 signal changing_state(state)
@@ -527,6 +550,12 @@ func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
 		#print("pressing interact")
 		interact()
+
+	if event.is_action_pressed("toggle_flashlight"):
+		if current_state == scouting_state:
+			scouting_state.scout_flashlight.toggle_flashlight()
+		else:
+			flash_light.toggle_flashlight()
 
 func take_damage(damage: int) -> void:
 	if not invulnerable_timer.is_stopped():
