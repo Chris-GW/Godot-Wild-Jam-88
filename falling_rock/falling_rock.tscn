@@ -7,10 +7,17 @@
 radius = 66.48308
 
 [node name="FallingRock" type="RigidBody2D"]
+collision_layer = 129
+collision_mask = 129
 contact_monitor = true
 max_contacts_reported = 3
 script = ExtResource("1_bw20r")
-damage = 30
+damage = 40
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.58984375, 0.21948363, 0.04919512, 1)
@@ -26,3 +33,5 @@ offset_top = -19.0
 offset_right = 23.0
 offset_bottom = 15.0
 text = "Rock"
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

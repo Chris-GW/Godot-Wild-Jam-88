@@ -112,6 +112,10 @@ toggle_flashlight={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_8="falling_rock"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -12,7 +12,7 @@ var GRAVITY    := 40.0
 #var ACCEL_MODE := true
 var ACCEL_MODE := false
 
-var last_velocity
+var last_velocity := Vector2.ZERO
 
 signal hitting_wall(vec2, collider)
 signal hitting_floor(vec2, collider)
