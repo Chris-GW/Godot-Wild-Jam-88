@@ -15,10 +15,15 @@ run/main_scene="uid://dieyxygchul8u"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://v1kwrylm22rc"
+
 [autoload]
 
 Global="*res://Global.gd"
 FogOfWar="*res://testing_stuff/fog_of_war.gd"
+AudioManager="*res://testing_stuff/audio_manager.tscn"
 
 [display]
 

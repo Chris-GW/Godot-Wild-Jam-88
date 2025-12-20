@@ -72,7 +72,7 @@ heal_amount = 99
 position = Vector2(1576, 2186)
 
 [node name="AnchorPoint4" parent="MapRoot/TrainingFacility" index="6" instance=ExtResource("3_wybcj")]
-position = Vector2(1392, 2624)
+position = Vector2(1392, 2518)
 rotation = 1.5707964
 
 [node name="AnchorPoint" parent="MapRoot/TrainingFacility" index="7" instance=ExtResource("3_wybcj")]
@@ -180,7 +180,7 @@ texture = ExtResource("7_iqu7t")
 texture_scale = 3.0
 
 [node name="PointLight2D14" type="PointLight2D" parent="MapRoot/TrainingFacility/Lights" index="10"]
-position = Vector2(1408, 2576)
+position = Vector2(1408, 2470)
 energy = 2.0
 shadow_enabled = true
 texture = ExtResource("7_iqu7t")

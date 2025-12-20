@@ -5,11 +5,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6hrdw"]
 
-[sub_resource type="SystemFont" id="SystemFont_a75ld"]
+[sub_resource type="SystemFont" id="SystemFont_mjtev"]
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_cci7k"]
-font = SubResource("SystemFont_a75ld")
+font = SubResource("SystemFont_mjtev")
 outline_color = Color(2.9841065e-06, 0.47948885, 0.09803072, 1)
 
 [node name="Interactable" type="Area2D"]
@@ -30,9 +30,7 @@ scale = Vector2(1.7987878, 1.7987878)
 text = "[F]"
 
 [node name="MyTweenLabel" type="Label" parent="."]
-offset_left = -67.0
-offset_top = -145.0
-offset_right = -27.0
-offset_bottom = -122.0
+offset_right = 40.0
+offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_cci7k")
 script = ExtResource("2_a75ld")

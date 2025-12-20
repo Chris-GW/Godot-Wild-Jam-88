@@ -101,9 +101,9 @@ class WalkingState extends State:
 		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
 		if input == Vector2.ZERO:
 			set_anim("idle")
-			anim.flip_h = input.x < 0.0
 		else:
 			set_anim("walk")
+			anim.flip_h = input.x < 0.0
 			
 		machine.player_controller.move(speed, delta)
 
@@ -361,7 +361,8 @@ class ScoutingState extends State:
 			mover.in_the_world = true
 			machine.scout_in_inventory = false
 			mover.scout_area2d.set_monitoring(true)
-			
+			scout_flashlight.toggle_flashlight()
+
 			
 		mover.acceleration = Vector2.ZERO
 		mover.velocity = Vector2.ZERO
@@ -466,6 +467,8 @@ func _ready() -> void:
 	player_controller.hitting_wall.connect(_on_hitting_wall)
 	player_controller.hitting_floor.connect(_on_hitting_floor)
 	scouting_state.mover.scout_area2d.interacting_with_scout.connect(_on_interacting_with_scout)
+
+	anim.frame_changed.connect(_on_anim_frame_changed)
 	
 	flash_light = find_node_if_type(self, func(n): return n is FlashLight)
 	if flash_light:
@@ -480,6 +483,14 @@ func _ready() -> void:
 		print("no grapple control found")
 	
 
+func _on_anim_frame_changed():
+	# TODO: not sure how i want to manage animations + sound yet
+	if anim.animation == "walk":
+		if anim.frame == 0 or anim.frame == 12:
+			print("PLAYING FOOTSEP")
+			AudioManager.play_sfx("footsteps")
+		
+		
 func _on_taking_collision_damage(dmg: int):
 	print("receiving collision damage in playerstatemachine: ", dmg)
 	change_health(-dmg)

@@ -45,7 +45,10 @@ func _ready() -> void:
 	hud.set_health(player.max_health)
 	hud.set_stamina(player.max_stamina)
 	hud.set_flashlight(player.flash_light.battery)
-	
+
+	if not AudioManager.music_player.playing:
+		AudioManager.play_bg_music()
+
 	for repair_target: RepairTarget in get_tree().get_nodes_in_group("repair_targets"):
 		repair_target.repaired.connect(_on_target_repaired)
 		if repair_target.required_repair:
@@ -65,11 +68,13 @@ func _on_target_repaired(_target: RepairTarget) -> void:
 
 func _on_player_died() -> void:
 	%DeathPanel.show()
+
 	get_tree().paused = true
 
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+	FogOfWar.reset_fog()
 
 func _on_abort_level_button_pressed() -> void:
 	get_tree().paused = false

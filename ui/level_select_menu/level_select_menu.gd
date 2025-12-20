@@ -5,6 +5,7 @@ const LEVEL_RESOURCES = [
 	preload("res://levels/level_resources/level_00_resource.tres"),
 	preload("res://levels/level_resources/level_01_resource.tres"),
 	preload("res://levels/level_resources/level_02_resource.tres"),
+	preload("res://levels/level_resources/level_03_resource.tres")
 ]
 
 @onready var level_buttons: VBoxContainer = %LevelButtons
@@ -17,7 +18,9 @@ var select_level_button_group := ButtonGroup.new()
 func _ready() -> void:
 	_build_level_buttons()
 
-
+	if not AudioManager.music_player.playing:
+		AudioManager.play_bg_music()
+	
 func _build_level_buttons() -> void:
 	for child in level_buttons.get_children():
 		level_buttons.remove_child(child)

@@ -1,5 +1,8 @@
 extends Label
 
+func move_above_player(player_controller):
+	global_position = player_controller.global_position + Vector2(0,-150)
+
 func show_floating(text_to_show: String) -> void:
 	text = text_to_show
 	modulate.a = 0.0              # start invisible

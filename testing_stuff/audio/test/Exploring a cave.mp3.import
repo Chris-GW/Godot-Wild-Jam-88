@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://7od1ygb836rn"
+path="res://.godot/imported/Exploring a cave.mp3-4de1e918c88b7376d22acdac50f62fba.mp3str"
+
+[deps]
+
+source_file="res://testing_stuff/audio/test/Exploring a cave.mp3"
+dest_files=["res://.godot/imported/Exploring a cave.mp3-4de1e918c88b7376d22acdac50f62fba.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

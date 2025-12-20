@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl6axy3jiyits"]
+
+[ext_resource type="Script" uid="uid://clwx6a4uiurou" path="res://testing_stuff/audio_manager.gd" id="1_t07ye"]
+[ext_resource type="AudioStream" uid="uid://7od1ygb836rn" path="res://testing_stuff/audio/test/Exploring a cave.mp3" id="2_fvina"]
+[ext_resource type="AudioStream" uid="uid://dbquh74elgh0" path="res://testing_stuff/audio/test/Footsteps.wav" id="3_axk81"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_t07ye")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_fvina")
+bus = &"BG_Music"
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Voice"
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_axk81")
+volume_db = -4.0
+bus = &"SFX"

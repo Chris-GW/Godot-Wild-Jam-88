@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://q0coufsl20wq"]
+
+[ext_resource type="Script" uid="uid://c4vd1xoxxheuf" path="res://testing_stuff/pickup.gd" id="1_w0rps"]
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_if15i"]
+[ext_resource type="Script" uid="uid://cea18vsbfbxqa" path="res://testing_stuff/my_tween_label.gd" id="3_pv13e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ort1"]
+radius = 55.03635
+
+[sub_resource type="SystemFont" id="SystemFont_a75ld"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_l3sgy"]
+font = SubResource("SystemFont_a75ld")
+outline_color = Color(2.9841065e-06, 0.47948885, 0.09803072, 1)
+
+[node name="Pickup" type="Area2D"]
+script = ExtResource("1_w0rps")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 1, 0.111307144, 1)
+position = Vector2(0, -31)
+scale = Vector2(0.48437503, 0.484375)
+texture = ExtResource("2_if15i")
+
+[node name="Line2D" type="Line2D" parent="Sprite2D"]
+visible = false
+points = PackedVector2Array(0, -60.95238, 0, 0, 60.95238, 0, 0, 0, 0, 60.95238, 0, 0, -60.95238, 0)
+width = 24.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -31)
+shape = SubResource("CircleShape2D_7ort1")
+debug_color = Color(0.70196074, 0.5559379, 0, 0.41960785)
+
+[node name="MyTweenLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_l3sgy")
+script = ExtResource("3_pv13e")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4deb258bgxku"]
+[gd_scene load_steps=19 format=3 uid="uid://b4deb258bgxku"]
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_ngl01"]
 [ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="2_6hrdw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="3_6hrdw"]
 [ext_resource type="Script" uid="uid://dwarkrjxv15wl" path="res://levels/hud_canvas_layer.gd" id="4_2wlag"]
 [ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="5_3ew82"]
+[ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="5_j4ks3"]
 [ext_resource type="PackedScene" uid="uid://cf3a2pxq8bx7k" path="res://testing_stuff/interactable.tscn" id="7_6hrdw"]
 [ext_resource type="Script" uid="uid://cswmsnmgkusug" path="res://testing_stuff/recharging_station.gd" id="8_2wlag"]
 [ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="9_3ew82"]
@@ -53,6 +54,9 @@ unique_name_in_owner = true
 
 [node name="PlayerStateMachine" parent="MapRoot" groups=["player"] instance=ExtResource("3_6hrdw")]
 position = Vector2(215, 256)
+
+[node name="Pickup" parent="MapRoot" instance=ExtResource("5_j4ks3")]
+position = Vector2(330, 357)
 
 [node name="HudCanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -259,6 +263,29 @@ rotation = -1.5707964
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D5"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 2946.774, -724.28094, 2971.0532, -644.7542, -1006.60156, 251.72284)
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="WorldColliders"]
+position = Vector2(182, 2277)
+rotation = -1.5707964
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D10"]
+position = Vector2(321.99994, 1849)
+rotation = 1.8069413
+polygon = PackedVector2Array(-964.5055, 236.20752, -311.45117, -24.822998, -19.146484, -276.18542, 1235.5132, -328.16357, 1253.9958, -251.35608, -202.13062, 339.7179)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D10"]
+position = Vector2(2272.9998, 3173)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 688.6367, -143.08179, -13.450195, 12.493591, -1006.60156, 251.72284)
+
+[node name="StaticBody2D11" type="StaticBody2D" parent="WorldColliders"]
+position = Vector2(3649, 2692)
+rotation = -3.1415927
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D11"]
+position = Vector2(337.23605, 1424.5576)
+rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
 [node name="StaticBody2D8" type="StaticBody2D" parent="WorldColliders"]
@@ -268,6 +295,30 @@ rotation = -1.5707964
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D8"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="WorldColliders"]
+position = Vector2(-416, 4419)
+rotation = -1.5707964
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+position = Vector2(337.23605, 1424.5576)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+position = Vector2(336.99988, 3234)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+position = Vector2(1372.9177, 4491.9243)
+rotation = 0.2617994
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+position = Vector2(3122.9998, 4492)
+rotation = 0.2299189
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
 [node name="RechargingStation" parent="." instance=ExtResource("7_6hrdw")]
@@ -286,8 +337,8 @@ material = SubResource("ShaderMaterial_6181x")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 4000.0
-offset_bottom = 4000.0
+offset_right = 4096.0
+offset_bottom = 4096.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_6181x")
