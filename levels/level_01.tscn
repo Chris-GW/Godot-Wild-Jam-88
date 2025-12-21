@@ -214,44 +214,52 @@ rotation = -1.5707964
 [node name="HazardSpike1" parent="MapRoot/Cave/Spikes" index="0" instance=ExtResource("4_q7ibo")]
 position = Vector2(456, 3056)
 
-[node name="HazardSpike2" parent="MapRoot/Cave/Spikes" index="1" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike15" parent="MapRoot/Cave/Spikes" index="1" instance=ExtResource("4_q7ibo")]
+position = Vector2(456, 3056)
+
+[node name="HazardSpike2" parent="MapRoot/Cave/Spikes" index="2" instance=ExtResource("4_q7ibo")]
 position = Vector2(520, 3080)
 
-[node name="HazardSpike3" parent="MapRoot/Cave/Spikes" index="2" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike3" parent="MapRoot/Cave/Spikes" index="3" instance=ExtResource("4_q7ibo")]
 position = Vector2(584, 3096)
 
-[node name="HazardSpike4" parent="MapRoot/Cave/Spikes" index="3" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike4" parent="MapRoot/Cave/Spikes" index="4" instance=ExtResource("4_q7ibo")]
 position = Vector2(648, 3088)
 
-[node name="HazardSpike5" parent="MapRoot/Cave/Spikes" index="4" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike5" parent="MapRoot/Cave/Spikes" index="5" instance=ExtResource("4_q7ibo")]
 position = Vector2(712, 3073)
 
-[node name="HazardSpike6" parent="MapRoot/Cave/Spikes" index="5" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike6" parent="MapRoot/Cave/Spikes" index="6" instance=ExtResource("4_q7ibo")]
 position = Vector2(776, 3064)
 
-[node name="HazardSpike7" parent="MapRoot/Cave/Spikes" index="6" instance=ExtResource("4_q7ibo")]
-position = Vector2(840, 3048)
+[node name="HazardSpike7" parent="MapRoot/Cave/Spikes" index="7" instance=ExtResource("4_q7ibo")]
+position = Vector2(842.85706, 3047.899)
+rotation = 0.073968895
 
-[node name="HazardSpike8" parent="MapRoot/Cave/Spikes" index="7" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike8" parent="MapRoot/Cave/Spikes" index="8" instance=ExtResource("4_q7ibo")]
 position = Vector2(904, 3041)
 
-[node name="HazardSpike9" parent="MapRoot/Cave/Spikes" index="8" instance=ExtResource("4_q7ibo")]
-position = Vector2(968, 3056)
+[node name="HazardSpike9" parent="MapRoot/Cave/Spikes" index="9" instance=ExtResource("4_q7ibo")]
+position = Vector2(970.85706, 3055.899)
+rotation = 0.073968895
 
-[node name="HazardSpike10" parent="MapRoot/Cave/Spikes" index="9" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike10" parent="MapRoot/Cave/Spikes" index="10" instance=ExtResource("4_q7ibo")]
 position = Vector2(1032, 3072)
 
-[node name="HazardSpike11" parent="MapRoot/Cave/Spikes" index="10" instance=ExtResource("4_q7ibo")]
-position = Vector2(1096, 3080)
+[node name="HazardSpike11" parent="MapRoot/Cave/Spikes" index="11" instance=ExtResource("4_q7ibo")]
+position = Vector2(1098.857, 3079.899)
+rotation = 0.073968895
 
-[node name="HazardSpike12" parent="MapRoot/Cave/Spikes" index="11" instance=ExtResource("4_q7ibo")]
-position = Vector2(1160, 3096)
+[node name="HazardSpike12" parent="MapRoot/Cave/Spikes" index="12" instance=ExtResource("4_q7ibo")]
+position = Vector2(1162.857, 3095.899)
+rotation = 0.073968895
 
-[node name="HazardSpike13" parent="MapRoot/Cave/Spikes" index="12" instance=ExtResource("4_q7ibo")]
+[node name="HazardSpike13" parent="MapRoot/Cave/Spikes" index="13" instance=ExtResource("4_q7ibo")]
 position = Vector2(1224, 3112)
 
-[node name="HazardSpike14" parent="MapRoot/Cave/Spikes" index="13" instance=ExtResource("4_q7ibo")]
-position = Vector2(1224, 3112)
+[node name="HazardSpike14" parent="MapRoot/Cave/Spikes" index="14" instance=ExtResource("4_q7ibo")]
+position = Vector2(1226.857, 3111.899)
+rotation = 0.073968895
 
 [node name="PointLight2D" type="PointLight2D" parent="MapRoot" index="5"]
 position = Vector2(424, 416)
