@@ -1,339 +1,159 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4deb258bgxku"]
+[gd_scene load_steps=6 format=3 uid="uid://7mpusl1yc8ng"]
 
-[ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_ngl01"]
-[ext_resource type="Resource" uid="uid://b3eeamovkiqpt" path="res://levels/level_resources/level_03_resource.tres" id="2_6181x"]
-[ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="3_6hrdw"]
-[ext_resource type="Script" uid="uid://dwarkrjxv15wl" path="res://levels/hud_canvas_layer.gd" id="4_2wlag"]
-[ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="5_3ew82"]
+[ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_0mo0b"]
 [ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="5_j4ks3"]
 [ext_resource type="PackedScene" uid="uid://cf3a2pxq8bx7k" path="res://testing_stuff/interactable.tscn" id="7_6hrdw"]
 [ext_resource type="Script" uid="uid://cswmsnmgkusug" path="res://testing_stuff/recharging_station.gd" id="8_2wlag"]
-[ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="9_3ew82"]
-[ext_resource type="Shader" uid="uid://dfsuldvv3rwt6" path="res://testing_stuff/fog_shader.gdshader" id="10_0bj1y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
-bg_color = Color(0.8117647, 0, 0, 1)
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_p0vsl"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_satuh"]
-bg_color = Color(0.1254902, 0.93333334, 0.078431375, 1)
+[node name="Level_03" instance=ExtResource("1_0mo0b")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5284"]
-bg_color = Color(0.8117647, 0.84705883, 0, 1)
+[node name="CaveBackground" parent="." index="1"]
+offset_right = 4096.0
+offset_bottom = 4096.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_satuh"]
-font_size = 64
+[node name="PlayerStateMachine" parent="MapRoot" index="0"]
+position = Vector2(97, 260)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_6hrdw"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6181x"]
-shader = ExtResource("10_0bj1y")
-
-[node name="Level_03" type="Node2D"]
-script = ExtResource("1_ngl01")
-level_resource = ExtResource("2_6181x")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.23392546, 0.23392546, 0.23392543, 1)
-
-[node name="MapRoot" type="Node2D" parent="."]
-unique_name_in_owner = true
-
-[node name="PlayerStateMachine" parent="MapRoot" groups=["player"] instance=ExtResource("3_6hrdw")]
-position = Vector2(215, 270)
-
-[node name="Pickup" parent="MapRoot" instance=ExtResource("5_j4ks3")]
+[node name="Pickup" parent="MapRoot" index="1" instance=ExtResource("5_j4ks3")]
 position = Vector2(330, 357)
 text = "here is one pickup"
 
-[node name="Pickup2" parent="MapRoot" instance=ExtResource("5_j4ks3")]
+[node name="Pickup2" parent="MapRoot" index="2" instance=ExtResource("5_j4ks3")]
 position = Vector2(824, 366)
 text = "here is another"
 
-[node name="HudCanvasLayer" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-layer = 3
-script = ExtResource("4_2wlag")
+[node name="RechargingStation" parent="MapRoot" index="3" instance=ExtResource("7_6hrdw")]
+position = Vector2(680, 324)
+script = ExtResource("8_2wlag")
 
-[node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
+[node name="MeshInstance2D" type="MeshInstance2D" parent="MapRoot/RechargingStation" index="3"]
+scale = Vector2(65.64713, 65.64713)
+mesh = SubResource("CapsuleMesh_p0vsl")
 
-[node name="VBoxContainer" type="GridContainer" parent="HudCanvasLayer/MarginContainer"]
-layout_mode = 2
-columns = 2
+[node name="WorldColliders" type="Node2D" parent="MapRoot" index="4"]
 
-[node name="HealthLabel" type="Label" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Health:"
-
-[node name="HealthProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 32)
-layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_63c5o")
-value = 44.0
-
-[node name="StaminaLabel" type="Label" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Stamina:"
-
-[node name="StaminaProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 32)
-layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_satuh")
-value = 66.0
-
-[node name="FlashLightLabel" type="Label" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Flashlight:"
-
-[node name="FlashlightProgressBar" type="ProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 32)
-layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_p5284")
-value = 82.0
-
-[node name="GamePausedUi" parent="HudCanvasLayer" instance=ExtResource("5_3ew82")]
-visible = false
-
-[node name="DeathPanel" type="PanelContainer" parent="HudCanvasLayer"]
-unique_name_in_owner = true
-process_mode = 3
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer/DeathPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HudCanvasLayer/DeathPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="HeaderLabel" type="Label" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "You died"
-label_settings = SubResource("LabelSettings_satuh")
-horizontal_alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 2
-
-[node name="RestartButton" type="Button" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 42
-text = "Restart Contract"
-
-[node name="AbortLevelButton" type="Button" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 42
-text = "Abort Contract"
-
-[node name="LevelWinPanel" type="PanelContainer" parent="HudCanvasLayer"]
-unique_name_in_owner = true
-process_mode = 3
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HudCanvasLayer/LevelWinPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HudCanvasLayer/LevelWinPanel/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="HeaderLabel" type="Label" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "You won"
-label_settings = SubResource("LabelSettings_satuh")
-horizontal_alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 2)
-layout_mode = 2
-
-[node name="FinishLevelButton" type="Button" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 42
-text = "Submit Job Report"
-
-[node name="WorldColliders" type="Node2D" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D" type="StaticBody2D" parent="MapRoot/WorldColliders" index="0"]
 position = Vector2(4, 0)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D" index="0"]
 position = Vector2(226, 521)
 rotation = 0.21101607
 polygon = PackedVector2Array(-163.91301, -111.132904, 90.5293, -164.613, 94.648895, -150.15521, -159.37448, -94.71948)
 
-[node name="StaticBody2D9" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D9" type="StaticBody2D" parent="MapRoot/WorldColliders" index="1"]
 position = Vector2(482, 9)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D9"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D9" index="0"]
 position = Vector2(226, 521)
 rotation = 0.21101607
 polygon = PackedVector2Array(-163.91301, -111.132904, 90.5293, -164.613, 94.648895, -150.15521, -159.37448, -94.71948)
 
-[node name="StaticBody2D6" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D6" type="StaticBody2D" parent="MapRoot/WorldColliders" index="2"]
 position = Vector2(-248, 0)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D6"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D6" index="0"]
 position = Vector2(226, 521)
 rotation = 0.21101607
 polygon = PackedVector2Array(-163.91301, -111.132904, 90.5293, -164.613, 94.648895, -150.15521, -159.37448, -94.71948)
 
-[node name="StaticBody2D7" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D7" type="StaticBody2D" parent="MapRoot/WorldColliders" index="3"]
 position = Vector2(-377, 472)
 rotation = -1.5707964
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D7"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D7" index="0"]
 position = Vector2(226, 521)
 rotation = 0.21101607
 polygon = PackedVector2Array(-163.91301, -111.132904, 211.9188, -194.70598, 215.0606, -180.0387, -160.98064, -97.44347)
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D3" type="StaticBody2D" parent="MapRoot/WorldColliders" index="4"]
 position = Vector2(228, 2315)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D3" index="0"]
 position = Vector2(216.79172, 386.5006)
 rotation = 0.21101607
 polygon = PackedVector2Array(-126.73762, 18.454391, 127.70469, -35.02571, 131.82428, -20.567917, -122.19909, 34.867813)
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="MapRoot/WorldColliders" index="5"]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D2" index="0"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D4" type="StaticBody2D" parent="MapRoot/WorldColliders" index="6"]
 position = Vector2(230, 0)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D4"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D4" index="0"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="StaticBody2D5" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D5" type="StaticBody2D" parent="MapRoot/WorldColliders" index="7"]
 position = Vector2(-373, 351)
 rotation = -1.5707964
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D5"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D5" index="0"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 2946.774, -724.28094, 2971.0532, -644.7542, -1006.60156, 251.72284)
 
-[node name="StaticBody2D10" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D10" type="StaticBody2D" parent="MapRoot/WorldColliders" index="8"]
 position = Vector2(182, 2277)
 rotation = -1.5707964
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D10"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D10" index="0"]
 position = Vector2(321.99994, 1849)
 rotation = 1.8069413
 polygon = PackedVector2Array(-964.5055, 236.20752, -311.45117, -24.822998, -19.146484, -276.18542, 1235.5132, -328.16357, 1253.9958, -251.35608, -202.13062, 339.7179)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D10"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D10" index="1"]
 position = Vector2(2272.9998, 3173)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 688.6367, -143.08179, -13.450195, 12.493591, -1006.60156, 251.72284)
 
-[node name="StaticBody2D11" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D11" type="StaticBody2D" parent="MapRoot/WorldColliders" index="9"]
 position = Vector2(3649, 2692)
 rotation = -3.1415927
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D11"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D11" index="0"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="StaticBody2D8" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D8" type="StaticBody2D" parent="MapRoot/WorldColliders" index="10"]
 position = Vector2(193, 1563)
 rotation = -1.5707964
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D8"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D8" index="0"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="StaticBody2D12" type="StaticBody2D" parent="WorldColliders"]
+[node name="StaticBody2D12" type="StaticBody2D" parent="MapRoot/WorldColliders" index="11"]
 position = Vector2(-416, 4419)
 rotation = -1.5707964
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D12" index="0"]
 position = Vector2(337.23605, 1424.5576)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D12" index="1"]
 position = Vector2(336.99988, 3234)
 rotation = 1.8069413
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D12" index="2"]
 position = Vector2(1372.9177, 4491.9243)
 rotation = 0.2617994
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="WorldColliders/StaticBody2D12"]
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="MapRoot/WorldColliders/StaticBody2D12" index="3"]
 position = Vector2(3122.9998, 4492)
 rotation = 0.2299189
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="RechargingStation" parent="." instance=ExtResource("7_6hrdw")]
-position = Vector2(680, 324)
-script = ExtResource("8_2wlag")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="RechargingStation"]
-scale = Vector2(65.64713, 65.64713)
-mesh = SubResource("CapsuleMesh_6hrdw")
-
-[node name="FogOfWar" type="Node" parent="."]
-script = ExtResource("9_3ew82")
-
-[node name="FogRect" type="ColorRect" parent="FogOfWar"]
-material = SubResource("ShaderMaterial_6181x")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 2176.0
-offset_bottom = 3016.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer/AbortLevelButton" to="." method="_on_abort_level_button_pressed"]
-[connection signal="pressed" from="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer/FinishLevelButton" to="." method="_on_finish_level_button_pressed"]
+[node name="FogOfWar" parent="." index="4"]
+world_size = Vector2(4096, 4096)

@@ -474,6 +474,8 @@ script = ExtResource("1_guiip")
 wait_time = 0.33
 one_shot = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [node name="FollowCamera" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target")]
 script = ExtResource("2_kgts8")
 follow_target = NodePath("../test_player_controller/camera_follow_target")

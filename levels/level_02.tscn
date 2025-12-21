@@ -46,7 +46,11 @@ polygon = PackedVector2Array(1952, 5367, 2066, 5373, 2188, 5355, 2236, 5324, 235
 [node name="Level_02" instance=ExtResource("1_nnn84")]
 level_resource = ExtResource("2_g685p")
 
-[node name="MapRoot" parent="." index="1"]
+[node name="CaveBackground" parent="." index="1"]
+offset_right = 14000.0
+offset_bottom = 14000.0
+
+[node name="MapRoot" parent="." index="2"]
 z_index = 1
 position = Vector2(7121, 1209)
 
@@ -397,3 +401,10 @@ script = ExtResource("4_icmn4")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="MapRoot/RechargingStation" index="3"]
 scale = Vector2(65.64713, 65.64713)
 mesh = SubResource("CapsuleMesh_62sbm")
+
+[node name="FogOfWar" parent="." index="4"]
+world_size = Vector2(14000, 14000)
+
+[node name="FogRect" parent="FogOfWar" index="0"]
+offset_right = 12080.0
+offset_bottom = 10929.0

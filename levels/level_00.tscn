@@ -21,6 +21,9 @@ polygon = PackedVector2Array(2592, 632, 2800, 744, 2984, 784, 3128, 888, 3168, 9
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqu7t"]
 size = Vector2(20, 7.960003)
 
+[sub_resource type="LabelSettings" id="LabelSettings_gkh1h"]
+font_size = 28
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
 bg_color = Color(0.8117647, 0, 0, 1)
 
@@ -33,16 +36,17 @@ bg_color = Color(0.8117647, 0.84705883, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_satuh"]
 font_size = 64
 
-[sub_resource type="LabelSettings" id="LabelSettings_gkh1h"]
-font_size = 28
-
 [node name="Level_00" instance=ExtResource("1_gkh1h")]
 level_resource = ExtResource("2_sj2j1")
 
 [node name="CanvasModulate" parent="." index="0"]
 color = Color(0.23529412, 0.23529412, 0.23529412, 1)
 
-[node name="MapRoot" parent="." index="1"]
+[node name="CaveBackground" parent="." index="1"]
+offset_right = 6000.0
+offset_bottom = 6000.0
+
+[node name="MapRoot" parent="." index="2"]
 position = Vector2(736, 615)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
@@ -268,21 +272,6 @@ position = Vector2(1594.0001, 669)
 scale = Vector2(1.0641809, 1.0641809)
 text = "Detach with Space"
 
-[node name="HealthProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="1"]
-theme_override_styles/fill = SubResource("StyleBoxFlat_63c5o")
-
-[node name="StaminaProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="3"]
-theme_override_styles/fill = SubResource("StyleBoxFlat_satuh")
-
-[node name="FlashlightProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="5"]
-theme_override_styles/fill = SubResource("StyleBoxFlat_p5284")
-
-[node name="HeaderLabel" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer" index="0"]
-label_settings = SubResource("LabelSettings_satuh")
-
-[node name="HeaderLabel" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer" index="0"]
-label_settings = SubResource("LabelSettings_satuh")
-
 [node name="WorldCanvasLayer" type="CanvasLayer" parent="." index="3"]
 visible = false
 follow_viewport_enabled = true
@@ -369,5 +358,27 @@ offset_bottom = 1256.0
 text = "heal up"
 label_settings = SubResource("LabelSettings_gkh1h")
 horizontal_alignment = 1
+
+[node name="HealthProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="1"]
+theme_override_styles/fill = SubResource("StyleBoxFlat_63c5o")
+
+[node name="StaminaProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="3"]
+theme_override_styles/fill = SubResource("StyleBoxFlat_satuh")
+
+[node name="FlashlightProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="5"]
+theme_override_styles/fill = SubResource("StyleBoxFlat_p5284")
+
+[node name="HeaderLabel" parent="HudCanvasLayer/DeathPanel/MarginContainer/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_satuh")
+
+[node name="HeaderLabel" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer" index="0"]
+label_settings = SubResource("LabelSettings_satuh")
+
+[node name="FogOfWar" parent="." index="5"]
+world_size = Vector2(6000, 6000)
+
+[node name="FogRect" parent="FogOfWar" index="0"]
+offset_right = 4080.0
+offset_bottom = 2929.0
 
 [connection signal="repaired" from="MapRoot/TrainingFacility/RepairTarget" to="MapRoot/TrainingFacility/RepairTarget/BlockingHazard" method="_on_repair_target_repaired"]

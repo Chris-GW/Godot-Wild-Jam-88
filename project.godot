@@ -145,4 +145,3 @@ move_down={
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.1254902, 0.09411765, 0.09803922, 1)

@@ -27,7 +27,11 @@ level_resource = ExtResource("2_q7ibo")
 [node name="CanvasModulate" parent="." index="0"]
 color = Color(0.23529412, 0.23529412, 0.23529412, 1)
 
-[node name="MapRoot" parent="." index="1"]
+[node name="CaveBackground" parent="." index="1"]
+offset_right = 6087.0
+offset_bottom = 6087.0
+
+[node name="MapRoot" parent="." index="2"]
 position = Vector2(1068, 20)
 
 [node name="Pickup4" parent="MapRoot" index="0" instance=ExtResource("8_5dxk1")]

@@ -37,6 +37,7 @@ func _ready() -> void:
 	assert(level_resource != null, "not null level_resource")
 	%DeathPanel.hide()
 	%LevelWinPanel.hide()
+	$CanvasModulate.show()
 	
 	assign_player()
 	print("player is : ", player, " from base_level.")
