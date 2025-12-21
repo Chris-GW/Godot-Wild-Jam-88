@@ -30,7 +30,9 @@ func _on_rock_spawned(rock: FallingRock) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if is_instance_valid(record_target) and record_target.is_inside_tree():
+	if (OS.is_debug_build() 
+			and is_instance_valid(record_target) 
+			and record_target.is_inside_tree()):
 		fall_positions.add_point(to_local(record_target.global_position))
 
 
@@ -57,6 +59,8 @@ func spawn_rock() -> FallingRock:
 
 
 func _save_fall_recording() -> void:
+	if not OS.is_debug_build():
+		return
 	var save_path := "res://falling_rock/%s.tres" % self.name
 	print("record falling rock path to: " + save_path)
 	ResourceSaver.save(fall_positions, save_path)
