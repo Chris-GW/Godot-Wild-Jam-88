@@ -5,6 +5,7 @@ class State extends Node:
 	var name_str: String
 	var machine = null
 	var anim: AnimatedSprite2D
+	var current_anim = ""
 	
 	func _init(_machine, n: String):
 		machine = _machine
@@ -19,6 +20,13 @@ class State extends Node:
 		pass
 	func handle_input(event):
 		pass
+	func set_anim(name: String):
+		if name == current_anim:
+			return
+		print("setting anim: ", name)
+		current_anim = name
+		anim.play(name)
+	
 
 class FallingState extends State:
 	var frame_count = 0.0
@@ -88,14 +96,8 @@ class FallingState extends State:
 			
 class WalkingState extends State:
 	var speed = 450.0
-	var current_anim = ""
+	
 
-	func set_anim(name: String):
-		if name == current_anim:
-			return
-		print("setting anim: ", name)
-		current_anim = name
-		anim.play(name)
 	
 	func run(delta):
 		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
@@ -125,12 +127,20 @@ class WalkingState extends State:
 			machine.change_state(machine.scouting_state)
 	
 	func exit():
+		anim.stop()
 		pass
 
 class SprintingState extends State:
 	var speed = 900.0
 	
 	func run(delta):
+		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
+		if input == Vector2.ZERO:
+			set_anim("idle")
+		else:
+			set_anim("run")
+			anim.flip_h = input.x < 0.0
+			
 		machine.player_controller.move(speed, delta)
 
 		if not  machine.player_controller.is_on_floor():
@@ -144,6 +154,7 @@ class SprintingState extends State:
 			machine.change_state(machine.walking_state)
 		
 	func exit():
+		anim.stop()
 		pass
 
 class JumpingState extends State:
@@ -374,7 +385,7 @@ class ScoutingState extends State:
 	func run(delta):
 		if battery > 0:
 			var iv = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-			mover.apply_force(iv * 150.0)
+			mover.apply_force(iv * 100.0)
 
 		battery -= delta * battery_drain_speed * battery_drain_speed
 		if battery <= 0:

@@ -1,7 +1,7 @@
 extends Label
 
 func move_above_player(player_controller):
-	global_position = player_controller.global_position + Vector2(0,-150)
+	global_position = player_controller.global_position + Vector2(-40,-80)
 
 func show_floating(text_to_show: String) -> void:
 	text = text_to_show

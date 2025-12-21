@@ -7,17 +7,6 @@ resource_name = "Level_01"
 script = ExtResource("1_n76tx")
 index = 1
 name = "01 - First Mission"
-text = "[i]Mission Brief:[/i]  
-Welcome to the [b]Training Simulation Area[/b], designed to mimic real-life industrial climbing conditions without the risks. Today, your instructor will guide you through the fundamental skills every climber must master before entering real work zones.
-
-[i]Objectives:[/i]  
-[ul]Practice controlled descents using your climbing rope.
-Learn how to identify minor system failures. Practice using your tool kit to fix simulated equipment.
-Descend from the simulation cave safely. Complete all repairs and reach the bottom without triggering any safety alarms.
-[/ul]
-
-[i]Environment:[/i]  
-- Simulation of a real work area in the depth.
-- Multiple anchor points, ropes, and safety systems."
+text = "This is your first real mission. Reach the bottom of the well and complete your repairs."
 scene_path = "uid://b3ne7r0pg4lib"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"

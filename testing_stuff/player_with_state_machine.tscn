@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dqxcnm3loprb6"]
+[gd_scene load_steps=100 format=3 uid="uid://dqxcnm3loprb6"]
 
 [ext_resource type="Script" uid="uid://lmbtfbss46jh" path="res://testing_stuff/player_state_machine.gd" id="1_guiip"]
 [ext_resource type="Script" uid="uid://bdflqrrft6uos" path="res://testing_stuff/FollowCamera.gd" id="2_kgts8"]
@@ -80,7 +80,22 @@
 [ext_resource type="Texture2D" uid="uid://cmsbpvty2cdfx" path="res://testing_stuff/animations/idle/diffuse/player_idle_1024_0023.png" id="54_chem4"]
 [ext_resource type="Texture2D" uid="uid://cew3x3uvxvn8f" path="res://testing_stuff/animations/walk/diffuse/player_1024_0023.png" id="55_cy0u3"]
 [ext_resource type="Texture2D" uid="uid://c7rrulddjipiq" path="res://testing_stuff/animations/idle/diffuse/player_idle_1024_0024.png" id="55_r14p2"]
+[ext_resource type="Texture2D" uid="uid://cmk16jy5x15xc" path="res://testing_stuff/animations/run/player_run_1024_0000.png" id="56_cgqe2"]
 [ext_resource type="Texture2D" uid="uid://ddoma6q7t3e1i" path="res://testing_stuff/animations/walk/diffuse/player_1024_0024.png" id="56_uejqg"]
+[ext_resource type="Texture2D" uid="uid://ct8haaxip3yrf" path="res://testing_stuff/animations/run/player_run_1024_0001.png" id="57_unl16"]
+[ext_resource type="Texture2D" uid="uid://cxj344hqd60p7" path="res://testing_stuff/animations/run/player_run_1024_0002.png" id="58_sjcqj"]
+[ext_resource type="Texture2D" uid="uid://csmuoxpo2ceb4" path="res://testing_stuff/animations/run/player_run_1024_0003.png" id="59_77ya3"]
+[ext_resource type="Texture2D" uid="uid://csqqmidboyh7l" path="res://testing_stuff/animations/run/player_run_1024_0004.png" id="60_11oqt"]
+[ext_resource type="Texture2D" uid="uid://dp1dxu7iaoks3" path="res://testing_stuff/animations/run/player_run_1024_0005.png" id="61_qqw31"]
+[ext_resource type="Texture2D" uid="uid://clxf1txdg3rvm" path="res://testing_stuff/animations/run/player_run_1024_0006.png" id="62_6dalj"]
+[ext_resource type="Texture2D" uid="uid://c1q6spl8lw784" path="res://testing_stuff/animations/run/player_run_1024_0007.png" id="63_pwgdb"]
+[ext_resource type="Texture2D" uid="uid://clm3cyi6ht0t" path="res://testing_stuff/animations/run/player_run_1024_0008.png" id="64_chem4"]
+[ext_resource type="Texture2D" uid="uid://0fovf7tlel62" path="res://testing_stuff/animations/run/player_run_1024_0009.png" id="65_r14p2"]
+[ext_resource type="Texture2D" uid="uid://db8wel10otooc" path="res://testing_stuff/animations/run/player_run_1024_0010.png" id="66_8n061"]
+[ext_resource type="Texture2D" uid="uid://bcucffshh0hk0" path="res://testing_stuff/animations/run/player_run_1024_0011.png" id="67_xprx8"]
+[ext_resource type="Texture2D" uid="uid://dxv6ekptl2wss" path="res://testing_stuff/animations/run/player_run_1024_0012.png" id="68_73w2d"]
+[ext_resource type="Texture2D" uid="uid://vptqp0t8qlqn" path="res://testing_stuff/animations/run/player_run_1024_0013.png" id="69_0wryo"]
+[ext_resource type="Texture2D" uid="uid://ci2mfmit5jtgs" path="res://testing_stuff/animations/run/player_run_1024_0014.png" id="70_uqwsx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0cbov"]
 radius = 43.0
@@ -250,6 +265,56 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("56_cgqe2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_unl16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_sjcqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_77ya3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_11oqt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_qqw31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_6dalj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_pwgdb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_chem4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_r14p2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_8n061")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_xprx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_73w2d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_0wryo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_uqwsx")
+}],
+"loop": true,
+"name": &"run",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("32_umd43")
 }, {
 "duration": 1.0,
@@ -382,7 +447,9 @@ z_index = 1
 position = Vector2(19, 15.999999)
 scale = Vector2(0.215, 0.215)
 sprite_frames = SubResource("SpriteFrames_go3ob")
-animation = &"walk"
+animation = &"run"
+frame = 11
+frame_progress = 0.047321755
 
 [node name="GrappleControl" type="Node2D" parent="."]
 script = ExtResource("7_cehsn")

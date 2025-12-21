@@ -5,8 +5,6 @@
 [resource]
 script = ExtResource("1_2sfcy")
 name = "00 Training Facility"
-text = "Story: Training facility which teaches you about the job
-
-Style: Industrial Training Facility (bright lit (no need for flashlight)"
+text = "Learn the basics of deep well repair."
 scene_path = "uid://dvsysojqhsl5i"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"
