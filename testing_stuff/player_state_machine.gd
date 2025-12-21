@@ -194,6 +194,8 @@ class JumpingState extends State:
 		set_anim("jump")
 		anim.flip_h = input_direction.x < 0.0
 		target_x_speed = input_direction.x * speed
+
+		AudioManager.play_sfx("jump01")
 	
 	func run(delta):
 		machine.player_controller.apply_gravity(delta)
@@ -518,8 +520,9 @@ func _on_anim_frame_changed():
 	# TODO: not sure how i want to manage animations + sound yet
 	if anim.animation == "walk":
 		if anim.frame == 0 or anim.frame == 12:
-			print("PLAYING FOOTSEP")
+			#AudioManager.play_sfx("footstep_01")
 			AudioManager.play_sfx("footsteps")
+			
 
 
 func _on_taking_collision_damage(dmg: int):

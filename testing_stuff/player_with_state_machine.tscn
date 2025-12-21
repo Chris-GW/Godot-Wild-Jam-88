@@ -273,6 +273,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("35_7g6so")
+}],
+"loop": true,
+"name": &"grapple_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("31_go3ob")
 }, {
 "duration": 1.0,
@@ -591,7 +599,7 @@ z_index = 1
 position = Vector2(19, 15.999999)
 scale = Vector2(0.215, 0.215)
 sprite_frames = SubResource("SpriteFrames_go3ob")
-animation = &"grapple_active"
+animation = &"grapple_idle"
 
 [node name="GrappleControl" type="Node2D" parent="."]
 script = ExtResource("7_cehsn")

@@ -1,0 +1,13 @@
+SOUNDS:
+01
+tile: "Exploring A Cave"
+author: Mega Pixel Music Lab
+link: https://opengameart.org/content/exploring-a-cave,
+02
+title: "Footsteps"
+author: spookymodem
+link: https://opengameart.org/content/footsteps
+03
+title: "Jumping Man Sounds"
+author: IgnasD
+link: https://opengameart.org/content/jumping-man-sounds

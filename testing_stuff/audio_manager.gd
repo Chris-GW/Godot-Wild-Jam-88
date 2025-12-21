@@ -9,7 +9,11 @@ var voice_by_id: Dictionary = {
 }
 
 var sfx_by_id: Dictionary = {
+	"footstep_01": preload("res://testing_stuff/audio/test/footstep_01.ogg"),
 	"footsteps": preload("res://testing_stuff/audio/test/Footsteps.ogg"),
+	"jump01": preload("res://testing_stuff/audio/test/jumppp11.ogg"),
+	"jump02": preload("res://testing_stuff/audio/test/jumppp22.ogg"),
+	
 }
 	
 
