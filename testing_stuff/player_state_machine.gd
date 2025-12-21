@@ -97,8 +97,6 @@ class FallingState extends State:
 class WalkingState extends State:
 	var speed = 450.0
 	
-
-	
 	func run(delta):
 		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
 		if input == Vector2.ZERO:
@@ -126,12 +124,12 @@ class WalkingState extends State:
 		if event.is_action_pressed("debug_scout"):
 			machine.change_state(machine.scouting_state)
 	
-	func exit():
-		anim.stop()
-		pass
+
+
 
 class SprintingState extends State:
 	var speed = 900.0
+
 	
 	func run(delta):
 		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
@@ -153,9 +151,6 @@ class SprintingState extends State:
 		if event.is_action_released("debug_sprint"):
 			machine.change_state(machine.walking_state)
 		
-	func exit():
-		anim.stop()
-		pass
 
 class JumpingState extends State:
 	var frames_in_air := 0
@@ -182,6 +177,8 @@ class JumpingState extends State:
 		next_state = prev_state # i just want to go back to prev state unless handle_input (see below)
 	
 		input_direction = Input.get_vector("move_left","move_right","ui_up","ui_down")
+		set_anim("jump")
+		anim.flip_h = input_direction.x < 0.0
 		target_x_speed = input_direction.x * speed
 	
 	func run(delta):
@@ -193,6 +190,11 @@ class JumpingState extends State:
 		machine.player_controller.move_and_slide()
 
 		if machine.player_controller.is_on_floor():
+			match next_state:
+				machine.sprinting_state:
+					set_anim("run")
+				machine.walking_state:
+					set_anim("walk")
 			machine.change_state(next_state)
 			
 	func handle_input(event):
