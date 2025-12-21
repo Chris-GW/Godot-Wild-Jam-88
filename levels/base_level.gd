@@ -37,7 +37,6 @@ func _ready() -> void:
 	assert(level_resource != null, "not null level_resource")
 	%DeathPanel.hide()
 	%LevelWinPanel.hide()
-	$DebugParallax2D.repeat_times = 1
 	
 	assign_player()
 	print("player is : ", player, " from base_level.")

@@ -470,6 +470,10 @@ animations = [{
 [node name="PlayerStateMachine" type="Node2D"]
 script = ExtResource("1_guiip")
 
+[node name="InvulnerableTimer" type="Timer" parent="."]
+wait_time = 0.33
+one_shot = true
+
 [node name="FollowCamera" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target")]
 script = ExtResource("2_kgts8")
 follow_target = NodePath("../test_player_controller/camera_follow_target")
@@ -534,6 +538,3 @@ metadata/_custom_type_script = "uid://bc6akx70lgwqq"
 [node name="RopeLine2D" type="Line2D" parent="GrappleControl"]
 
 [node name="RayCast2D" type="RayCast2D" parent="GrappleControl"]
-
-[node name="InvulnerableTimer" type="Timer" parent="."]
-one_shot = true

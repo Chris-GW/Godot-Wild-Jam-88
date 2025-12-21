@@ -3,11 +3,10 @@
 [ext_resource type="Script" uid="uid://8m0gfq0drmp6" path="res://ui/level_select_menu/level_resource.gd" id="1_c3ile"]
 
 [resource]
-resource_name = "Level_02"
+resource_name = "Level_03"
 script = ExtResource("1_c3ile")
 index = 3
 name = "03 - In the Dark with SCOUT"
-text = "Third Mission
-"
+text = "Third Mission"
 scene_path = "uid://b4deb258bgxku"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"

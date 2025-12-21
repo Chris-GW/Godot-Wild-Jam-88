@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dvsysojqhsl5i"]
+[gd_scene load_steps=18 format=3 uid="uid://dvsysojqhsl5i"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_gkh1h"]
 [ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="2_sj2j1"]
@@ -8,8 +8,6 @@
 [ext_resource type="Script" uid="uid://b3micrn4ujcck" path="res://levels/level_00_repair_effects.gd" id="6_y1gos"]
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="7_iqu7t"]
 [ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="8_s6v32"]
-[ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="9_hk1ki"]
-[ext_resource type="Shader" uid="uid://dfsuldvv3rwt6" path="res://testing_stuff/fog_shader.gdshader" id="10_u4dht"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_iqu7t"]
 polygon = PackedVector2Array(776, 184, 1112, 224, 1128, 296, 1120, 368, 1104, 432, 1008, 440, 928, 440, 912, 472, 912, 704, 1000, 712, 1104, 704, 1248, 704, 1408, 720, 1488, 696, 1584, 664, 1720, 664, 1800, 672, 1808, 872, 1792, 1104, 1824, 1328, 1816, 1488, 1864, 1552, 2008, 1568, 2176, 1568, 2312, 1568, 2600, 1472, 2848, 1360, 2992, 1280, 3112, 1280, 3296, 1240, 3488, 1240, 3728, 1256, 3864, 1256, 3872, 1376, 3872, 1496, 3832, 1608, 3808, 1800, 3760, 1824, 3656, 1840, 3512, 1848, 3280, 1928, 2856, 1944, 2016, 1936, 1696, 1912, 1536, 1848, 1368, 1856, 1336, 1968, 1344, 2120, 1344, 2280, 1368, 2328, 1392, 2608, 1392, 2640, 1368, 2752, 1312, 2840, 1264, 2888, 1224, 2896, 1184, 2864, 1112, 2816, 968, 2776, 240, 2824, 24, 2824, 40, 2312, 16, 1056, -432, 528, -432, -248, 24, -232, 24, 208, 616, 216)
@@ -23,9 +21,6 @@ polygon = PackedVector2Array(2592, 632, 2800, 744, 2984, 784, 3128, 888, 3168, 9
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iqu7t"]
 size = Vector2(20, 7.960003)
 
-[sub_resource type="LabelSettings" id="LabelSettings_gkh1h"]
-font_size = 28
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63c5o"]
 bg_color = Color(0.8117647, 0, 0, 1)
 
@@ -38,8 +33,8 @@ bg_color = Color(0.8117647, 0.84705883, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_satuh"]
 font_size = 64
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7un5e"]
-shader = ExtResource("10_u4dht")
+[sub_resource type="LabelSettings" id="LabelSettings_gkh1h"]
+font_size = 28
 
 [node name="Level_00" instance=ExtResource("1_gkh1h")]
 level_resource = ExtResource("2_sj2j1")
@@ -47,23 +42,7 @@ level_resource = ExtResource("2_sj2j1")
 [node name="CanvasModulate" parent="." index="0"]
 color = Color(0.23529412, 0.23529412, 0.23529412, 1)
 
-[node name="ColorRect" type="ColorRect" parent="." index="1"]
-custom_minimum_size = Vector2(1000, 1000)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1000.0
-offset_bottom = 1000.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(14.602568, 14.602568)
-color = Color(0.124285854, 0.09540901, 0.09885346, 1)
-
-[node name="DebugParallax2D" parent="." index="2"]
-visible = false
-scale = Vector2(1.409, 1.409)
-
-[node name="MapRoot" parent="." index="3"]
+[node name="MapRoot" parent="." index="1"]
 position = Vector2(736, 615)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
@@ -74,7 +53,7 @@ position = Vector2(472, 106)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/TrainingFacility" index="0"]
 polygon = PackedVector2Array(776, 184, 1112, 224, 1128, 296, 1120, 368, 1104, 432, 1008, 440, 928, 440, 912, 472, 912, 704, 1000, 712, 1104, 704, 1248, 704, 1408, 720, 1488, 696, 1584, 664, 1720, 664, 1800, 672, 1808, 872, 1792, 1104, 1824, 1328, 1816, 1488, 1864, 1552, 2008, 1568, 2176, 1568, 2312, 1568, 2600, 1472, 2848, 1360, 2992, 1280, 3112, 1280, 3296, 1240, 3488, 1240, 3728, 1256, 3864, 1256, 3872, 1376, 3872, 1496, 3832, 1608, 3808, 1800, 3760, 1824, 3656, 1840, 3512, 1848, 3280, 1928, 2856, 1944, 2016, 1936, 1696, 1912, 1536, 1848, 1368, 1856, 1336, 1968, 1344, 2120, 1344, 2280, 1368, 2328, 1392, 2608, 1392, 2640, 1368, 2752, 1312, 2840, 1264, 2888, 1224, 2896, 1184, 2864, 1112, 2816, 968, 2776, 240, 2824, 24, 2824, 40, 2312, 16, 1056, -432, 528, -432, -248, 24, -232, 24, 208, 616, 216)
 
-[node name="CollisionPolygon2D4" type="LightOccluder2D" parent="MapRoot/TrainingFacility/CollisionPolygon2D" index="0"]
+[node name="CollisionPolygon2D" type="LightOccluder2D" parent="MapRoot/TrainingFacility/CollisionPolygon2D" index="0"]
 occluder = SubResource("OccluderPolygon2D_iqu7t")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/TrainingFacility" index="1"]
@@ -88,7 +67,7 @@ occluder = SubResource("OccluderPolygon2D_hk1ki")
 position = Vector2(152, -16)
 polygon = PackedVector2Array(2592, 632, 2800, 744, 2984, 784, 3128, 888, 3168, 928, 3240, 968, 3312, 968, 3432, 936, 3576, 912, 3784, 928, 3944, 992, 4016, 1104, 4096, 1184, 4096, 1344, 4056, 1600, 4064, 1824, 4048, 1984, 4032, 2048, 4000, 2056, 3872, 2064, 3760, 2056, 3728, 2064, 3656, 2080, 3568, 2144, 3456, 2176, 3352, 2280, 3264, 2296, 3008, 2296, 2720, 2320, 2024, 2304, 1784, 2280, 1616, 2216, 1448, 2200, 1408, 2200, 1424, 2232, 1448, 2320, 1448, 2416, 1424, 2600, 1392, 2792, 1352, 2952, 1368, 3152, 1376, 3368, 1360, 3440, 1240, 3472, 976, 3464, 832, 3432, 720, 3400, 624, 3400, 592, 3328, 144, 3320, 120, 3240, 88, 3040, 96, 2832, -128, 2840, -136, 3768, 1600, 3768, 1888, 3496, 1920, 2696, 4048, 2704, 4496, 2272, 4488, 1040, 4288, 616, 4064, 448, 3008, 128, 2312, -112, 1200, -488, 1104, -408, 1088, -160, 1120, -64, 1232, 16, 1288, 224, 1304, 376, 1344, 424, 1384, 424, 1424, 376, 1440, 288, 1504, 264, 1696, 232, 1936, 296, 2104, 392, 2264, 448)
 
-[node name="CollisionPolygon2D4" type="LightOccluder2D" parent="MapRoot/TrainingFacility/CollisionPolygon2D3" index="0"]
+[node name="CollisionPolygon2D" type="LightOccluder2D" parent="MapRoot/TrainingFacility/CollisionPolygon2D3" index="0"]
 occluder = SubResource("OccluderPolygon2D_s6v32")
 
 [node name="FirstAidKit" parent="MapRoot/TrainingFacility" index="3" instance=ExtResource("3_q2qjg")]
@@ -289,93 +268,6 @@ position = Vector2(1594.0001, 669)
 scale = Vector2(1.0641809, 1.0641809)
 text = "Detach with Space"
 
-[node name="WorldCanvasLayer" type="CanvasLayer" parent="." index="4"]
-visible = false
-follow_viewport_enabled = true
-
-[node name="Label" type="Label" parent="WorldCanvasLayer" index="0"]
-offset_left = 8.0
-offset_top = -280.0
-offset_right = 160.0
-offset_bottom = -241.0
-text = "Blocked off"
-label_settings = SubResource("LabelSettings_gkh1h")
-
-[node name="Label2" type="Label" parent="WorldCanvasLayer" index="1"]
-offset_left = 1920.0
-offset_top = 552.0
-offset_right = 2182.0
-offset_bottom = 633.0
-text = "Jump over
-(learn simple jump)"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label7" type="Label" parent="WorldCanvasLayer" index="2"]
-offset_left = 3056.0
-offset_top = 1952.0
-offset_right = 3341.0
-offset_bottom = 2033.0
-text = "(learn reapair 
-changes enviorment)"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label8" type="Label" parent="WorldCanvasLayer" index="3"]
-offset_left = 295.0
-offset_top = 3120.0
-offset_right = 632.0
-offset_bottom = 3201.0
-text = "(win level by last reapair)"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label9" type="Label" parent="WorldCanvasLayer" index="4"]
-offset_left = 1328.0
-offset_top = 1896.0
-offset_right = 1665.0
-offset_bottom = 1977.0
-text = "2x Anchor drop"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label6" type="Label" parent="WorldCanvasLayer" index="5"]
-offset_left = 3800.0
-offset_top = 1024.0
-offset_right = 4082.0
-offset_bottom = 1105.0
-text = "first rope drop
-(learn anchor points)"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label4" type="Label" parent="WorldCanvasLayer" index="6"]
-offset_left = 1112.0
-offset_top = 88.0
-offset_right = 1374.0
-offset_bottom = 169.0
-text = "(learn fall damage)"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="WorldCanvasLayer" index="7"]
-offset_left = 2984.0
-offset_top = 1136.0
-offset_right = 3246.0
-offset_bottom = 1217.0
-text = "heal up"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
-[node name="Label5" type="Label" parent="WorldCanvasLayer" index="8"]
-offset_left = 840.0
-offset_top = 560.0
-offset_right = 1102.0
-offset_bottom = 641.0
-text = "heal up"
-label_settings = SubResource("LabelSettings_gkh1h")
-horizontal_alignment = 1
-
 [node name="HealthProgressBar" parent="HudCanvasLayer/MarginContainer/VBoxContainer" index="1"]
 theme_override_styles/fill = SubResource("StyleBoxFlat_63c5o")
 
@@ -391,19 +283,91 @@ label_settings = SubResource("LabelSettings_satuh")
 [node name="HeaderLabel" parent="HudCanvasLayer/LevelWinPanel/MarginContainer/VBoxContainer" index="0"]
 label_settings = SubResource("LabelSettings_satuh")
 
-[node name="FogOfWar" type="Node" parent="." index="6"]
-script = ExtResource("9_hk1ki")
-world_size = Vector2(6087, 6087)
+[node name="WorldCanvasLayer" type="CanvasLayer" parent="." index="3"]
+visible = false
+follow_viewport_enabled = true
 
-[node name="FogRect" type="ColorRect" parent="FogOfWar" index="0"]
-material = SubResource("ShaderMaterial_7un5e")
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 2.8435185
-offset_right = 4167.0
-offset_bottom = 3016.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+[node name="Label" type="Label" parent="WorldCanvasLayer" index="0"]
+offset_left = 778.0
+offset_top = 335.0
+offset_right = 930.0
+offset_bottom = 380.0
+text = "Blocked off"
+label_settings = SubResource("LabelSettings_gkh1h")
+
+[node name="Label2" type="Label" parent="WorldCanvasLayer" index="1"]
+offset_left = 2690.0
+offset_top = 1167.0
+offset_right = 2952.0
+offset_bottom = 1260.0
+text = "Jump over
+(learn simple jump)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="WorldCanvasLayer" index="2"]
+offset_left = 3826.0
+offset_top = 2567.0
+offset_right = 4111.0
+offset_bottom = 2660.0
+text = "(learn reapair 
+changes enviorment)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="WorldCanvasLayer" index="3"]
+offset_left = 1065.0
+offset_top = 3735.0
+offset_right = 1402.0
+offset_bottom = 3816.0
+text = "(win level by last reapair)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label9" type="Label" parent="WorldCanvasLayer" index="4"]
+offset_left = 2098.0
+offset_top = 2511.0
+offset_right = 2435.0
+offset_bottom = 2592.0
+text = "2x Anchor drop"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="WorldCanvasLayer" index="5"]
+offset_left = 4570.0
+offset_top = 1639.0
+offset_right = 4852.0
+offset_bottom = 1732.0
+text = "first rope drop
+(learn anchor points)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="WorldCanvasLayer" index="6"]
+offset_left = 1882.0
+offset_top = 703.0
+offset_right = 2144.0
+offset_bottom = 784.0
+text = "(learn fall damage)"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="WorldCanvasLayer" index="7"]
+offset_left = 3754.0
+offset_top = 1751.0
+offset_right = 4016.0
+offset_bottom = 1832.0
+text = "heal up"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="WorldCanvasLayer" index="8"]
+offset_left = 1610.0
+offset_top = 1175.0
+offset_right = 1872.0
+offset_bottom = 1256.0
+text = "heal up"
+label_settings = SubResource("LabelSettings_gkh1h")
+horizontal_alignment = 1
 
 [connection signal="repaired" from="MapRoot/TrainingFacility/RepairTarget" to="MapRoot/TrainingFacility/RepairTarget/BlockingHazard" method="_on_repair_target_repaired"]

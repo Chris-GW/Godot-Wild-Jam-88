@@ -6,7 +6,7 @@
 resource_name = "Level_02"
 script = ExtResource("1_fn327")
 index = 2
-name = "02 - Collapse Containment Contract"
-text = "Beware falling hazards in this cavernous well site. "
+name = "02 - Collapse Containment"
+text = "Beware falling hazards in this cavernous site. "
 scene_path = "uid://sf1jm4po11xs"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"

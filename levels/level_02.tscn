@@ -1,24 +1,22 @@
-[gd_scene load_steps=30 format=3 uid="uid://sf1jm4po11xs"]
+[gd_scene load_steps=27 format=3 uid="uid://sf1jm4po11xs"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_nnn84"]
 [ext_resource type="Resource" uid="uid://bm1n5b4q111ml" path="res://levels/level_resources/level_02_resource.tres" id="2_g685p"]
 [ext_resource type="PackedScene" uid="uid://cf3a2pxq8bx7k" path="res://testing_stuff/interactable.tscn" id="3_50fh4"]
 [ext_resource type="PackedScene" uid="uid://ry7vbu0vwgk2" path="res://falling_rock/falling_rock_spawner.tscn" id="4_gia0r"]
 [ext_resource type="Script" uid="uid://cswmsnmgkusug" path="res://testing_stuff/recharging_station.gd" id="4_icmn4"]
-[ext_resource type="Curve2D" path="res://falling_rock/FallingRockSpawner2.tres" id="4_mihb8"]
-[ext_resource type="Curve2D" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
+[ext_resource type="Curve2D" uid="uid://dg48rrqh3ci51" path="res://falling_rock/FallingRockSpawner2.tres" id="4_mihb8"]
+[ext_resource type="Curve2D" uid="uid://dq1ggsb123og5" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
 [ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="5_didps"]
 [ext_resource type="Script" uid="uid://bl0o1aiwtaem4" path="res://falling_rock/falling_rock_kill_zone.gd" id="5_gia0r"]
 [ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="5_icmn4"]
-[ext_resource type="Script" path="res://levels/level_02_effect_show_light.gd" id="5_pdr83"]
+[ext_resource type="Script" uid="uid://kb6kweip6k2w" path="res://levels/level_02_effect_show_light.gd" id="5_pdr83"]
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="6_liqpl"]
 [ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_mihb8"]
-[ext_resource type="Curve2D" path="res://falling_rock/FallingRockSpawner4.tres" id="9_4c076"]
-[ext_resource type="Script" path="res://levels/level_02_effect_slow_spawner_3.gd" id="9_cwmx8"]
+[ext_resource type="Curve2D" uid="uid://biagnrc6f283d" path="res://falling_rock/FallingRockSpawner4.tres" id="9_4c076"]
+[ext_resource type="Script" uid="uid://p01qtto2251s" path="res://levels/level_02_effect_slow_spawner_3.gd" id="9_cwmx8"]
 [ext_resource type="PackedScene" uid="uid://e6apu060jjih" path="res://first_aid_kit/first_aid_kit.tscn" id="10_05651"]
 [ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="11_xxuo2"]
-[ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="15_5l6ou"]
-[ext_resource type="Shader" uid="uid://dfsuldvv3rwt6" path="res://testing_stuff/fog_shader.gdshader" id="16_gfkio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mihb8"]
 size = Vector2(563.5, 99.5)
@@ -45,35 +43,10 @@ polygon = PackedVector2Array(1952, 5367, 2066, 5373, 2188, 5355, 2236, 5324, 235
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_62sbm"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_50fh4"]
-shader = ExtResource("16_gfkio")
-
 [node name="Level_02" instance=ExtResource("1_nnn84")]
 level_resource = ExtResource("2_g685p")
 
-[node name="ColorRect" type="ColorRect" parent="." index="1"]
-custom_minimum_size = Vector2(1000, 1000)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1000.0
-offset_bottom = 1000.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(14.602568, 14.602568)
-color = Color(0.124285854, 0.09540901, 0.09885346, 1)
-
-[node name="DebugParallax2D" parent="." index="2"]
-visible = false
-scale = Vector2(1.695, 1.695)
-scroll_offset = Vector2(9360, 7711)
-repeat_times = 10
-
-[node name="Sprite2D" parent="DebugParallax2D" index="0"]
-visible = false
-texture = null
-
-[node name="MapRoot" parent="." index="3"]
+[node name="MapRoot" parent="." index="1"]
 z_index = 1
 position = Vector2(7121, 1209)
 
@@ -424,18 +397,3 @@ script = ExtResource("4_icmn4")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="MapRoot/RechargingStation" index="3"]
 scale = Vector2(65.64713, 65.64713)
 mesh = SubResource("CapsuleMesh_62sbm")
-
-[node name="FogOfWar" type="Node" parent="." index="5"]
-script = ExtResource("15_5l6ou")
-world_size = Vector2(15000, 15000)
-
-[node name="FogRect" type="ColorRect" parent="FogOfWar" index="0"]
-material = SubResource("ShaderMaterial_50fh4")
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 2.8435185
-offset_right = 13080.0
-offset_bottom = 11929.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true

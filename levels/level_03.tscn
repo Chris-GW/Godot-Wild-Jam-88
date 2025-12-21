@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://b4deb258bgxku"]
+[gd_scene load_steps=17 format=3 uid="uid://b4deb258bgxku"]
 
 [ext_resource type="Script" uid="uid://pho36xlirwl7" path="res://levels/base_level.gd" id="1_ngl01"]
-[ext_resource type="Resource" uid="uid://gv5mlfhelg38" path="res://levels/level_resources/level_00_resource.tres" id="2_6hrdw"]
-[ext_resource type="Texture2D" uid="uid://bk2owtj88bcct" path="res://assets/kenney_prototype-textures/PNG/Dark/texture_08.png" id="2_wq170"]
+[ext_resource type="Resource" uid="uid://b3eeamovkiqpt" path="res://levels/level_resources/level_03_resource.tres" id="2_6181x"]
 [ext_resource type="PackedScene" uid="uid://dqxcnm3loprb6" path="res://testing_stuff/player_with_state_machine.tscn" id="3_6hrdw"]
 [ext_resource type="Script" uid="uid://dwarkrjxv15wl" path="res://levels/hud_canvas_layer.gd" id="4_2wlag"]
 [ext_resource type="PackedScene" uid="uid://caty2c4e6ld88" path="res://ui/game_paused_ui/game_paused_ui.tscn" id="5_3ew82"]
@@ -29,24 +28,12 @@ font_size = 64
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6181x"]
 shader = ExtResource("10_0bj1y")
 
-[node name="BaseLevel" type="Node2D"]
+[node name="Level_03" type="Node2D"]
 script = ExtResource("1_ngl01")
-level_resource = ExtResource("2_6hrdw")
+level_resource = ExtResource("2_6181x")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.23392546, 0.23392546, 0.23392543, 1)
-
-[node name="DebugParallax2D" type="Parallax2D" parent="."]
-repeat_size = Vector2(2048, 2048)
-metadata/_edit_lock_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="DebugParallax2D"]
-texture_repeat = 2
-position = Vector2(1024, 1024)
-texture = ExtResource("2_wq170")
-region_enabled = true
-region_rect = Rect2(0, 0, 2048, 2048)
-metadata/_edit_lock_ = true
 
 [node name="MapRoot" type="Node2D" parent="."]
 unique_name_in_owner = true

@@ -14,11 +14,11 @@ class State extends Node:
 
 	func enter():
 		pass
-	func run(delta):
+	func run(_delta):
 		pass
 	func exit():
 		pass
-	func handle_input(event):
+	func handle_input(_event):
 		pass
 	func set_anim(name: String, force_restart: bool = false) -> void:
 		if name == current_anim and not force_restart:
@@ -475,6 +475,7 @@ var interactables_in_reach = []
 
 func _init() -> void:
 	pass
+
 func _ready() -> void:
 	#print("player_cam: ", player_camera)
 	#print(ANCHOR_POINT)
@@ -517,11 +518,12 @@ func _on_anim_frame_changed():
 		if anim.frame == 0 or anim.frame == 12:
 			print("PLAYING FOOTSEP")
 			AudioManager.play_sfx("footsteps")
-		
-		
+
+
 func _on_taking_collision_damage(dmg: int):
 	#print("receiving collision damage in playerstatemachine: ", dmg)
 	change_health(-dmg)
+
 
 func _on_hitting_floor(vec2, collider):
 	#print("HITTING FLOOR in statemachine: ", collider)

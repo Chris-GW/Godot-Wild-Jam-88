@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3ne7r0pg4lib"]
+[gd_scene load_steps=13 format=3 uid="uid://b3ne7r0pg4lib"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_ty3hu"]
 [ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_gg43x"]
@@ -8,8 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="5_mllcm"]
 [ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_cg8v6"]
 [ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="8_5dxk1"]
-[ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="8_jy02f"]
-[ext_resource type="Shader" uid="uid://dfsuldvv3rwt6" path="res://testing_stuff/fog_shader.gdshader" id="9_5dxk1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cg8v6"]
 font_size = 32
@@ -23,32 +21,13 @@ polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 8
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gg43x"]
 polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 968, 1136, 1080, 1184, 1192, 1168, 1352, 1240, 1408, 1280, 1568, 1288, 1720, 1120, 1768, 1040, 1728, 992, 1824, 1104, 2032, 1224, 2096, 1360, 2168, 1320, 2320, 1152, 2360, 880, 2256, 624, 2392, 272, 2504, 264, 2616, 330.25204, 2671.4282, 365.54617, 2691.5962, 414.28568, 2711.7644, 488, 2712, 616, 2696, 728, 2616, 1064, 2648, 1328, 2704, 1544, 2856, 1640, 2968, 1544, 3120, 1696, 3336, 1712, 3856, 1672, 4152, 1656, 4304, 1664, 4368, 1696, 4480, 1808, 4504, 1928, 4400, 2152, 4256, 2344, 4248, 2808, 4256, 2832, 3920, 2192, 2888, 2016, 952, 1944, 608, 1824, 432, 1680, 408, 1616, 480, 1568, 560, 1536, 664, 1416, 712)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kjd3d"]
-shader = ExtResource("9_5dxk1")
-
 [node name="Level_01" instance=ExtResource("1_ty3hu")]
 level_resource = ExtResource("2_q7ibo")
 
 [node name="CanvasModulate" parent="." index="0"]
 color = Color(0.23529412, 0.23529412, 0.23529412, 1)
 
-[node name="ColorRect" type="ColorRect" parent="." index="1"]
-custom_minimum_size = Vector2(1000, 1000)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1000.0
-offset_bottom = 1000.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(14.602568, 14.602568)
-color = Color(0.124285854, 0.09540901, 0.09885346, 1)
-
-[node name="DebugParallax2D" parent="." index="2"]
-visible = false
-scale = Vector2(1.595, 1.595)
-
-[node name="MapRoot" parent="." index="3"]
+[node name="MapRoot" parent="." index="1"]
 position = Vector2(1068, 20)
 
 [node name="Pickup4" parent="MapRoot" index="0" instance=ExtResource("8_5dxk1")]
@@ -356,7 +335,7 @@ position = Vector2(3122.9998, 4492)
 rotation = 0.2299189
 polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
 
-[node name="TutorialCanvasLayer" type="CanvasLayer" parent="." index="4"]
+[node name="TutorialCanvasLayer" type="CanvasLayer" parent="." index="3"]
 layer = 2
 visible = false
 follow_viewport_enabled = true
@@ -435,18 +414,3 @@ offset_top = 5379.0
 offset_right = 3170.0
 offset_bottom = 5428.0
 text = "End"
-
-[node name="FogOfWar" type="Node" parent="." index="6"]
-script = ExtResource("8_jy02f")
-world_size = Vector2(6087, 6087)
-
-[node name="FogRect" type="ColorRect" parent="FogOfWar" index="0"]
-material = SubResource("ShaderMaterial_kjd3d")
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 2.8435185
-offset_right = 4167.0
-offset_bottom = 3016.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true

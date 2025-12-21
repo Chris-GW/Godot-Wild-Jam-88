@@ -8,11 +8,10 @@ class_name Interactable extends Area2D
 var _can_interact = true
 var player : PlayerStateMachine
 
-func _init():
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
 
 func _ready():
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 	highlight.hide()
 
 func do_interaction(): 
