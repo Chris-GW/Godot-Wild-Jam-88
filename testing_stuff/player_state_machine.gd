@@ -671,3 +671,8 @@ func _on_interacting_with_scout():
 	#print("in world? ",  scouting_state.mover.in_the_world)
 	if current_state == scouting_state:
 		change_state(walking_state)
+
+func change_rope_length(length: float):
+	grappling_state.max_rope_length = length
+	# TODO: this is just a trick to do what I want, should be deleted I guess
+	stamina_drain_per_second = 10.0

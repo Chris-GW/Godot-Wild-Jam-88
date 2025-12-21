@@ -7,6 +7,6 @@ resource_name = "Level_03"
 script = ExtResource("1_c3ile")
 index = 3
 name = "03 - In the Dark with SCOUT"
-text = "Third Mission"
+text = "Use all your tools: your ropes and anchors and your SCOUT"
 scene_path = "uid://b4deb258bgxku"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"

@@ -121,7 +121,6 @@ func detach(detached_pos):
 
 	#some_target = global_position + Vector2.DOWN * max_rope_length
 	some_target = global_position + Vector2.DOWN * (rope_end.global_position - global_position)
-	
 	rope_end.freeze = false
 	rope_end_area2d._can_interact = true
 

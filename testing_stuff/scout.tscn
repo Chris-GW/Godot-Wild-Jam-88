@@ -56,7 +56,7 @@ offset_bottom = 34.0
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 10.0
-color = Color(0.17254902, 0.8784314, 0.18039216, 1)
+color = Color(0.8623817, 0.7175997, 0.2125363, 1)
 
 [node name="FlashLight2D" type="PointLight2D" parent="Mover"]
 texture = ExtResource("3_ti8ni")

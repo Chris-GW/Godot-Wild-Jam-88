@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://21o3ht8uu3g3"]
+[gd_scene load_steps=5 format=3 uid="uid://21o3ht8uu3g3"]
 
 [ext_resource type="Script" uid="uid://bobialvq6twf1" path="res://hazard_spike/hazard_spike.gd" id="1_jdpi7"]
+[ext_resource type="Texture2D" uid="uid://c82ax6yyhpum5" path="res://testing_stuff/icons/icons_spike.png" id="2_r2u4l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t20v6"]
 size = Vector2(64, 32)
@@ -12,6 +13,7 @@ script = ExtResource("1_jdpi7")
 damage_amount = 45
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
@@ -23,6 +25,7 @@ position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_t20v6")
 
 [node name="DebugLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -35,5 +38,10 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Spike"
 label_settings = SubResource("LabelSettings_t20v6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.000001, -64.00002)
+scale = Vector2(0.51446486, 0.51446486)
+texture = ExtResource("2_r2u4l")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
