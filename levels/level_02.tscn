@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ry7vbu0vwgk2" path="res://falling_rock/falling_rock_spawner.tscn" id="4_gia0r"]
 [ext_resource type="Script" uid="uid://cswmsnmgkusug" path="res://testing_stuff/recharging_station.gd" id="4_icmn4"]
 [ext_resource type="Curve2D" uid="uid://dg48rrqh3ci51" path="res://falling_rock/FallingRockSpawner2.tres" id="4_mihb8"]
-[ext_resource type="Curve2D" uid="uid://dq1ggsb123og5" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
+[ext_resource type="Curve2D" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
 [ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="5_didps"]
 [ext_resource type="Script" uid="uid://bl0o1aiwtaem4" path="res://falling_rock/falling_rock_kill_zone.gd" id="5_gia0r"]
 [ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="5_icmn4"]
@@ -14,11 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="6_liqpl"]
 [ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_mihb8"]
 [ext_resource type="Curve2D" uid="uid://biagnrc6f283d" path="res://falling_rock/FallingRockSpawner4.tres" id="9_4c076"]
-
 [ext_resource type="Script" uid="uid://p01qtto2251s" path="res://levels/level_02_effect_slow_spawner_3.gd" id="9_cwmx8"]
-
-
-
 [ext_resource type="PackedScene" uid="uid://e6apu060jjih" path="res://first_aid_kit/first_aid_kit.tscn" id="10_05651"]
 [ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="11_xxuo2"]
 
@@ -50,6 +46,9 @@ polygon = PackedVector2Array(1952, 5367, 2066, 5373, 2188, 5355, 2236, 5324, 235
 [node name="Level_02" instance=ExtResource("1_nnn84")]
 level_resource = ExtResource("2_g685p")
 
+[node name="CanvasModulate" parent="." index="0"]
+visible = true
+
 [node name="CaveBackground" parent="." index="1"]
 offset_right = 14000.0
 offset_bottom = 14000.0
@@ -59,7 +58,7 @@ z_index = 1
 position = Vector2(7121, 1209)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(387, 622)
+position = Vector2(387, 634)
 
 [node name="RepairTargets" type="Node2D" parent="MapRoot" index="1"]
 

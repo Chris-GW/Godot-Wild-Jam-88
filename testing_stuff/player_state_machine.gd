@@ -25,7 +25,7 @@ class State extends Node:
 			# Already this anim; do nothing.
 			return
 
-		print("STATE", name_str, "setting anim to", name)
+		print("STATE ", name_str, " setting anim to ", name)
 		current_anim = name
 
 		anim.stop()
@@ -38,7 +38,7 @@ class FallingState extends State:
 	var coyote_limit = 0.5
 	var prev_state
 	var next_state
-	var sprint_pressed = false
+	var sprint_pressed = false 
 	var acceleration = 0.1
 	var deceleration = 0.1
 	var speed = 300.0
@@ -104,7 +104,7 @@ class FallingState extends State:
 			next_state = machine.walking_state
 			
 class WalkingState extends State:
-	var speed = 450.0
+	var speed = 350.0
 
 	func enter():
 		set_anim("idle")
@@ -241,6 +241,7 @@ class GrapplingState extends State:
 		name_str = n
 		machine.stamina_depleted.connect(_on_stamina_depleted)
 		machine.changing_anchor_point.connect(_on_anchor_point_changed)
+		anim = machine.anim
 	
 	func enter():
 		#machine.grapple_control.rope_line.show()
@@ -251,6 +252,7 @@ class GrapplingState extends State:
 		rest_length += 64.0 
 		rest_length = clampf(rest_length, 0.0, max_rope_length)
 		current_anchor.rope_line.show()
+		set_anim("grapple_active", true)
 		
 	func run(delta):
 		machine.player_controller.apply_gravity(delta)
@@ -675,4 +677,4 @@ func _on_interacting_with_scout():
 func change_rope_length(length: float):
 	grappling_state.max_rope_length = length
 	# TODO: this is just a trick to do what I want, should be deleted I guess
-	stamina_drain_per_second = 10.0
+	stamina_drain_per_second -= 4.0
