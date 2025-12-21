@@ -201,7 +201,7 @@ class GrapplingState extends State:
 	var speed = 300.0
 
 	var rest_length
-	var max_rope_length = 400.0
+	var max_rope_length = 500.0
 	var reel_in_speed = 120.0
 	var let_out_speed = 120.0
 
@@ -350,7 +350,7 @@ class ScoutingState extends State:
 			print("NO SCOUT FLASHLIGHT")
 		
 	func enter():
-		var pos = machine.player_controller.global_position+ Vector2(100,-100)
+		var pos = machine.player_controller.global_position+ Vector2(0,-100)
 		if mover.in_the_world:
 			scout_camera.global_position = pos
 		else:
@@ -492,7 +492,7 @@ func _on_anim_frame_changed():
 		
 		
 func _on_taking_collision_damage(dmg: int):
-	print("receiving collision damage in playerstatemachine: ", dmg)
+	#print("receiving collision damage in playerstatemachine: ", dmg)
 	change_health(-dmg)
 
 func _on_hitting_floor(vec2, collider):
@@ -505,6 +505,8 @@ func _on_hitting_wall(vec2, collider):
 	if current_state == falling_state:
 		#current_state == wall_sliding_state
 		pass
+
+	# TODO: spawn SCOUT in different place if we're facing a wall?
 
 # I also added this as a Global function. helpful for finding child nodes without direct path,
 # if you only need a single node of a single type

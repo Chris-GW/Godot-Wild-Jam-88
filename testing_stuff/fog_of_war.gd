@@ -3,7 +3,7 @@ extends Node
 var fog_image: Image
 var fog_texture: ImageTexture
 
-@export var fog_size: Vector2i = Vector2i(1024, 1024)
+@export var fog_size: Vector2i = Vector2i(512,512)
 @export var world_size: Vector2 = Vector2(4096, 4096)  # size of your level in world units
 
 func _ready():

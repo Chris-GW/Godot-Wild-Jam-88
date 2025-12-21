@@ -8,7 +8,7 @@ var player
 var target = Vector2.ZERO
 @onready var rope_end: RigidBody2D = $RopeLine2D/RopeEndRigidBody
 @onready var rope_end_area2d: RopeEndArea2D = $RopeLine2D/RopeEndRigidBody/RopeEndArea2D
-var max_rope_length = 400.0
+var max_rope_length #= 400.0
 var rest_length = max_rope_length
 
 var stiffness = 120.0
@@ -78,6 +78,7 @@ func _on_body_entered(body: Node2D) -> void:
 		player = body.get_parent() # player_state_machine
 		select_for_interaction()
 		player.add_interactable(self)
+		max_rope_length = player.grappling_state.max_rope_length
 		
 
 func _on_body_exited(body: Node2D) -> void:
