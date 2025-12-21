@@ -52,7 +52,7 @@ class FallingState extends State:
 	
 	func enter():
 		
-		set_anim("fall")
+		set_anim("fall", true)
 		
 		frame_count = 0.0
 		prev_state = machine.prev_state
