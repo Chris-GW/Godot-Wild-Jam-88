@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3ne7r0pg4lib"]
+[gd_scene load_steps=16 format=3 uid="uid://b3ne7r0pg4lib"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_ty3hu"]
 [ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="2_gg43x"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="4_q7ibo"]
 [ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="5_mllcm"]
 [ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_cg8v6"]
+[ext_resource type="PackedScene" uid="uid://q0coufsl20wq" path="res://testing_stuff/pickup.tscn" id="8_5dxk1"]
+[ext_resource type="Script" uid="uid://b6k105jn8jcck" path="res://testing_stuff/fog_of_war.gd" id="8_jy02f"]
+[ext_resource type="Shader" uid="uid://dfsuldvv3rwt6" path="res://testing_stuff/fog_shader.gdshader" id="9_5dxk1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cg8v6"]
 font_size = 32
@@ -15,22 +18,47 @@ font_size = 32
 size = Vector2(190, 30)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mllcm"]
-polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 771.42847, 2076.4702, 724.3696, 2121.008, 608, 2184, 424, 2176, 120, 2320, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
+polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 771.42847, 2076.4702, 724.3696, 2121.008, 608, 2184, 424, 2176, 177.31091, 2299.9998, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gg43x"]
 polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 968, 1136, 1080, 1184, 1192, 1168, 1352, 1240, 1408, 1280, 1568, 1288, 1720, 1120, 1768, 1040, 1728, 992, 1824, 1104, 2032, 1224, 2096, 1360, 2168, 1320, 2320, 1152, 2360, 880, 2256, 624, 2392, 272, 2504, 264, 2616, 330.25204, 2671.4282, 365.54617, 2691.5962, 414.28568, 2711.7644, 488, 2712, 616, 2696, 728, 2616, 1064, 2648, 1328, 2704, 1544, 2856, 1640, 2968, 1544, 3120, 1696, 3336, 1712, 3856, 1672, 4152, 1656, 4304, 1664, 4368, 1696, 4480, 1808, 4504, 1928, 4400, 2152, 4256, 2344, 4248, 2808, 4256, 2832, 3920, 2192, 2888, 2016, 952, 1944, 608, 1824, 432, 1680, 408, 1616, 480, 1568, 560, 1536, 664, 1416, 712)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kjd3d"]
+shader = ExtResource("9_5dxk1")
 
 [node name="Level_01" instance=ExtResource("1_ty3hu")]
 level_resource = ExtResource("2_q7ibo")
 
 [node name="CanvasModulate" parent="." index="0"]
+color = Color(0.23529412, 0.23529412, 0.23529412, 1)
+
+[node name="ColorRect" type="ColorRect" parent="." index="1"]
+custom_minimum_size = Vector2(1000, 1000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(14.602568, 14.602568)
+color = Color(0.124285854, 0.09540901, 0.09885346, 1)
+
+[node name="DebugParallax2D" parent="." index="2"]
 visible = false
-color = Color(0, 0, 0, 0.91764706)
+scale = Vector2(1.595, 1.595)
 
-[node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(472, 559)
+[node name="MapRoot" parent="." index="3"]
+position = Vector2(1068, 20)
 
-[node name="Platform1" type="StaticBody2D" parent="MapRoot" index="1"]
+[node name="Pickup4" parent="MapRoot" index="0" instance=ExtResource("8_5dxk1")]
+position = Vector2(1537, 3642)
+text = "Be quick and grapple while falling"
+
+[node name="PlayerStateMachine" parent="MapRoot" index="1"]
+position = Vector2(312, 746)
+
+[node name="Platform1" type="StaticBody2D" parent="MapRoot" index="2"]
 visible = false
 position = Vector2(968, 584)
 metadata/_edit_group_ = true
@@ -60,7 +88,8 @@ visible = false
 shape = SubResource("RectangleShape2D_j0sdw")
 disabled = true
 
-[node name="Platform2" type="StaticBody2D" parent="MapRoot" index="2"]
+[node name="Platform2" type="StaticBody2D" parent="MapRoot" index="3"]
+visible = false
 position = Vector2(1283, 431)
 metadata/_edit_group_ = true
 
@@ -88,87 +117,99 @@ label_settings = SubResource("LabelSettings_cg8v6")
 visible = false
 shape = SubResource("RectangleShape2D_j0sdw")
 
-[node name="Cave" type="StaticBody2D" parent="MapRoot" index="3"]
+[node name="Cave" type="StaticBody2D" parent="MapRoot" index="4"]
 scale = Vector2(1.19, 1.19)
 
 [node name="LeftCaveWall" type="CollisionPolygon2D" parent="MapRoot/Cave" index="0"]
-polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 768.9075, 2074.7896, 711.7646, 2119.3274, 608, 2184, 424, 2176, 120, 2320, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
+polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 768.9075, 2074.7896, 711.7646, 2119.3274, 608, 2184, 424, 2176, 143.69751, 2331.0923, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
 
 [node name="Polygon2D" type="Polygon2D" parent="MapRoot/Cave/LeftCaveWall" index="0"]
-polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 767.2268, 2071.4282, 719.32764, 2115.966, 608, 2184, 424, 2176, 120, 2320, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
+visible = false
+polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 767.2268, 2071.4282, 719.32764, 2115.966, 608, 2184, 424, 2176, 146.2185, 2326.8906, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="MapRoot/Cave/LeftCaveWall" index="1"]
 occluder = SubResource("OccluderPolygon2D_mllcm")
 
-[node name="RightCaveWall" type="CollisionPolygon2D" parent="MapRoot/Cave" index="1"]
+[node name="LeftCaveWall2" type="CollisionPolygon2D" parent="MapRoot/Cave" index="1"]
+position = Vector2(-211.76468, 2916.8064)
+rotation = 3.1415927
+scale = Vector2(-1, 1)
+polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 768.9075, 2074.7896, 711.7646, 2119.3274, 608, 2184, 424, 2176, 254.62164, 2442.8567, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
+
+[node name="Polygon2D" type="Polygon2D" parent="MapRoot/Cave/LeftCaveWall2" index="0"]
+visible = false
+polygon = PackedVector2Array(424, 760, 792, 760, 824, 792, 840, 840, 824, 872, 808, 920, 816, 968, 840, 1024, 808, 1096, 856, 1184, 848, 1248, 784, 1424, 792, 1464, 848, 1496, 896, 1632, 864, 1664, 808, 1768, 728, 1792, 768, 1968, 767.2268, 2071.4282, 719.32764, 2115.966, 608, 2184, 424, 2176, 246.21832, 2432.7727, -8, 2640, 32, 2904, 64, 2968, 136, 2992, 208, 2960, 256, 2904, 400, 2944, 432, 3056, 656, 3080, 944, 3032, 1240, 3096, 1288, 3056, 1384, 3144, 1408, 3272, 1448, 3536, 1328, 4008, 1333.1432, 4550.5674, 1368, 4792, 1408, 4856, 1560, 4832, 1896, 4848, 2288, 4824, 2672, 4656, 2592, 4488, 2384, 4248, 2792, 4232, 2800, 5104, 888, 5136, 896, 4072, 472, 3576, -175.67932, 3358.63, -168, 2176, -168, 744)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MapRoot/Cave/LeftCaveWall2" index="1"]
+occluder = SubResource("OccluderPolygon2D_mllcm")
+
+[node name="RightCaveWall" type="CollisionPolygon2D" parent="MapRoot/Cave" index="2"]
 polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 968, 1136, 1080, 1184, 1192, 1168, 1352, 1240, 1408, 1280, 1568, 1288, 1720, 1120, 1768, 1040, 1728, 992, 1824, 1104, 2032, 1224, 2096, 1360, 2168, 1320, 2320, 1152, 2360, 880, 2256, 624, 2392, 272, 2504, 264, 2616, 343.69745, 2686.5542, 388.23523, 2706.7224, 425.21002, 2714.2854, 488, 2712, 616, 2696, 728, 2616, 1064, 2648, 1328, 2704, 1544, 2856, 1640, 2968, 1544, 3120, 1696, 3336, 1712, 3856, 1672, 4152, 1656, 4304, 1664, 4368, 1696, 4480, 1808, 4504, 1928, 4400, 2152, 4256, 2344, 4248, 2808, 4256, 2832, 3920, 2192, 2888, 2016, 952, 1944, 608, 1824, 432, 1680, 408, 1616, 480, 1568, 560, 1536, 664, 1416, 712)
 
 [node name="Polygon2D" type="Polygon2D" parent="MapRoot/Cave/RightCaveWall" index="0"]
+visible = false
 polygon = PackedVector2Array(1216, 704, 1112, 768, 1096, 832, 1120, 896, 1104, 968, 1136, 1080, 1184, 1192, 1168, 1352, 1240, 1408, 1280, 1568, 1288, 1720, 1120, 1768, 1040, 1728, 992, 1824, 1104, 2032, 1224, 2096, 1360, 2168, 1320, 2320, 1152, 2360, 880, 2256, 624, 2392, 272, 2504, 264, 2616, 330.25204, 2676.4702, 368.06717, 2695.7979, 414.28568, 2715.966, 488, 2712, 616, 2696, 728, 2616, 1064, 2648, 1328, 2704, 1544, 2856, 1640, 2968, 1544, 3120, 1696, 3336, 1712, 3856, 1672, 4152, 1656, 4304, 1664, 4368, 1696, 4480, 1808, 4504, 1928, 4400, 2152, 4256, 2344, 4248, 2808, 4256, 2832, 3920, 2192, 2888, 2016, 952, 1944, 608, 1824, 432, 1680, 408, 1616, 480, 1568, 560, 1536, 664, 1416, 712)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="MapRoot/Cave/RightCaveWall" index="1"]
 occluder = SubResource("OccluderPolygon2D_gg43x")
 
-[node name="AnchorPoints" type="Node2D" parent="MapRoot/Cave" index="2"]
+[node name="AnchorPoints" type="Node2D" parent="MapRoot/Cave" index="3"]
 
 [node name="AnchorPoint" parent="MapRoot/Cave/AnchorPoints" index="0" instance=ExtResource("3_mllcm")]
 position = Vector2(808, 776)
 
-[node name="AnchorPoint16" parent="MapRoot/Cave/AnchorPoints" index="1" instance=ExtResource("3_mllcm")]
-position = Vector2(501, 762)
-
-[node name="AnchorPoint2" parent="MapRoot/Cave/AnchorPoints" index="2" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint2" parent="MapRoot/Cave/AnchorPoints" index="1" instance=ExtResource("3_mllcm")]
 position = Vector2(1104, 808)
 
-[node name="AnchorPoint3" parent="MapRoot/Cave/AnchorPoints" index="3" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint3" parent="MapRoot/Cave/AnchorPoints" index="2" instance=ExtResource("3_mllcm")]
 position = Vector2(1016, 1768)
 
-[node name="AnchorPoint4" parent="MapRoot/Cave/AnchorPoints" index="4" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint4" parent="MapRoot/Cave/AnchorPoints" index="3" instance=ExtResource("3_mllcm")]
 position = Vector2(856, 1184)
 
-[node name="AnchorPoint5" parent="MapRoot/Cave/AnchorPoints" index="5" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint5" parent="MapRoot/Cave/AnchorPoints" index="4" instance=ExtResource("3_mllcm")]
 position = Vector2(264, 2520)
 
-[node name="AnchorPoint6" parent="MapRoot/Cave/AnchorPoints" index="6" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint6" parent="MapRoot/Cave/AnchorPoints" index="5" instance=ExtResource("3_mllcm")]
 position = Vector2(404.20166, 2715.9663)
 rotation = 3.1415927
 
-[node name="AnchorPoint7" parent="MapRoot/Cave/AnchorPoints" index="7" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint7" parent="MapRoot/Cave/AnchorPoints" index="6" instance=ExtResource("3_mllcm")]
 position = Vector2(504, 2712)
 rotation = 3.1415927
 
-[node name="AnchorPoint8" parent="MapRoot/Cave/AnchorPoints" index="8" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint8" parent="MapRoot/Cave/AnchorPoints" index="7" instance=ExtResource("3_mllcm")]
 position = Vector2(632, 2688)
 rotation = 3.1415927
 
-[node name="AnchorPoint9" parent="MapRoot/Cave/AnchorPoints" index="9" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint9" parent="MapRoot/Cave/AnchorPoints" index="8" instance=ExtResource("3_mllcm")]
 position = Vector2(728, 2624)
 rotation = 3.1415927
 
-[node name="AnchorPoint10" parent="MapRoot/Cave/AnchorPoints" index="10" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint10" parent="MapRoot/Cave/AnchorPoints" index="9" instance=ExtResource("3_mllcm")]
 position = Vector2(872, 2632)
 rotation = 3.1415927
 
-[node name="AnchorPoint11" parent="MapRoot/Cave/AnchorPoints" index="11" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint11" parent="MapRoot/Cave/AnchorPoints" index="10" instance=ExtResource("3_mllcm")]
 position = Vector2(1028, 2648)
 rotation = 3.1415927
 
-[node name="AnchorPoint12" parent="MapRoot/Cave/AnchorPoints" index="12" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint12" parent="MapRoot/Cave/AnchorPoints" index="11" instance=ExtResource("3_mllcm")]
 position = Vector2(1192, 2672)
 rotation = 3.1415927
 
-[node name="AnchorPoint13" parent="MapRoot/Cave/AnchorPoints" index="13" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint13" parent="MapRoot/Cave/AnchorPoints" index="12" instance=ExtResource("3_mllcm")]
 position = Vector2(1344, 2704)
 rotation = 3.1415927
 
-[node name="AnchorPoint14" parent="MapRoot/Cave/AnchorPoints" index="14" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint14" parent="MapRoot/Cave/AnchorPoints" index="13" instance=ExtResource("3_mllcm")]
 position = Vector2(1544, 3112)
 
-[node name="AnchorPoint15" parent="MapRoot/Cave/AnchorPoints" index="15" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint15" parent="MapRoot/Cave/AnchorPoints" index="14" instance=ExtResource("3_mllcm")]
 position = Vector2(1664, 4240)
 rotation = -1.5707964
 
-[node name="Spikes" type="Node2D" parent="MapRoot/Cave" index="3"]
+[node name="Spikes" type="Node2D" parent="MapRoot/Cave" index="4"]
 
 [node name="HazardSpike1" parent="MapRoot/Cave/Spikes" index="0" instance=ExtResource("4_q7ibo")]
 position = Vector2(456, 3056)
@@ -212,35 +253,112 @@ position = Vector2(1224, 3112)
 [node name="HazardSpike14" parent="MapRoot/Cave/Spikes" index="13" instance=ExtResource("4_q7ibo")]
 position = Vector2(1224, 3112)
 
-[node name="PointLight2D" type="PointLight2D" parent="MapRoot" index="4"]
+[node name="PointLight2D" type="PointLight2D" parent="MapRoot" index="5"]
 position = Vector2(424, 416)
 shadow_enabled = true
 texture = ExtResource("5_mllcm")
 texture_scale = 4.0
 
-[node name="PointLight2D3" type="PointLight2D" parent="MapRoot" index="5"]
+[node name="PointLight2D3" type="PointLight2D" parent="MapRoot" index="6"]
 position = Vector2(1272, 2208)
 shadow_enabled = true
 texture = ExtResource("5_mllcm")
 texture_scale = 2.0
 
-[node name="PointLight2D2" type="PointLight2D" parent="MapRoot" index="6"]
+[node name="PointLight2D2" type="PointLight2D" parent="MapRoot" index="7"]
 position = Vector2(1320, 408)
 shadow_enabled = true
 texture = ExtResource("5_mllcm")
 texture_scale = 4.0
 
-[node name="RepairTarget" parent="MapRoot" index="7" instance=ExtResource("7_cg8v6")]
+[node name="RepairTarget" parent="MapRoot" index="8" instance=ExtResource("7_cg8v6")]
 position = Vector2(2071, 5771)
 
-[node name="RepairTarget2" parent="MapRoot" index="8" instance=ExtResource("7_cg8v6")]
+[node name="RepairTarget2" parent="MapRoot" index="9" instance=ExtResource("7_cg8v6")]
 position = Vector2(3077, 5578)
 
-[node name="AnchorPoint" parent="MapRoot" index="9" instance=ExtResource("3_mllcm")]
+[node name="AnchorPoint" parent="MapRoot" index="10" instance=ExtResource("3_mllcm")]
 position = Vector2(1709, 4349)
 
-[node name="TutorialCanvasLayer" type="CanvasLayer" parent="." index="3"]
+[node name="Pickup" parent="MapRoot" index="11" instance=ExtResource("8_5dxk1")]
+visible = false
+z_index = 1
+position = Vector2(808, 905)
+text = "attach to anchor points with [F]"
+
+[node name="Pickup2" parent="MapRoot" index="12" instance=ExtResource("8_5dxk1")]
+visible = false
+z_index = 1
+position = Vector2(579, 897)
+text = "Turn on your Flashlight with [G]"
+
+[node name="Pickup3" parent="MapRoot" index="13" instance=ExtResource("8_5dxk1")]
+visible = false
+z_index = 1
+position = Vector2(812, 897)
+text = "Detach with Space"
+
+[node name="StaticBody2D12" type="StaticBody2D" parent="MapRoot" index="14"]
+position = Vector2(-869, 6862)
+rotation = -1.5707964
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D12" index="0"]
+position = Vector2(337.23605, 1424.5576)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D12" index="1"]
+position = Vector2(336.99988, 3234)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D12" index="2"]
+position = Vector2(1372.9177, 4491.9243)
+rotation = 0.2617994
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D12" index="3"]
+position = Vector2(3122.9998, 4492)
+rotation = 0.2299189
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="StaticBody2D13" type="StaticBody2D" parent="MapRoot" index="15"]
+position = Vector2(4077, -325)
+rotation = -4.712389
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D13" index="0"]
+position = Vector2(337.23605, 1424.5576)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D13" index="1"]
+position = Vector2(336.99988, 3234)
+rotation = 1.8069413
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D13" index="2"]
+position = Vector2(1790, 446)
+rotation = 3.403392
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1410.9081, -367.69873, 1414.4994, -327.25, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D13" index="3"]
+position = Vector2(5855, 4493)
+rotation = 3.403392
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1410.9081, -367.69873, 1414.4994, -327.25, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D13" index="4"]
+position = Vector2(1372.9177, 4491.9243)
+rotation = 0.2617994
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="MapRoot/StaticBody2D13" index="5"]
+position = Vector2(3122.9998, 4492)
+rotation = 0.2299189
+polygon = PackedVector2Array(-1009.9884, 227.1237, 1239.3467, -322.672, 1248.939, -282.80988, -1006.60156, 251.72284)
+
+[node name="TutorialCanvasLayer" type="CanvasLayer" parent="." index="4"]
 layer = 2
+visible = false
 follow_viewport_enabled = true
 
 [node name="Label6" type="Label" parent="TutorialCanvasLayer" index="0"]
@@ -317,3 +435,18 @@ offset_top = 5379.0
 offset_right = 3170.0
 offset_bottom = 5428.0
 text = "End"
+
+[node name="FogOfWar" type="Node" parent="." index="6"]
+script = ExtResource("8_jy02f")
+world_size = Vector2(6087, 6087)
+
+[node name="FogRect" type="ColorRect" parent="FogOfWar" index="0"]
+material = SubResource("ShaderMaterial_kjd3d")
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 2.8435185
+offset_right = 4167.0
+offset_bottom = 3016.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true

@@ -44,6 +44,7 @@ func _ready() -> void:
 	assert(player != null, "null player resource")
 	player.died.connect(_on_player_died)
 	player.flash_light.clearing_fog.connect(_on_clearing_fog)
+	player.scouting_state.scout_flashlight.clearing_fog.connect(_on_clearing_fog)
 	hud.set_health(player.max_health)
 	hud.set_stamina(player.max_stamina)
 	hud.set_flashlight(player.flash_light.battery)
@@ -57,7 +58,8 @@ func _ready() -> void:
 			needed_repair_count += 1
 
 func _on_clearing_fog(gp: Vector2, radius):
-	fog_of_war.clear_fog_at(gp, radius)
+	if fog_of_war:
+		fog_of_war.clear_fog_at(gp, radius)
 
 
 func _process(_delta: float) -> void:

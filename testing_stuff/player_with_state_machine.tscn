@@ -347,6 +347,7 @@ shape = SubResource("CapsuleShape2D_0cbov")
 
 [node name="FlashLight2D" type="PointLight2D" parent="test_player_controller"]
 color = Color(0.9955804, 0.99558026, 0.99558026, 1)
+shadow_enabled = true
 texture = ExtResource("4_1i7j0")
 texture_scale = 1.5
 script = ExtResource("5_wuqd6")
@@ -377,6 +378,7 @@ sprite_frames = SubResource("SpriteFrames_cehsn")
 animation = &"walk"
 
 [node name="AnimatedSprite2D_Diffuse" type="AnimatedSprite2D" parent="test_player_controller"]
+z_index = 1
 position = Vector2(19, 15.999999)
 scale = Vector2(0.215, 0.215)
 sprite_frames = SubResource("SpriteFrames_go3ob")

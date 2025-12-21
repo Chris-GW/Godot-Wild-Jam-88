@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 		self.look_at(get_global_mouse_position())
 		_do_drain_battery(delta)
 
-		var fog_clear_radius = 32.0
+		var fog_clear_radius = 16.0
 		clearing_fog.emit(global_position, fog_clear_radius)
 
 func _do_drain_battery(delta: float) -> void:

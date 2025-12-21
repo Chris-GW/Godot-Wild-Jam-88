@@ -348,6 +348,7 @@ class ScoutingState extends State:
 		scout_flashlight = Global.find_node_if_type(mover, func(n): return n is FlashLight)
 		if not scout_flashlight:
 			print("NO SCOUT FLASHLIGHT")
+		scout_flashlight.shadow_enabled = true
 		
 	func enter():
 		var pos = machine.player_controller.global_position+ Vector2(100,-100)
@@ -373,7 +374,7 @@ class ScoutingState extends State:
 	func run(delta):
 		if battery > 0:
 			var iv = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-			mover.apply_force(iv * 250.0)
+			mover.apply_force(iv * 150.0)
 
 		battery -= delta * battery_drain_speed * battery_drain_speed
 		if battery <= 0:

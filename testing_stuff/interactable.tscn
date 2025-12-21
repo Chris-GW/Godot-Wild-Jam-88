@@ -23,9 +23,9 @@ shape = SubResource("CircleShape2D_6hrdw")
 
 [node name="Label" type="Label" parent="Highlight"]
 offset_left = -18.0
-offset_top = -110.0
+offset_top = -147.0
 offset_right = 22.0
-offset_bottom = -87.0
+offset_bottom = -113.0
 scale = Vector2(1.7987878, 1.7987878)
 text = "[F]"
 
