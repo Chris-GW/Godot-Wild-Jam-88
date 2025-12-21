@@ -1,38 +1,281 @@
-[gd_scene load_steps=6 format=3 uid="uid://sf1jm4po11xs"]
+[gd_scene load_steps=17 format=3 uid="uid://sf1jm4po11xs"]
 
 [ext_resource type="PackedScene" uid="uid://dvg1d8nw5e7wm" path="res://levels/base_level.tscn" id="1_nnn84"]
 [ext_resource type="Resource" uid="uid://bm1n5b4q111ml" path="res://levels/level_resources/level_02_resource.tres" id="2_g685p"]
-[ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="3_8yqd8"]
+[ext_resource type="PackedScene" uid="uid://ry7vbu0vwgk2" path="res://falling_rock/falling_rock_spawner.tscn" id="4_gia0r"]
+[ext_resource type="Curve2D" uid="uid://bg2emfhrff5k" path="res://falling_rock/FallingRockSpawner2.tres" id="4_mihb8"]
+[ext_resource type="Curve2D" uid="uid://d0rfc2bjhos4w" path="res://falling_rock/FallingRockSpawner3.tres" id="5_2owmk"]
+[ext_resource type="PackedScene" uid="uid://0k877ukwywbb" path="res://anchor_point/anchor_point.tscn" id="5_didps"]
+[ext_resource type="Script" uid="uid://bl0o1aiwtaem4" path="res://falling_rock/falling_rock_kill_zone.gd" id="5_gia0r"]
+[ext_resource type="Script" uid="uid://kb6kweip6k2w" path="res://levels/level_02_effect_show_light.gd" id="5_pdr83"]
+[ext_resource type="Texture2D" uid="uid://bheolm6fsiwe3" path="res://assets/light/2d_lights_and_shadows_neutral_point_light.webp" id="6_liqpl"]
+[ext_resource type="PackedScene" uid="uid://bacgk4jrajdwv" path="res://repair_target/repair_target.tscn" id="7_mihb8"]
+[ext_resource type="Curve2D" uid="uid://c8hubmeuds6ri" path="res://falling_rock/FallingRockSpawner4.tres" id="9_4c076"]
+[ext_resource type="Script" uid="uid://p01qtto2251s" path="res://levels/level_02_effect_slow_spawner_3.gd" id="9_cwmx8"]
+[ext_resource type="PackedScene" uid="uid://e6apu060jjih" path="res://first_aid_kit/first_aid_kit.tscn" id="10_05651"]
+[ext_resource type="PackedScene" uid="uid://21o3ht8uu3g3" path="res://hazard_spike/hazard_spike.tscn" id="11_xxuo2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnn84"]
-size = Vector2(1580.0144, 75.43631)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mihb8"]
+size = Vector2(563.5, 99.5)
 
-[sub_resource type="LabelSettings" id="LabelSettings_g685p"]
-font_size = 64
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xxuo2"]
 
 [node name="Level_02" instance=ExtResource("1_nnn84")]
 level_resource = ExtResource("2_g685p")
 
+[node name="DebugParallax2D" parent="." index="1"]
+repeat_times = 10
+
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(424, 443)
+position = Vector2(312, 620)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="MapRoot" index="1"]
+[node name="RepairTargets" type="Node2D" parent="MapRoot" index="1"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapRoot/StaticBody2D" index="0"]
-position = Vector2(998, 592)
-shape = SubResource("RectangleShape2D_nnn84")
+[node name="RepairTarget" parent="MapRoot/RepairTargets" index="0" instance=ExtResource("7_mihb8")]
+position = Vector2(133, 3069)
 
-[node name="RepairTarget" parent="MapRoot" index="2" instance=ExtResource("3_8yqd8")]
-position = Vector2(1204, 544)
+[node name="EffectSlowSpawner3" type="Node" parent="MapRoot/RepairTargets/RepairTarget" index="5" node_paths=PackedStringArray("rock_spawner")]
+script = ExtResource("9_cwmx8")
+rock_spawner = NodePath("../../../FallingRockSpawner3")
 
-[node name="LevelLabel" type="Label" parent="HudCanvasLayer" index="0"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -235.0
-offset_top = 48.0
-offset_right = -48.0
-offset_bottom = 115.0
-grow_horizontal = 0
-text = "Level 02"
-label_settings = SubResource("LabelSettings_g685p")
+[node name="RepairTarget2" parent="MapRoot/RepairTargets" index="1" instance=ExtResource("7_mihb8")]
+position = Vector2(-399, 6718)
+
+[node name="EffectShowLight" type="Node" parent="MapRoot/RepairTargets/RepairTarget2" index="5" node_paths=PackedStringArray("light_nodes")]
+script = ExtResource("5_pdr83")
+light_nodes = NodePath("../RepairLights")
+
+[node name="RepairLights" type="Node2D" parent="MapRoot/RepairTargets/RepairTarget2" index="6"]
+position = Vector2(399, -6718)
+
+[node name="PointLight2D13" type="PointLight2D" parent="MapRoot/RepairTargets/RepairTarget2/RepairLights" index="0"]
+position = Vector2(369, 7360)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 2.0
+
+[node name="PointLight2D14" type="PointLight2D" parent="MapRoot/RepairTargets/RepairTarget2/RepairLights" index="1"]
+position = Vector2(-392, 7052)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 2.0
+
+[node name="PointLight2D16" type="PointLight2D" parent="MapRoot/RepairTargets/RepairTarget2/RepairLights" index="2"]
+position = Vector2(-734, 6886)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 2.0
+
+[node name="PointLight2D15" type="PointLight2D" parent="MapRoot/RepairTargets/RepairTarget2/RepairLights" index="3"]
+position = Vector2(-25, 7178)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 2.0
+
+[node name="RepairTarget3" parent="MapRoot/RepairTargets" index="2" instance=ExtResource("7_mihb8")]
+position = Vector2(4691, 11251)
+
+[node name="FirstAidKit" parent="MapRoot" index="2" instance=ExtResource("10_05651")]
+position = Vector2(279, 3077)
+
+[node name="FirstAidKit2" parent="MapRoot" index="3" instance=ExtResource("10_05651")]
+position = Vector2(20, 10664)
+
+[node name="FallingRockSpawner2" parent="MapRoot" index="4" instance=ExtResource("4_gia0r")]
+position = Vector2(2232, -240)
+curve = ExtResource("4_mihb8")
+spawn_times = Array[float]([3.0, 0.3, 0.4, 3.5, 0.3])
+inital_velocity = Vector2(-100, 500)
+record_fall_path = true
+
+[node name="FallingRockSpawner3" parent="MapRoot" index="5" instance=ExtResource("4_gia0r")]
+position = Vector2(2618, 899)
+curve = ExtResource("5_2owmk")
+spawn_times = Array[float]([0.15, 0.3, 0.2, 0.4])
+inital_velocity = Vector2(0, 300)
+record_fall_path = true
+
+[node name="FallingRockSpawner4" parent="MapRoot" index="6" instance=ExtResource("4_gia0r")]
+position = Vector2(-5216, 2064)
+curve = ExtResource("9_4c076")
+spawn_times = Array[float]([3.0, 0.3, 2.5, 0.2])
+inital_velocity = Vector2(0, 600)
+record_fall_path = true
+
+[node name="FallingRockKillArea2D" type="Area2D" parent="MapRoot" index="7"]
+collision_layer = 0
+collision_mask = 128
+monitorable = false
+script = ExtResource("5_gia0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapRoot/FallingRockKillArea2D" index="0"]
+position = Vector2(1070.75, 5458.75)
+shape = SubResource("RectangleShape2D_mihb8")
+debug_color = Color(0.5035342, 0.70196074, 0.14741865, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MapRoot/FallingRockKillArea2D" index="1"]
+position = Vector2(2570, 10753)
+shape = SubResource("WorldBoundaryShape2D_xxuo2")
+debug_color = Color(0.5035342, 0.70196074, 0.14741865, 0.41960785)
+
+[node name="AnchorPoints" type="Node2D" parent="MapRoot" index="8"]
+
+[node name="AnchorPoint" parent="MapRoot/AnchorPoints" index="0" instance=ExtResource("5_didps")]
+position = Vector2(1316.0001, 1256)
+rotation = 1.0471976
+
+[node name="AnchorPoint3" parent="MapRoot/AnchorPoints" index="1" instance=ExtResource("5_didps")]
+position = Vector2(1533, 2219)
+rotation = -1.5707964
+
+[node name="AnchorPoint2" parent="MapRoot/AnchorPoints" index="2" instance=ExtResource("5_didps")]
+position = Vector2(1127, 1243.0001)
+rotation = -1.0471976
+
+[node name="AnchorPoint4" parent="MapRoot/AnchorPoints" index="3" instance=ExtResource("5_didps")]
+position = Vector2(3419, 3078)
+
+[node name="AnchorPoint5" parent="MapRoot/AnchorPoints" index="4" instance=ExtResource("5_didps")]
+position = Vector2(2741, 4497)
+rotation = 3.1415925
+
+[node name="AnchorPoint6" parent="MapRoot/AnchorPoints" index="5" instance=ExtResource("5_didps")]
+position = Vector2(2469, 4788)
+rotation = 3.1415925
+
+[node name="AnchorPoint8" parent="MapRoot/AnchorPoints" index="6" instance=ExtResource("5_didps")]
+position = Vector2(2194, 5106)
+rotation = 3.1415925
+
+[node name="AnchorPoint7" parent="MapRoot/AnchorPoints" index="7" instance=ExtResource("5_didps")]
+position = Vector2(-544, 6715)
+
+[node name="AnchorPoint9" parent="MapRoot/AnchorPoints" index="8" instance=ExtResource("5_didps")]
+position = Vector2(-521, 7171)
+rotation = 0.2617994
+
+[node name="AnchorPoint10" parent="MapRoot/AnchorPoints" index="9" instance=ExtResource("5_didps")]
+position = Vector2(186.99988, 7436.9995)
+rotation = 0.2617994
+
+[node name="AnchorPoint11" parent="MapRoot/AnchorPoints" index="10" instance=ExtResource("5_didps")]
+position = Vector2(196, 8310)
+rotation = 1.5707964
+
+[node name="AnchorPoint12" parent="MapRoot/AnchorPoints" index="11" instance=ExtResource("5_didps")]
+position = Vector2(176, 9134)
+rotation = 1.5707964
+
+[node name="AnchorPoint13" parent="MapRoot/AnchorPoints" index="12" instance=ExtResource("5_didps")]
+position = Vector2(79, 9832)
+rotation = 1.5707964
+
+[node name="Lights" type="Node2D" parent="MapRoot" index="9"]
+
+[node name="PointLight2D6" type="PointLight2D" parent="MapRoot/Lights" index="0"]
+position = Vector2(1026, 660)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 3.0
+
+[node name="PointLight2D10" type="PointLight2D" parent="MapRoot/Lights" index="1"]
+position = Vector2(356, 388)
+energy = 2.0
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 4.0
+
+[node name="PointLight2D7" type="PointLight2D" parent="MapRoot/Lights" index="2"]
+position = Vector2(185, 2951)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+
+[node name="PointLight2D8" type="PointLight2D" parent="MapRoot/Lights" index="3"]
+position = Vector2(2395, 4882)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+
+[node name="PointLight2D9" type="PointLight2D" parent="MapRoot/Lights" index="4"]
+position = Vector2(1674, 5806)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 2.0
+
+[node name="PointLight2D11" type="PointLight2D" parent="MapRoot/Lights" index="5"]
+position = Vector2(4668, 10944)
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 4.0
+
+[node name="PointLight2D12" type="PointLight2D" parent="MapRoot/Lights" index="6"]
+position = Vector2(90, 10539)
+energy = 0.8
+shadow_enabled = true
+texture = ExtResource("6_liqpl")
+texture_scale = 1.5
+
+[node name="HazardSpikes" type="Node2D" parent="MapRoot" index="10"]
+
+[node name="HazardSpike" parent="MapRoot/HazardSpikes" index="0" instance=ExtResource("11_xxuo2")]
+position = Vector2(1361, 4530)
+damage_amount = 9999
+
+[node name="HazardSpike2" parent="MapRoot/HazardSpikes" index="1" instance=ExtResource("11_xxuo2")]
+position = Vector2(829, 5496)
+damage_amount = 9999
+
+[node name="HazardSpike3" parent="MapRoot/HazardSpikes" index="2" instance=ExtResource("11_xxuo2")]
+position = Vector2(898, 5496)
+damage_amount = 9999
+
+[node name="HazardSpike4" parent="MapRoot/HazardSpikes" index="3" instance=ExtResource("11_xxuo2")]
+position = Vector2(967, 5495)
+damage_amount = 9999
+
+[node name="HazardSpike5" parent="MapRoot/HazardSpikes" index="4" instance=ExtResource("11_xxuo2")]
+position = Vector2(1035, 5500)
+damage_amount = 9999
+
+[node name="HazardSpike6" parent="MapRoot/HazardSpikes" index="5" instance=ExtResource("11_xxuo2")]
+position = Vector2(1105, 5503)
+damage_amount = 9999
+
+[node name="HazardSpike7" parent="MapRoot/HazardSpikes" index="6" instance=ExtResource("11_xxuo2")]
+position = Vector2(1175, 5505)
+damage_amount = 9999
+
+[node name="HazardSpike8" parent="MapRoot/HazardSpikes" index="7" instance=ExtResource("11_xxuo2")]
+position = Vector2(1242, 5505)
+damage_amount = 9999
+
+[node name="HazardSpike9" parent="MapRoot/HazardSpikes" index="8" instance=ExtResource("11_xxuo2")]
+position = Vector2(1311, 5505)
+damage_amount = 9999
+
+[node name="HazardSpike10" parent="MapRoot/HazardSpikes" index="9" instance=ExtResource("11_xxuo2")]
+position = Vector2(1311, 5505)
+damage_amount = 9999
+
+[node name="Cave" type="StaticBody2D" parent="MapRoot" index="11"]
+
+[node name="CollisionPolygon2D1" type="CollisionPolygon2D" parent="MapRoot/Cave" index="0"]
+polygon = PackedVector2Array(4, 730, 622, 753, 854, 748, 919, 751, 910, 855, 926, 952, 951, 964, 1062, 969, 1072, 992, 1063, 1005, 959, 1003, 920, 1052, 939, 1200, 935, 1412, 950, 1606, 985, 1793, 1007, 1975, 993, 2095, 1030, 2115, 1153, 2101, 1204, 2101, 1205, 2146, 1239, 2217, 1295, 2322, 1316, 2446, 1283, 2533, 1165, 2558, 977, 2642, 616, 2519, 347, 2579, 277, 2733, 212, 2791, 125, 2809, 81, 2872, 57, 2976, 79, 3075, 299, 3078, 424, 3108, 527, 3081, 840, 3049, 1136, 2964, 1321, 2968, 1388, 2968, 1389, 3016, 1359, 3144, 966, 3330, 846, 3522, 842, 3724, 866, 3968, 766, 4233, 718, 4537, 752, 4804, 743, 5030, 802, 5190, 794, 5494, 1344, 5505, 1354, 5372, 1409, 5089, 1443, 4905, 1396, 4752, 1332, 4677, 1326, 4524, 1397, 4533, 1995, 5332, 2011, 5380, 1990, 5438, 1923, 5449, 1896, 5407, 1861, 5401, 1715, 5415, 1582, 5521, 1482, 5668, 1278, 5749, 927, 5791, 499, 5806, 229, 5700, -14, 5508, -25, 5132, 123, 4391, 77, 3754, -22, 3584, -29, 3421, -260, 3421, -258, 3538, -331, 3595, -541, 3700, -533, 3910, -628, 4081, -814, 4358, -909, 4651, -1265, 4689, -1462, 4443, -1208, 4226, -1209, 3965, -1215, 3382, -1172, 2944, -1391.9531, 2595.771, -1483, 2059, -2050, 1959, -3173, 1998, -3679, 1625, -4924, 1792, -5803, 1837, -5883, -221, -1297, -208, -458, -186, -131, -311, -6, -186)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="MapRoot/Cave" index="1"]
+polygon = PackedVector2Array(845, -100, 746, -70, 752, 33, 703, 155, 797, 246, 853, 342, 969, 452, 1098, 474, 1136, 645, 1184, 684, 1257, 647, 1310, 568, 1254, 444, 1205, 267, 1123, 171, 1189, 26, 1333, -151, 1721, -318, 2137, -337, 2337, -328, 2328, -175, 2263.376, -1.6393738, 2070, 616, 1819, 1069, 1609, 1299, 1517, 1561, 1517, 1716, 1546, 1745, 1614, 1733, 1676, 1753, 1718, 1806, 1742, 1943, 1737, 2100, 1673, 2223, 1589, 2204, 1536, 2204, 1536.5403, 2243.972, 1561, 2326, 1613, 2489, 1687, 2508, 1771, 2545, 1856, 2685, 1970, 2774, 2234.975, 2784.0945, 2286, 2751, 2299, 2606, 2371, 2499, 2517, 2226, 2514, 1818, 2445, 1439, 2517, 1123, 2462, 914, 2556, 769, 2894, 828, 3246, 776, 3394, 845, 3339, 1045, 2987, 1338, 2849, 1649, 2752, 1943, 2716.234, 2225.6208, 2715, 2511, 2752, 2653, 2940, 2707, 3006, 2788, 3181, 2766, 3374, 2788, 3480, 2715, 3528, 2581, 3439, 2162, 3562, 1646, 3785, 1358, 3939, 1049, 4291, 859, 4467, 659, 4802, 728, 5182, 738, 5515, 799, 5489, 1149, 5242, 1505, 5365, 1755, 5226, 2061, 5131, 2422, 4837, 2691, 4832, 3283, 4749, 3627, 4723, 3861, 4416, 3822, 4047, 3845, 3828, 3833, 3776, 3807, 3628, 3807, 3653, 3930, 3603, 4102, 3613, 4299, 3587, 4490, 3451, 4490, 3430, 4619, 3371, 4633, 3391, 4708, 3377, 4755, 3241, 4762, 3025, 4764, 2896, 4744, 2834.7017, 4733.3667, 2798, 4727, 2765, 4728, 2763, 4741, 2782, 4761, 2829, 4763, 2875, 4792, 2977, 4799, 3065, 4824, 3164, 4844, 3231, 4918, 3455, 5029, 3511, 5123, 3606, 5429, 3522, 5974, 3834, 6708, 3980, 7681, 4661, 8009, 4923, 8835, 4819, 9740, 4966, 10351, 4948, 10910, 4998, 11037, 4923, 11156, 4811, 11249, 4681, 11271, 4536, 11265, 4478, 11144, 4388, 11017, 4240, 10936, 4065, 10921, 3994, 10924, 3980, 10906, 3986.5894, 10876.679, 3924, 10877, 3915, 10851, 3921, 10798, 3880, 10794, 3881, 10766, 3854, 10760, 3828, 10773, 3785, 10776, 3744, 10761, 3743, 10785, 3720, 10785, 3720, 10806, 3692, 10807, 3696, 10827, 3671, 10830, 3530, 10872, 3529, 10898, 3491, 10916, 3442, 10918, 3439, 10940, 3401, 10940, 3401, 10968, 3355, 10970, 3315, 11005, 3278, 10970, 3271, 10915, 3188, 10873, 3117, 10842, 3034, 10833, 2998, 10864, 2922, 10877, 2821, 10833, 2778, 10834, 2750, 10804, 2749, 10773, 2698, 10755, 2620, 10764, 2546, 10755, 2454, 10786, 2374, 10756, 2327, 10706, 2228, 10690, 2141, 10690, 2135, 10739, 2060, 10738, 2068.9631, 10780.001, 1903, 10796, 1805.8861, 10780.001, 1627, 10795, 1547, 10770, 1499, 10780, 1475, 10802, 1415, 10802, 1356, 10755, 1182, 10757, 1014, 10773, 1014, 10821, 832, 10848, 692, 10916, 547, 10883, 404, 10887, 356, 10831, 352, 10705, 293, 10646, 209, 10625, 125, 10634, 118, 10688, 55, 10665, -10, 10668, -49, 10622, -68, 10531, -45, 10260, -62, 10058, -36, 9994, -39, 9909, 3, 9855, 32, 9834, 44, 9837, 58, 9851, 76, 9844, 76, 9823, 68, 9807, 68, 9648, 95, 9443, 133, 9302, 164, 9218, 176, 9151, 176, 9122, 153, 9099, 156, 8994, 137, 8895, 123, 8785, 139, 8707, 126, 8619, 181, 8498, 194, 8318, 194, 8295, 161, 8203, 139, 8035, 182, 7802, 144, 7693, 187, 7594, 183, 7493, 199, 7470, 200, 7448, 169.65329, 7433.3115, -596, 7144, -981, 7022, -1483, 6734, -2235, 6514, -2737, 6245, -3556, 5994, -4058, 5707, -4688, 5584, -5209.675, 5308.0396, -5830, 5063, -5792, 4325, -5635, 3801, -5796, 2379, -5774, 1837, -5850, -221, -7055, -255, -7284, 12666, 7035, 12723, 7323, -751, 1231, -685, 1018, -396, 977, -217)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="MapRoot/Cave" index="2"]
+polygon = PackedVector2Array(1193, 1217, 1306, 1242, 1323, 1273, 1334, 1364, 1334, 1512, 1343, 1627, 1336, 1649, 1313, 1654, 1287, 1598, 1255, 1513, 1213, 1416, 1188, 1368, 1136, 1303, 1123, 1259, 1136, 1233)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="MapRoot/Cave" index="3"]
+position = Vector2(204, -56)
+polygon = PackedVector2Array(1546, 3119, 1688, 3224, 1648, 3444, 1727, 3686, 1673, 3962, 1647, 4370, 1544, 4689, 1653, 4876, 1808, 5072, 1896, 5165, 1936, 5148, 1977, 5159, 2002, 5160, 2048, 4936, 2093, 4859, 2206, 4823, 2254, 4843, 2278, 4844, 2285, 4709, 2315, 4633, 2322, 4545, 2324, 4475, 2334, 4404, 2236, 4259, 2184, 4054, 2087, 3957, 2126, 3749, 2252, 3551, 2270, 3334, 2269, 3199, 2290, 3154, 2290, 3115, 2128, 3112, 1865, 3090, 1707, 3081, 1620, 3044, 1528, 3045, 1528, 3085)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="MapRoot/Cave" index="4"]
+position = Vector2(204, -56)
+polygon = PackedVector2Array(2562, 3121, 2669, 3123, 2877, 3112, 3126, 3139, 3230, 3139, 3246, 3228, 3202, 3381, 3223, 3538, 3195, 3635, 3097, 3763, 3076, 3947, 3069, 4106, 3087, 4150, 3126, 4155, 3164, 4151, 3169, 4172, 3167, 4194, 3158, 4232, 3129, 4274, 3075, 4285, 3026, 4358, 2976, 4425, 2999, 4484, 2980, 4528, 2912.4495, 4528.951, 2815, 4531, 2767, 4531, 2557, 4553, 2519, 4552, 2523, 4479, 2516, 4409, 2583, 4276, 2610, 4096, 2669, 3999, 2599, 3795, 2641, 3592, 2640, 3387, 2567, 3174)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="MapRoot/Cave" index="5"]
+position = Vector2(-352, 645)
+polygon = PackedVector2Array(1952, 5367, 2066, 5373, 2188, 5355, 2236, 5324, 2352, 5323, 2390, 5311, 2433, 5329, 2443, 5380, 2423, 5486, 2340, 5546, 2292, 5695, 2311, 5797, 2277, 5919, 2223, 6011, 2082, 6025, 2002, 6286, 1848, 6308, 1588, 6522, 1263, 6614, 1166, 6677, 1074, 6687, 997, 6637, 894, 6637, 785, 6528, 616, 6407, 498, 6360, 306, 6355, 144, 6272, -45, 6207, -80, 6165, -130, 6140, -196, 6125, -208, 6100, -202, 6070, -150, 6074, -3, 6078, 0, 6107, 47, 6109, 126, 6148, 310, 6163, 524, 6196, 809, 6157, 961, 6085, 1121, 6013, 1228, 6011, 1296, 5991, 1276, 5896, 1270, 5831, 1462, 5794, 1506, 5680, 1478, 5521, 1672, 5456, 1804, 5435)

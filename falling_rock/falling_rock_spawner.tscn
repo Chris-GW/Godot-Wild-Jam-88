@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ry7vbu0vwgk2"]
+
+[ext_resource type="Texture2D" uid="uid://btjbcv6gs15p6" path="res://icon.svg" id="1_52hi3"]
+[ext_resource type="Script" uid="uid://dmkr7y4r8ynl1" path="res://falling_rock/falling_rock_spawner.gd" id="1_h8b7i"]
+
+[sub_resource type="Curve2D" id="Curve2D_lv6cl"]
+
+[node name="FallingRockSpawner" type="Path2D"]
+curve = SubResource("Curve2D_lv6cl")
+script = ExtResource("1_h8b7i")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.58984375, 0.21948363, 0.04919512, 1)
+texture = ExtResource("1_52hi3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -41.0
+offset_top = -35.0
+offset_right = 44.0
+offset_bottom = 36.0
+text = "Rock
+Spawner"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
