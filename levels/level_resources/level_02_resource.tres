@@ -8,5 +8,5 @@ script = ExtResource("1_fn327")
 index = 2
 name = "02 - Enter a Coal Mine"
 text = "Second mission coal mine"
-scene_path = "res://levels/level_02.tscn"
+scene_path = "uid://sf1jm4po11xs"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"
