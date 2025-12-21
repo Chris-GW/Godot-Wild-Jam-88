@@ -11,7 +11,6 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_reload"):
 		get_tree().reload_current_scene()
-		FogOfWar.reset_fog()
 
 
 func find_node_if_type(node: Node, predicate: Callable) -> Node:

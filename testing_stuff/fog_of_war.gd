@@ -5,11 +5,17 @@ var fog_texture: ImageTexture
 
 @export var fog_size: Vector2i = Vector2i(512,512)
 @export var world_size: Vector2 = Vector2(4096, 4096)  # size of your level in world units
+@onready var fog_color_rect = $FogRect
+
+@onready var mat := fog_color_rect.material as ShaderMaterial
 
 func _ready():
 	fog_image = Image.create(fog_size.x, fog_size.y, false, Image.FORMAT_RF)
 	fog_image.fill(Color.BLACK)
 	fog_texture = ImageTexture.create_from_image(fog_image)
+
+func _process(delta):
+	mat.set_shader_parameter("fog_mask", fog_texture)
 
 func reset_fog():
 	fog_image = Image.create(fog_size.x, fog_size.y, false, Image.FORMAT_RF)
