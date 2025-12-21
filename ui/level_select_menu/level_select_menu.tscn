@@ -71,15 +71,17 @@ theme_override_constants/separation = 16
 
 [node name="Level00" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
 layout_mode = 2
-text = "00 - Safty Facility "
+text = "00 - Training Facility"
 level_resource = ExtResource("4_3uqu3")
 
 [node name="Level01" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
 layout_mode = 2
+text = "01 - Cave Lighting Restoration"
 level_resource = ExtResource("2_ig6n6")
 
 [node name="Level02" parent="HBoxContainer/VBoxContainer/LevelPanel/MarginContainer/VBoxContainer/LevelButtons" instance=ExtResource("3_6fmov")]
 layout_mode = 2
+text = "02 - Collapse Containment Contract"
 level_resource = ExtResource("3_ipm1h")
 
 [node name="BackButton" type="Button" parent="HBoxContainer/VBoxContainer"]

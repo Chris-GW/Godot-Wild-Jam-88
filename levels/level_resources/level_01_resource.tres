@@ -6,7 +6,7 @@
 resource_name = "Level_01"
 script = ExtResource("1_n76tx")
 index = 1
-name = "01 - First Mission"
-text = "This is your first real mission. Reach the bottom of the well and complete your repairs."
+name = "01 - Cave Lighting Restoration"
+text = "A critical lighting system has failed deep inside the visitor cave. Restore power and illumination to reopen the site safely to the public."
 scene_path = "uid://b3ne7r0pg4lib"
 metadata/_custom_type_script = "uid://8m0gfq0drmp6"
