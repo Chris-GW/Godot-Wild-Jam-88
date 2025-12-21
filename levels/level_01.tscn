@@ -56,7 +56,7 @@ position = Vector2(1537, 3642)
 text = "Be quick and grapple while falling"
 
 [node name="PlayerStateMachine" parent="MapRoot" index="1"]
-position = Vector2(312, 746)
+position = Vector2(312, 774)
 
 [node name="Platform1" type="StaticBody2D" parent="MapRoot" index="2"]
 visible = false

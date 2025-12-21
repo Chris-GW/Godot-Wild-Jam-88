@@ -11,7 +11,7 @@ font_size = 24
 radius = 48.6621
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yp0rk"]
-radius = 2.797985
+radius = 4.2403064
 
 [node name="AnchorPoint" type="Area2D"]
 script = ExtResource("1_wbj3q")
@@ -58,6 +58,7 @@ default_color = Color(0, 0, 0, 1)
 [node name="RopeEndRigidBody" type="RigidBody2D" parent="RopeLine2D"]
 collision_layer = 32768
 collision_mask = 32768
+collision_priority = 10.0
 mass = 10.0
 freeze = true
 metadata/_edit_group_ = true

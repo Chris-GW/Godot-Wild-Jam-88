@@ -20,13 +20,18 @@ class State extends Node:
 		pass
 	func handle_input(event):
 		pass
-	func set_anim(name: String):
-		if name == current_anim:
+	func set_anim(name: String, force_restart: bool = false) -> void:
+		if name == current_anim and not force_restart:
+			# Already this anim; do nothing.
 			return
-		print("setting anim: ", name)
+
+		print("STATE", name_str, "setting anim to", name)
 		current_anim = name
+
+		anim.stop()
+		anim.set_frame_and_progress(0, 0.0)
 		anim.play(name)
-	
+
 
 class FallingState extends State:
 	var frame_count = 0.0
@@ -43,8 +48,12 @@ class FallingState extends State:
 		name_str = n
 		machine.sprint_pressed.connect(_on_sprint_pressed)
 		machine.sprint_released.connect(_on_sprint_released)
+		anim = machine.anim
 	
 	func enter():
+		
+		set_anim("fall")
+		
 		frame_count = 0.0
 		prev_state = machine.prev_state
 		match prev_state:
@@ -96,6 +105,9 @@ class FallingState extends State:
 			
 class WalkingState extends State:
 	var speed = 450.0
+
+	func enter():
+		set_anim("idle")
 	
 	func run(delta):
 		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
@@ -130,6 +142,8 @@ class WalkingState extends State:
 class SprintingState extends State:
 	var speed = 900.0
 
+	func enter():
+		set_anim("run", true)
 	
 	func run(delta):
 		var input = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
@@ -192,9 +206,9 @@ class JumpingState extends State:
 		if machine.player_controller.is_on_floor():
 			match next_state:
 				machine.sprinting_state:
-					set_anim("run")
+					set_anim("idle")
 				machine.walking_state:
-					set_anim("walk")
+					set_anim("idle")
 			machine.change_state(next_state)
 			
 	func handle_input(event):
@@ -552,9 +566,9 @@ func highlight_nearest_interactable() -> void:
 func change_state(s: State):
 	prev_state = current_state
 	current_state.exit()
-	current_state = s
 	s.enter()
 	print("changing to state:", current_state.name_str)
+	current_state = s
 	changing_state.emit(current_state)
 
 func _on_changing_state(state):

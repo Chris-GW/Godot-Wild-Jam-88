@@ -52,7 +52,7 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 
 [node name="PlayerStateMachine" parent="MapRoot" groups=["player"] instance=ExtResource("3_6hrdw")]
-position = Vector2(215, 256)
+position = Vector2(215, 270)
 
 [node name="Pickup" parent="MapRoot" instance=ExtResource("5_j4ks3")]
 position = Vector2(330, 357)

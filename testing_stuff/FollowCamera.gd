@@ -14,6 +14,7 @@ var last_mouse_pos := Vector2.ZERO
 var default_zoom = Vector2.ONE
 
 func _ready():
+	default_zoom = Vector2(1.771561, 1.771561)
 	set_zoom(default_zoom)
 
 
@@ -41,16 +42,19 @@ func _input(event):
 				#print("releasing")
 				dragging = false
 
-		elif event.button_index == 4 and event.pressed:  # Mouse wheel up
-			var before = camera.get_global_mouse_position()
-			camera.zoom *= 1.1  # Zoom out (bigger means further)
-			var after = camera.get_global_mouse_position()
-			camera.position += before - after
-		elif event.button_index == 5 and event.pressed:  # Mouse wheel down
-			var before = camera.get_global_mouse_position()
-			camera.zoom *= 0.9  # Zoom in (smaller means closer)
-			var after = camera.get_global_mouse_position()
-			camera.position += before - after
+		# NOTE: DISABLING ZOOM FOR NOW		
+		# elif event.button_index == 4 and event.pressed:  # Mouse wheel up
+		# 	var before = camera.get_global_mouse_position()
+		# 	camera.zoom *= 1.1  # Zoom out (bigger means further)
+		# 	print("ZOOM: ", camera.zoom)
+		# 	var after = camera.get_global_mouse_position()
+		# 	camera.position += before - after
+		# elif event.button_index == 5 and event.pressed:  # Mouse wheel down
+		# 	var before = camera.get_global_mouse_position()
+		# 	camera.zoom *= 0.9  # Zoom in (smaller means closer)
+		# 	print("ZOOM: ", camera.zoom)
+		# 	var after = camera.get_global_mouse_position()
+		# 	camera.position += before - after
 
 	elif event is InputEventMouseMotion and dragging:
 		var delta = event.position - last_mouse_pos

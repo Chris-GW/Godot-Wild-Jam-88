@@ -116,13 +116,12 @@ func do_interaction() -> void:
 func detach(detached_pos):
 	is_attached = false
 	#print("DETACH:", detached_pos, " anchor:", global_position)
-	#some_target = rope_end.global_position
-	#some_target = detached_pos
 	rope_end.global_position = detached_pos
 	rope_end.linear_velocity = Vector2.ZERO
-	#var rope_length = detached_pos.distance_to(global_position)
-	some_target = global_position + Vector2.DOWN * max_rope_length
-	#some_target = detached_pos
+
+	#some_target = global_position + Vector2.DOWN * max_rope_length
+	some_target = global_position + Vector2.DOWN * (rope_end.global_position - global_position)
+	
 	rope_end.freeze = false
 	rope_end_area2d._can_interact = true
 

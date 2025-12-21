@@ -67,7 +67,7 @@ scale = Vector2(1.409, 1.409)
 position = Vector2(736, 615)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(472, 88)
+position = Vector2(472, 106)
 
 [node name="TrainingFacility" type="StaticBody2D" parent="MapRoot" index="1"]
 

@@ -36,7 +36,10 @@ func move(speed, delta):
 		else:
 			velocity.x = target_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0.0, FRICTION)
+		if ACCEL_MODE:
+			velocity.x = move_toward(velocity.x, 0.0, FRICTION)
+		else:
+			velocity.x = target_speed
 
 	# clamp max speed 
 	if abs(velocity.x) > MAX_SPEED:
