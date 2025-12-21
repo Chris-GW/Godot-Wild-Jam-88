@@ -50,7 +50,7 @@ offset_bottom = 6000.0
 position = Vector2(736, 615)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(472, 106)
+position = Vector2(446, 94)
 
 [node name="TrainingFacility" type="StaticBody2D" parent="MapRoot" index="1"]
 

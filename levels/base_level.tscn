@@ -26,6 +26,7 @@ shader = ExtResource("6_maq6b")
 script = ExtResource("1_46036")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.23392546, 0.23392546, 0.23392543, 1)
 
 [node name="CaveBackground" type="ColorRect" parent="."]
@@ -42,6 +43,7 @@ color = Color(0.1254902, 0.09411765, 0.09803922, 1)
 unique_name_in_owner = true
 
 [node name="PlayerStateMachine" parent="MapRoot" groups=["player"] instance=ExtResource("3_p5284")]
+position = Vector2(992, 746)
 
 [node name="HudCanvasLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

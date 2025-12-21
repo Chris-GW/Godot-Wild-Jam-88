@@ -55,7 +55,7 @@ z_index = 1
 position = Vector2(7121, 1209)
 
 [node name="PlayerStateMachine" parent="MapRoot" index="0"]
-position = Vector2(392, 638)
+position = Vector2(387, 622)
 
 [node name="RepairTargets" type="Node2D" parent="MapRoot" index="1"]
 

@@ -34,12 +34,12 @@ offset_bottom = 6087.0
 [node name="MapRoot" parent="." index="2"]
 position = Vector2(1068, 20)
 
-[node name="Pickup4" parent="MapRoot" index="0" instance=ExtResource("8_5dxk1")]
+[node name="PlayerStateMachine" parent="MapRoot" index="0"]
+position = Vector2(321, 756)
+
+[node name="Pickup4" parent="MapRoot" index="1" instance=ExtResource("8_5dxk1")]
 position = Vector2(1537, 3642)
 text = "Be quick and grapple while falling"
-
-[node name="PlayerStateMachine" parent="MapRoot" index="1"]
-position = Vector2(312, 774)
 
 [node name="Platform1" type="StaticBody2D" parent="MapRoot" index="2"]
 visible = false
